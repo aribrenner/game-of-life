@@ -18,6 +18,7 @@ main =
 
 -- MODEL
 
+bits = [6,5,4,3,2,1,0]
 
 type alias Model =
   { chars : List Int,
@@ -58,15 +59,13 @@ toggleVal int vals =
   else
     Set.insert int vals
 
-getVal vals =
-  pow2thing 0 vals +
-  pow2thing 1 vals +
-  pow2thing 2 vals +
-  pow2thing 3 vals +
-  pow2thing 4 vals +
-  pow2thing 5 vals +
-  pow2thing 6 vals
 
+getVal vals =
+  let
+    f e =
+      pow2thing e vals
+  in
+    List.sum(List.map f bits)
 
 
 pow2thing int vals =
@@ -78,13 +77,7 @@ view model =
   [
     viewSingleChar model ,
     div [] [text (toString(getVal model.vals))],
-    checkbox 6,
-    checkbox 5,
-    checkbox 4,
-    checkbox 3,
-    checkbox 2,
-    checkbox 1,
-    checkbox 0,
+    checkboxes,
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
     div [] [],
@@ -114,3 +107,7 @@ checkbox int =
     [ span [] [text (toString (2 ^ int))],
       input [ type_ "checkbox", onClick (Change2 int) ] []
     ]
+
+checkboxes =
+  div []
+  (List.map checkbox bits)
