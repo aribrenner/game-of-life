@@ -1,10 +1,23 @@
-import Html exposing (Html, div, input, text, img, span, button, label)
+import Html exposing (Html, div, input, text, img, span, button, label, node)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
 import String
 import Char
 import Debug exposing (log)
 import Set exposing (Set)
+
+-- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
+stylesheet href =
+    let
+        tag = "link"
+        attrs =
+            [ attribute "rel"       "stylesheet"
+            , attribute "property"  "stylesheet"
+            , attribute "href"      href
+            ]
+        children = []
+    in
+        node tag attrs children
 
 
 main =
@@ -75,7 +88,8 @@ view : Model -> Html Msg
 view model =
   div []
   [
-    viewChars model ,
+    div [id "outer"] [stylesheet "style.css"],
+    viewChars model,
     checkboxes,
     div [] [text (toString(getVal model.vals))],
     binaryNumber model ,
@@ -97,14 +111,14 @@ intToString int =
 viewChars : Model -> Html Msg
 viewChars model =
     let
-      padding = ("padding", "2px")
-      margin = ("margin", "5px")
       chars = model.chars
     in
       if List.isEmpty chars then
-        div [style [padding, margin, ("background", "gray"), ("color", "white")]] [text "_"]
+        div [class "full-string", style [("background", "gray"), ("color", "white")]]
+            [text "_"]
       else
-        div [style [padding, margin, ("background", "red")]] (List.map intToSpan chars)
+        div [class "full-string", style [("background", "red")]]
+            (List.map intToSpan chars)
 
 
 checkbox : Int -> Html Msg
