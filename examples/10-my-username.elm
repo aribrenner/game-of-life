@@ -75,9 +75,9 @@ view : Model -> Html Msg
 view model =
   div []
   [
-    viewSingleChar model ,
-    div [] [text (toString(getVal model.vals))],
+    viewChars model ,
     checkboxes,
+    div [] [text (toString(getVal model.vals))],
     binaryNumber model ,
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
@@ -94,10 +94,17 @@ intToString : Int -> String
 intToString int =
   String.fromChar(Char.fromCode int)
 
-viewSingleChar : Model -> Html Msg
-viewSingleChar model =
-    div []
-    (List.map intToSpan model.chars)
+viewChars : Model -> Html Msg
+viewChars model =
+    let
+      padding = ("padding", "2px")
+      margin = ("margin", "5px")
+      chars = model.chars
+    in
+      if List.isEmpty chars then
+        div [style [padding, margin, ("background", "gray"), ("color", "white")]] [text "_"]
+      else
+        div [style [padding, margin, ("background", "red")]] (List.map intToSpan chars)
 
 
 checkbox : Int -> Html Msg
