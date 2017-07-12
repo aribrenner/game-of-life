@@ -135,6 +135,8 @@ valToXO val =
 
 userMessage model =
   if model.winner then
-    div [class "winning-message"] [text (valToXO(-model.turn) ++ " wins!")]
+    div [class "winning-message-container"][
+      div [class "winning-message"] [text (valToXO(-model.turn) ++ " wins!")]
+    ]
   else
     span [] []
