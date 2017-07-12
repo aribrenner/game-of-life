@@ -48,10 +48,10 @@ update : Msg -> Model -> Model
 update msg model =
   case msg of
     CellPos pos ->
-      {
-        model | board = Dict.insert pos model.turn model.board,
-        turn = -model.turn
-      }
+      let
+        newBoard = Dict.insert pos model.turn model.board
+      in
+        { model | board = newBoard, turn = -model.turn }
 
 
 
@@ -62,7 +62,6 @@ view : Model -> Html Msg
 view model =
   div [] [
     div [id "outer"] [stylesheet "ttt.css"],
-    div [] [text (toString model.board)],
     tttBoard model
   ]
 
@@ -80,6 +79,13 @@ tttRow row model =
 
 tttCell model cellPos =
   let
-    val = Dict.get cellPos model.board
+    val = (Dict.get cellPos model.board)
   in
-    span [class "cell", onClick (CellPos cellPos)] [text (toString val)]
+    case val of
+      Nothing ->
+        span [class "cell", onClick (CellPos cellPos)] [text ("_")]
+      Just num ->
+        span [class "cell"] [text (valToXO num)]
+
+valToXO val =
+  if val == -1 then "X" else "O"
