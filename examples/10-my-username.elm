@@ -88,7 +88,7 @@ view : Model -> Html Msg
 view model =
   div []
   [
-    div [id "outer"] [stylesheet "style.css"],
+    div [id "outer"] [stylesheet "style.css", stylesheet "blinking-cursor.css"],
     viewChars model,
     checkboxes,
     div [] [text (toString(getVal model.vals))],
@@ -113,12 +113,8 @@ viewChars model =
     let
       chars = model.chars
     in
-      if List.isEmpty chars then
-        div [class "full-string", style [("background", "gray"), ("color", "white")]]
-            [text "_"]
-      else
-        div [class "full-string", style [("background", "red")]]
-            (List.map intToSpan chars)
+      div [class "full-string", style [("background", "red")]]
+          (List.append (List.map intToSpan chars) [span [class "blinking-cursor"] []])
 
 
 checkbox : Int -> Html Msg
