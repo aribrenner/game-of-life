@@ -24,7 +24,7 @@ type alias Model =
 
 model : Model
 model =
-  Model ""
+  { content = "" }
 
 
 
