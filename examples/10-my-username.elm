@@ -78,13 +78,13 @@ view model =
   [
     viewSingleChar model ,
     div [] [text (toString(getVal model.vals))],
-    checkbox "" 6,
-    checkbox "" 5,
-    checkbox "" 4,
-    checkbox "" 3,
-    checkbox "" 2,
-    checkbox "" 1,
-    checkbox "" 0,
+    checkbox 6,
+    checkbox 5,
+    checkbox 4,
+    checkbox 3,
+    checkbox 2,
+    checkbox 1,
+    checkbox 0,
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
     div [] [],
@@ -106,11 +106,11 @@ viewSingleChar model =
     (List.map intToSpan model.chars)
 
 
-checkbox : String -> Int -> Html Msg
-checkbox name int =
+checkbox : Int -> Html Msg
+checkbox int =
   label
-    [ style [("padding", "2px")]
+    [ style [("padding", "2px"), ("border", "1px solid red")]
     ]
-    [ input [ type_ "checkbox", onClick (Change2 int) ] []
-    , text name
+    [ span [] [text (toString (2 ^ int))],
+      input [ type_ "checkbox", onClick (Change2 int) ] []
     ]
