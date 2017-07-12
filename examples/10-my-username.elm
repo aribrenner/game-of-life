@@ -35,21 +35,20 @@ model =
 -- UPDATE
 
 type Msg
-  = Change String | Change1 | Change2 Int
+  = Change1 | Change2 Int
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Change newContent ->
-      { model | lastChar =
-        String.toInt newContent
-        |> Result.toMaybe
-        |> Maybe.withDefault 0
-      }
     Change1 ->
       { model | chars = List.append model.chars [model.lastChar] }
     Change2 int ->
-      { model | vals = toggleVal int model.vals }
+      let
+        newVals = toggleVal int model.vals
+      in
+        { model | vals = newVals, lastChar = getVal newVals }
+
+-- valToChar int =
 
 
 -- VIEW
@@ -63,7 +62,12 @@ getVal vals =
   pow2thing 0 vals +
   pow2thing 1 vals +
   pow2thing 2 vals +
-  pow2thing 3 vals
+  pow2thing 3 vals +
+  pow2thing 4 vals +
+  pow2thing 5 vals +
+  pow2thing 6 vals
+
+
 
 pow2thing int vals =
   (if Set.member int vals then 2 ^ int else 0)
@@ -72,13 +76,15 @@ view : Model -> Html Msg
 view model =
   div []
   [
-    span [] [text (toString(getVal model.vals))],
     viewSingleChar model ,
+    div [] [text (toString(getVal model.vals))],
+    checkbox "" 6,
+    checkbox "" 5,
+    checkbox "" 4,
     checkbox "" 3,
     checkbox "" 2,
     checkbox "" 1,
     checkbox "" 0,
-    input [ attribute "type" "number", placeholder "Ascii key", onInput Change ] [],
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
     div [] [],
