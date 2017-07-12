@@ -17,8 +17,10 @@ main =
 
 
 -- MODEL
+intList int =
+  if int == 0 then [0] else List.append [int] (intList (int-1))
 
-bits = [6,5,4,3,2,1,0]
+bits = intList 6 -- [6, 5, 4, 3, 2, 1, 0]
 
 type alias Model =
   { chars : List Int,
@@ -49,8 +51,6 @@ update msg model =
       in
         { model | vals = newVals, lastChar = getVal newVals }
 
--- valToChar int =
-
 
 -- VIEW
 toggleVal int vals =
@@ -62,8 +62,8 @@ toggleVal int vals =
 
 getVal vals =
   let
-    f e =
-      pow2thing e vals
+    f int =
+      pow2thing int vals
   in
     List.sum(List.map f bits)
 
