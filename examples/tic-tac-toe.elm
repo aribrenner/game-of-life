@@ -1,7 +1,7 @@
 import Html exposing (Html, div, text, node, span)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
-import Set exposing (Set)
+import Dict exposing (Dict)
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
 stylesheet href =
@@ -29,26 +29,29 @@ main =
 -- MODEL
 
 
-type alias Model = { board : Set (Int, Int), turn : Int }
+type alias Model = { board : Dict (Int, Int) Int, turn : Int }
 
 
 model : Model
 model =
-  { board = Set.empty, turn = -1 }
+  { board = Dict.empty , turn = -1 }
 
 
 -- UPDATE
 
 
 type Msg
-  = Reset
+  = CellPos (Int, Int)
 
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Reset ->
-      model
+    CellPos pos ->
+      {
+        model | board = Dict.insert pos model.turn model.board,
+        turn = -model.turn
+      }
 
 
 
@@ -59,20 +62,24 @@ view : Model -> Html Msg
 view model =
   div [] [
     div [id "outer"] [stylesheet "ttt.css"],
+    div [] [text (toString model.board)],
     tttBoard model
   ]
 
 tttBoard model =
   div [class "board"] [
-    tttRow model,
-    tttRow model,
-    tttRow model
+    tttRow 0 model,
+    tttRow 1 model,
+    tttRow 2 model
   ]
 
-tttRow model  =
+tttRow row model =
   div [class "row"][
-    tttCell model, tttCell model, tttCell model
+    tttCell model (row, 0), tttCell model (row, 1), tttCell model (row, 2)
   ]
 
-tttCell model =
-  span [class "cell"] []
+tttCell model cellPos =
+  let
+    val = Dict.get cellPos model.board
+  in
+    span [class "cell", onClick (CellPos cellPos)] [text (toString val)]
