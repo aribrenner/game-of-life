@@ -78,6 +78,7 @@ view model =
     viewSingleChar model ,
     div [] [text (toString(getVal model.vals))],
     checkboxes,
+    binaryNumber model ,
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
     div [] [],
@@ -111,3 +112,12 @@ checkbox int =
 checkboxes =
   div []
   (List.map checkbox bits)
+
+binaryNumber model =
+  div [] (List.map (binaryNumberSpan model) bits)
+
+binaryNumberSpan model int =
+  let
+    string = if (Set.member int model.vals) then "1" else "0"
+  in
+    span [] [text string]
