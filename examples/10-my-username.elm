@@ -4,7 +4,7 @@ import Html.Events exposing (onInput, onClick)
 import String
 import Char
 import Debug exposing (log)
-import Array
+import Set exposing (Set)
 
 
 main =
@@ -22,20 +22,20 @@ main =
 type alias Model =
   { chars : List Int,
     lastChar : Int,
-    bits : (Int, Int, Int, Int, Int, Int, Int, Int)
+    vals : Set Int
   }
 
 
 model : Model
 model =
-  { chars = [], lastChar = 0, bits = (0, 0, 0, 0, 0, 0, 0, 0) }
+  { chars = [], lastChar = 0, vals = Set.empty }
 
 
 
 -- UPDATE
 
 type Msg
-  = Change String | Change1 | Change2 Int | Change3 Int
+  = Change String | Change1 | Change2 Int
 
 update : Msg -> Model -> Model
 update msg model =
@@ -49,26 +49,35 @@ update msg model =
     Change1 ->
       { model | chars = List.append model.chars [model.lastChar] }
     Change2 int ->
-      { model | chars = List.append model.chars [int] }
-    Change3 int ->
-      { model | bits = (0, 0, 0, 0, 0, 0, 0, 0) }
+      { model | vals = toggleVal int model.vals }
 
 
 -- VIEW
+toggleVal int vals =
+  if Set.member int vals then
+    Set.remove int vals
+  else
+    Set.insert int vals
 
-shit i =
-  case i of
-    f ->
-      { model | chars = List.append model.chars [i] }
+getVal vals =
+  pow2thing 0 vals +
+  pow2thing 1 vals +
+  pow2thing 2 vals +
+  pow2thing 3 vals
+
+pow2thing int vals =
+  (if Set.member int vals then 2 ^ int else 0)
 
 view : Model -> Html Msg
 view model =
   div []
   [
+    span [] [text (toString(getVal model.vals))],
     viewSingleChar model ,
-    checkbox "" 0,
-    checkbox "" 1,
+    checkbox "" 3,
     checkbox "" 2,
+    checkbox "" 1,
+    checkbox "" 0,
     input [ attribute "type" "number", placeholder "Ascii key", onInput Change ] [],
     button [onClick Change1] [text "click me"],
     div [] [text ("(" ++ intToString(model.lastChar) ++ ")")],
