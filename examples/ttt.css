@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+  background: lightgray;
+}
+
+.board {
+  border: 5px solid black;
+  background: darkgray;
+  padding: 20px;
+  width: 800px;
+  margin: 20px auto;
+}
+
+.row {
+  margin: 0px;
+}
+
+.cell {
+  padding: 40px;
+  border: 1px solid blue;
+  margin: 10px;
+  background: white;
+  display: inline-block;
+  cursor: pointer;
+}
