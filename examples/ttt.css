@@ -20,7 +20,10 @@ body {
   margin: 10px;
   background: white;
   display: inline-block;
-  cursor: pointer;
   width: 70px;
   height: 70px;
+}
+
+.clickable {
+  cursor: pointer;
 }
