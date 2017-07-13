@@ -159,8 +159,10 @@ userMessage model =
     finalMessage = if model.winner then valToXO(-model.turn) ++ " wins!" else "Draw"
   in
     div [class "gameover-message-container"][
-      div [class "gameover-message"] [text finalMessage],
-      button [onClick PlayAgain, class "clickable"] [text "play again"]
+      div [class "gameover-message"] [
+        div [] [text finalMessage],
+        button [onClick PlayAgain, class "clickable"] [text "play again"]
+      ]
     ]
 
 scoreboard score =
