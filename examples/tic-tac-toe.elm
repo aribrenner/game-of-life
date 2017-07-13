@@ -5,16 +5,16 @@ import Dict exposing (Dict)
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
 stylesheet href =
-    let
-        tag = "link"
-        attrs =
-            [ attribute "rel"       "stylesheet"
-            , attribute "property"  "stylesheet"
-            , attribute "href"      href
-            ]
-        children = []
-    in
-        node tag attrs children
+  let
+    tag = "link"
+    attrs =
+        [ attribute "rel"       "stylesheet"
+        , attribute "property"  "stylesheet"
+        , attribute "href"      href
+        ]
+    children = []
+  in
+    node tag attrs children
 
 
 main =
