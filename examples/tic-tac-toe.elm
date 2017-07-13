@@ -78,9 +78,6 @@ isWinnerCol board turn =
 isWinnerDiag board turn =
   List.any (allXorO board (Just turn)) diags
 
--- isGameOver board =
---   board.s
-
 
 -- UPDATE
 
