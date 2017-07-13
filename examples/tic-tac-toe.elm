@@ -147,9 +147,12 @@ tttCell model cellPos =
   in
     case val of
       Nothing ->
-        span [class "cell clickable", onClick (CellPos cellPos)] [text ("_")]
+        span [
+          class ("cell clickable open-cell pre-cell-" ++ (valToXO model.turn)),
+          onClick (CellPos cellPos)
+        ] []
       Just num ->
-        span [class "cell"] [text (valToXO num)]
+        span [class ("cell cell-" ++ (valToXO num))] []
 
 valToXO val =
   if val == -1 then "X" else "O"

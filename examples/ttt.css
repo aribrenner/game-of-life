@@ -17,12 +17,42 @@ body {
 }
 
 .cell {
-  border: 1px solid blue;
+  border: 1px solid black;
   margin: 10px;
   background: white;
   display: inline-block;
   width: 70px;
   height: 70px;
+  line-height: 70px;
+  vertical-align: center;
+  font-size: 50px;
+}
+
+.open-cell.cell::after {
+  content: '_';
+  color: white;
+}
+
+.cell.cell-X::after {
+  color: red;
+  content: 'X';
+}
+
+.cell.cell-O::after {
+  color: blue;
+  content: 'O';
+}
+
+.pre-cell-O.open-cell:hover::after {
+  color: blue;
+  content: 'O';
+  opacity: .3;
+}
+
+.pre-cell-X.open-cell:hover::after {
+  color: red;
+  content: 'X';
+  opacity: .3;
 }
 
 .clickable {
