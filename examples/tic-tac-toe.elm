@@ -1,4 +1,4 @@
-import Html exposing (Html, div, text, node, span)
+import Html exposing (Html, div, text, node, span, button)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Dict exposing (Dict)
@@ -24,17 +24,40 @@ main =
     , update = update
     }
 
+rows =
+  [
+    [(0,0), (0,1), (0,2)],
+    [(1,0), (1,1), (1,2)],
+    [(2,0), (2,1), (2,2)]
+  ]
 
+cols =
+  [
+    [(0,0), (1,0), (2,0)],
+    [(0,1), (1,1), (2,1)],
+    [(0,2), (1,2), (2,2)]
+  ]
+
+diags =
+  [
+    [(0,0), (1,1), (2,2)],
+    [(2,0), (1,1), (0,2)]
+  ]
 
 -- MODEL
 
 
-type alias Model = { board : Dict (Int, Int) Int, turn : Int, winner : Bool }
+type alias Model = {
+  board : Dict (Int, Int) Int,
+  turn : Int,
+  winner : Bool,
+  done : Bool
+}
 
-
+emptyModel : Model
+emptyModel = { board = Dict.empty , turn = -1, winner = False, done = False }
 model : Model
-model =
-  { board = Dict.empty , turn = -1, winner = False }
+model = emptyModel
 
 pairIsInt dict int pair =
   (Dict.get pair dict) == int
@@ -46,40 +69,23 @@ isWinner board turn =
   isWinnerRow board turn || isWinnerCol board turn || isWinnerDiag board turn
 
 isWinnerRow board turn =
-  let
-    rows = [
-      [(0,0), (0,1), (0,2)],
-      [(1,0), (1,1), (1,2)],
-      [(2,0), (2,1), (2,2)]
-    ]
-  in
-    List.any (allXorO board (Just turn)) rows
+  List.any (allXorO board (Just turn)) rows
 
 isWinnerCol board turn =
-  let
-    cols = [
-      [(0,0), (1,0), (2,0)],
-      [(0,1), (1,1), (2,1)],
-      [(0,2), (1,2), (2,2)]
-    ]
-  in
-    List.any (allXorO board (Just turn)) cols
+  List.any (allXorO board (Just turn)) cols
 
 isWinnerDiag board turn =
-  let
-    diags = [
-      [(0,0), (1,1), (2,2)],
-      [(2,0), (1,1), (0,2)]
-    ]
-  in
-    List.any (allXorO board (Just turn)) diags
+  List.any (allXorO board (Just turn)) diags
+
+-- isGameOver board =
+--   board.s
 
 
 -- UPDATE
 
 
 type Msg
-  = CellPos (Int, Int)
+  = CellPos (Int, Int) | PlayAgain
 
 
 update : Msg -> Model -> Model
@@ -88,12 +94,17 @@ update msg model =
     CellPos pos ->
       let
         newBoard = Dict.insert pos model.turn model.board
+        newWinner = isWinner newBoard model.turn
+        newDone = newWinner || (Dict.size newBoard == 9)
       in
         { model |
           board = newBoard,
           turn = -model.turn,
-          winner = isWinner newBoard model.turn
+          winner = newWinner,
+          done = newDone
         }
+    PlayAgain ->
+      emptyModel
 
 
 
@@ -104,7 +115,7 @@ view : Model -> Html Msg
 view model =
   div [] [
     div [id "outer"] [stylesheet "ttt.css"],
-    userMessage model,
+    if model.done then userMessage model else span [] [],
     tttBoard model
   ]
 
@@ -134,9 +145,10 @@ valToXO val =
   if val == -1 then "X" else "O"
 
 userMessage model =
-  if model.winner then
-    div [class "winning-message-container"][
-      div [class "winning-message"] [text (valToXO(-model.turn) ++ " wins!")]
+  let
+    finalMessage = if model.winner then valToXO(-model.turn) ++ " wins!" else "Draw"
+  in
+    div [class "gameover-message-container"][
+      div [class "gameover-message"] [text finalMessage],
+      button [onClick PlayAgain, class "clickable"] [text "play again"]
     ]
-  else
-    span [] []
