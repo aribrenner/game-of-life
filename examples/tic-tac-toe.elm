@@ -51,11 +51,12 @@ type alias Model = {
   board : Dict (Int, Int) Int,
   turn : Int,
   winner : Bool,
-  done : Bool
+  done : Bool,
+  score : (Int, Int)
 }
 
 emptyModel : Model
-emptyModel = { board = Dict.empty , turn = -1, winner = False, done = False }
+emptyModel = { board = Dict.empty , turn = -1, winner = False, done = False, score = (0,0) }
 model : Model
 model = emptyModel
 
@@ -96,17 +97,25 @@ update msg model =
         newBoard = Dict.insert pos model.turn model.board
         newWinner = isWinner newBoard model.turn
         newDone = newWinner || (Dict.size newBoard == 9)
+        newScore = if newWinner then updateScore(model) else model.score
       in
         { model |
           board = newBoard,
           turn = -model.turn,
           winner = newWinner,
-          done = newDone
+          done = newDone,
+          score = newScore
         }
     PlayAgain ->
-      emptyModel
+      { emptyModel | score = model.score }
 
-
+updateScore model =
+  let
+    t = model.turn
+    xScore = Tuple.first model.score
+    oScore = Tuple.second model.score
+  in
+    if t == 1 then (xScore, oScore + 1) else (xScore + 1, oScore)
 
 -- VIEW
 
@@ -115,6 +124,7 @@ view : Model -> Html Msg
 view model =
   div [] [
     div [id "outer"] [stylesheet "ttt.css"],
+    scoreboard (model.score),
     if model.done then userMessage model else span [] [],
     tttBoard model
   ]
@@ -151,4 +161,14 @@ userMessage model =
     div [class "gameover-message-container"][
       div [class "gameover-message"] [text finalMessage],
       button [onClick PlayAgain, class "clickable"] [text "play again"]
+    ]
+
+scoreboard score =
+  let
+    xScore = Tuple.first score
+    oScore = Tuple.second score
+  in
+    div [] [
+      div [] [text ("X: " ++ toString(xScore))],
+      div [] [text ("O: " ++ toString(oScore))]
     ]
