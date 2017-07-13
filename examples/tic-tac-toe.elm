@@ -139,17 +139,14 @@ tttRow row model =
   ]
 
 tttCell model cellPos =
-  let
-    val = (Dict.get cellPos model.board)
-  in
-    case val of
-      Nothing ->
-        span [
-          class ("cell clickable open-cell pre-cell-" ++ (valToXO model.turn)),
-          onClick (CellPos cellPos)
-        ] []
-      Just num ->
-        span [class ("cell cell-" ++ (valToXO num))] []
+  case Dict.get cellPos model.board of
+    Nothing ->
+      span [
+        class ("cell clickable open-cell pre-cell-" ++ (valToXO model.turn)),
+        onClick (CellPos cellPos)
+      ] []
+    Just num ->
+      span [class ("cell cell-" ++ (valToXO num))] []
 
 valToXO val =
   if val == -1 then "X" else "O"
