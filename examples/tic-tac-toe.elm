@@ -174,6 +174,6 @@ scoreboard score =
     oScore = Tuple.second score
   in
     div [] [
-      div [] [text ("X: " ++ toString(xScore))],
-      div [] [text ("O: " ++ toString(oScore))]
+      div [class ("score x-score")] [text (toString xScore)],
+      div [class ("score o-score")] [text (toString oScore)]
     ]
