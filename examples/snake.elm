@@ -1,4 +1,6 @@
-import Html exposing (Html, div, text, span)
+import Html exposing (Html, div, text, span, node)
+import Html.Attributes exposing (class, attribute)
+import Html.Events exposing (onClick)
 import Dict exposing (Dict)
 import Time exposing (Time, second)
 
@@ -16,7 +18,7 @@ main =
 
 -- MODEL
 
-type alias Model = {board: Dict (Int, Int) Int, info: String, fullBoard : List (List (Int, Int))}
+type alias Model = {board: Dict (Int, Int) Bool, info: String, fullBoard : List (List (Int, Int))}
 
 
 init : (Model, Cmd Msg)
@@ -55,7 +57,7 @@ operation i j =
 
 
 type Msg
-  = Tick Time
+  = Tick Time | ToggleCell (Int, Int)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -63,6 +65,12 @@ update msg model =
   case msg of
     Tick newTime ->
       ({ model | info = toString newTime}, Cmd.none)
+    ToggleCell cell ->
+      let
+        visible = not (Maybe.withDefault False (Dict.get cell model.board))
+      in
+        -- ({ model | board = Dict.update cell maybeReverse model.board}, Cmd.none)
+        ({ model | board = Dict.insert cell visible model.board}, Cmd.none)
 
 
 
@@ -81,20 +89,40 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
   div [] [
+    div [] [stylesheet "snake.css"],
     div [] [text model.info],
-    boardView model.fullBoard
+    boardView model
   ]
 
-boardView board =
+boardView model =
   div []
-    (List.map rowView board)
+    (List.map (rowView model) model.fullBoard)
 
-rowView row =
-  div [] (List.map cellView row)
+rowView model row =
+  div [] (List.map (cellView model) row)
 
-cellView cell =
+cellView model cell =
   let
     i = Tuple.first cell
     j = Tuple.second cell
+    visible = Maybe.withDefault False (Dict.get cell model.board)
+    str = if visible then "" else "hidden"
   in
-    span [] [text (toString (operation i j))]
+    span [class "cell", onClick (ToggleCell cell)] [
+      span [class str] [text (toString (operation i j))]
+    ]
+
+
+
+-- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
+stylesheet href =
+  let
+    tag = "link"
+    attrs =
+        [ attribute "rel"       "stylesheet"
+        , attribute "property"  "stylesheet"
+        , attribute "href"      href
+        ]
+    children = []
+  in
+    node tag attrs children
