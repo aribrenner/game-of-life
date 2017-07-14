@@ -2,7 +2,7 @@ import Html exposing (Html, div, text, span)
 import Dict exposing (Dict)
 import Time exposing (Time, second)
 
-boardSize = 10
+boardSize = 3
 
 main =
   Html.program
@@ -47,6 +47,9 @@ fullRow i j =
   in
     if i == 0 then pair else List.append pair (fullRow (i-1) j)
 
+operation : Int -> Int -> Int
+operation i j =
+  i * j
 
 -- UPDATE
 
@@ -82,8 +85,6 @@ view model =
     boardView model.fullBoard
   ]
 
-
--- boardView : Model -> Html Msg
 boardView board =
   div []
     (List.map rowView board)
@@ -92,4 +93,8 @@ rowView row =
   div [] (List.map cellView row)
 
 cellView cell =
-  span [] [text (toString cell)]
+  let
+    i = Tuple.first cell
+    j = Tuple.second cell
+  in
+    span [] [text (toString (operation i j))]
