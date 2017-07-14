@@ -1,4 +1,4 @@
-import Html exposing (Html, div, text)
+import Html exposing (Html, div, text, span)
 import Dict exposing (Dict)
 import Time exposing (Time, second)
 
@@ -16,12 +16,16 @@ main =
 
 -- MODEL
 
-type alias Model = {board: Dict (Int, Int) Int, info: String}
+type alias Model = {board: Dict (Int, Int) Int, info: String, fullBoard : List (List (Int, Int))}
 
 
 init : (Model, Cmd Msg)
 init =
-  ({board = Dict.empty, info = ""}, Cmd.none)
+  ({
+    board = Dict.empty,
+    info = "",
+    fullBoard = fullBoard
+    }, Cmd.none)
 
 
 fullBoard : List (List (Int, Int))
@@ -73,7 +77,19 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    div [] [
-      div [] [text model.info],
-      div [] [text (toString fullBoard)]
-    ]
+  div [] [
+    div [] [text model.info],
+    boardView model.fullBoard
+  ]
+
+
+-- boardView : Model -> Html Msg
+boardView board =
+  div []
+    (List.map rowView board)
+
+rowView row =
+  div [] (List.map cellView row)
+
+cellView cell =
+  span [] [text (toString cell)]
