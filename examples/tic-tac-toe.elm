@@ -143,17 +143,15 @@ view model =
 
 tttBoard : Model -> Html Msg
 tttBoard model =
-  div [class "board"] [
-    tttRow 0 model,
-    tttRow 1 model,
-    tttRow 2 model
-  ]
+  div [class "board"] (
+    List.map (\n -> tttRow n model) [0, 1, 2]
+  )
 
 tttRow : Int -> Model -> Html Msg
 tttRow row model =
-  div [class "row"][
-    tttCell model (row, 0), tttCell model (row, 1), tttCell model (row, 2)
-  ]
+  div [class "row"](
+    List.map (\n -> tttCell model (row, n)) [0, 1, 2]
+  )
 
 tttCell : Model -> Pair -> Html Msg
 tttCell model cellPos =
