@@ -45,7 +45,8 @@ diags =
   ]
 
 -- MODEL
-
+type alias SubSection = (List (Int, Int))
+type alias Section = List SubSection
 type alias Board = Dict (Int, Int) Int
 type alias Model = {
   board : Board,
@@ -60,24 +61,31 @@ emptyModel = { board = Dict.empty , turn = -1, winner = False, done = False, sco
 model : Model
 model = emptyModel
 
+pairIsInt : Board -> Int -> (Int, Int) -> Bool
 pairIsInt dict int pair =
   (Dict.get pair dict) == Just int
 
+allXorO : Board -> Int -> SubSection -> Bool
 allXorO dict int list =
   List.all (pairIsInt dict int) list
 
+isWinner : Board -> Int -> Bool
 isWinner board turn =
   List.any (\f -> f board turn) [isWinnerRow, isWinnerCol, isWinnerDiag]
 
+isWinnerRow : Board -> Int -> Bool
 isWinnerRow board turn =
   isWinnerSection board turn rows
 
+isWinnerCol : Board -> Int -> Bool
 isWinnerCol board turn =
   isWinnerSection board turn cols
 
+isWinnerDiag : Board -> Int -> Bool
 isWinnerDiag board turn =
   isWinnerSection board turn diags
 
+isWinnerSection : Board -> Int -> Section -> Bool
 isWinnerSection board turn section =
   List.any (allXorO board turn) section
 
