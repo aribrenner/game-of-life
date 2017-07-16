@@ -45,9 +45,10 @@ diags =
   ]
 
 -- MODEL
-type alias SubSection = (List (Int, Int))
+type alias Pair = (Int, Int)
+type alias SubSection = (List Pair)
 type alias Section = List SubSection
-type alias Board = Dict (Int, Int) Int
+type alias Board = Dict Pair Int
 type alias Model = {
   board : Board,
   turn : Int,
@@ -61,7 +62,7 @@ emptyModel = { board = Dict.empty , turn = -1, winner = False, done = False, sco
 model : Model
 model = emptyModel
 
-pairIsInt : Board -> Int -> (Int, Int) -> Bool
+pairIsInt : Board -> Int -> Pair -> Bool
 pairIsInt dict int pair =
   (Dict.get pair dict) == Just int
 
@@ -94,7 +95,7 @@ isWinnerSection board turn section =
 
 
 type Msg
-  = CellPos (Int, Int) | PlayAgain
+  = CellPos Pair | PlayAgain
 
 
 update : Msg -> Model -> Model
