@@ -70,13 +70,16 @@ isWinner board turn =
   isWinnerRow board turn || isWinnerCol board turn || isWinnerDiag board turn
 
 isWinnerRow board turn =
-  List.any (allXorO board (Just turn)) rows
+  isWinnerSection board turn rows
 
 isWinnerCol board turn =
-  List.any (allXorO board (Just turn)) cols
+  isWinnerSection board turn cols
 
 isWinnerDiag board turn =
-  List.any (allXorO board (Just turn)) diags
+  isWinnerSection board turn diags
+
+isWinnerSection board turn section =
+  List.any (allXorO board (Just turn)) section
 
 
 -- UPDATE
