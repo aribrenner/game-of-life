@@ -24,6 +24,7 @@ main =
     , update = update
     }
 
+rows : Section
 rows =
   [
     [(0,0), (0,1), (0,2)],
@@ -31,6 +32,7 @@ rows =
     [(2,0), (2,1), (2,2)]
   ]
 
+cols : Section
 cols =
   [
     [(0,0), (1,0), (2,0)],
@@ -38,6 +40,7 @@ cols =
     [(0,2), (1,2), (2,2)]
   ]
 
+diags : Section
 diags =
   [
     [(0,0), (1,1), (2,2)],
@@ -138,6 +141,7 @@ view model =
     tttBoard model
   ]
 
+tttBoard : Model -> Html Msg
 tttBoard model =
   div [class "board"] [
     tttRow 0 model,
@@ -145,11 +149,13 @@ tttBoard model =
     tttRow 2 model
   ]
 
+tttRow : Int -> Model -> Html Msg
 tttRow row model =
   div [class "row"][
     tttCell model (row, 0), tttCell model (row, 1), tttCell model (row, 2)
   ]
 
+tttCell : Model -> Pair -> Html Msg
 tttCell model cellPos =
   case Dict.get cellPos model.board of
     Nothing ->
@@ -160,9 +166,11 @@ tttCell model cellPos =
     Just num ->
       span [class ("cell cell-" ++ (valToXO num))] []
 
+valToXO : Int -> String
 valToXO val =
   if val == -1 then "X" else "O"
 
+userMessage : Model -> Html Msg
 userMessage model =
   let
     finalMessage = if model.winner then valToXO(-model.turn) ++ " wins!" else "Draw"
@@ -174,6 +182,7 @@ userMessage model =
       ]
     ]
 
+scoreboard : Pair -> Html Msg
 scoreboard score =
   let
     xScore = Tuple.first score
