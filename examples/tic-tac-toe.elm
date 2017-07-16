@@ -61,7 +61,7 @@ model : Model
 model = emptyModel
 
 pairIsInt dict int pair =
-  (Dict.get pair dict) == int
+  (Dict.get pair dict) == Just int
 
 allXorO dict int list =
   List.all (pairIsInt dict int) list
@@ -79,7 +79,7 @@ isWinnerDiag board turn =
   isWinnerSection board turn diags
 
 isWinnerSection board turn section =
-  List.any (allXorO board (Just turn)) section
+  List.any (allXorO board turn) section
 
 
 -- UPDATE
