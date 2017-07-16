@@ -67,7 +67,7 @@ allXorO dict int list =
   List.all (pairIsInt dict int) list
 
 isWinner board turn =
-  isWinnerRow board turn || isWinnerCol board turn || isWinnerDiag board turn
+  List.any (\f -> f board turn) [isWinnerRow, isWinnerCol, isWinnerDiag]
 
 isWinnerRow board turn =
   isWinnerSection board turn rows
