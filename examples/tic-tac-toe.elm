@@ -46,9 +46,9 @@ diags =
 
 -- MODEL
 
-
+type alias Board = Dict (Int, Int) Int
 type alias Model = {
-  board : Dict (Int, Int) Int,
+  board : Board,
   turn : Int,
   winner : Bool,
   done : Bool,
