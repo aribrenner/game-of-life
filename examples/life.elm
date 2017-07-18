@@ -27,7 +27,8 @@ type alias BoardIndexes = List BoardRowIndexes
 type alias Model = {
   board : Board,
   paused : Bool,
-  fullBoard : BoardRowIndexes
+  fullBoard : BoardRowIndexes,
+  interval : Float
 }
 
 boardSize = 50
@@ -37,6 +38,7 @@ model =
   { board = Dict.empty
   , paused = True
   , fullBoard = List.concat fullBoard
+  , interval = 1
   }
 
 
@@ -90,7 +92,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every second Tick
+  Time.every (model.interval * second) Tick
 
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
