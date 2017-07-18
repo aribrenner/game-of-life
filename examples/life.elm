@@ -21,11 +21,13 @@ main =
 
 type alias Pair = (Int, Int)
 type alias Board = Dict Pair Bool
-
+type alias BoardRowIndexes = List Pair
+type alias BoardIndexes = List BoardRowIndexes
 
 type alias Model = {
   board : Board,
-  paused : Bool
+  paused : Bool,
+  fullBoard : BoardIndexes
 }
 
 boardSize = 20
@@ -34,6 +36,7 @@ model : Model
 model =
   { board = Dict.empty
   , paused = True
+  , fullBoard = fullBoard
   }
 
 
@@ -42,6 +45,24 @@ init =
   (model, Cmd.none)
 
 
+fullBoard : BoardIndexes
+fullBoard =
+  buildBoard (boardSize - 1)
+--
+--
+buildBoard : Int -> BoardIndexes
+buildBoard cur =
+  let
+    miniBoard = [fullRow (boardSize - 1) cur]
+  in
+    if cur == 0 then miniBoard else List.append (buildBoard (cur - 1)) miniBoard
+
+fullRow : Int -> Int -> BoardRowIndexes
+fullRow i j =
+  let
+    pair = [(i, j)]
+  in
+    if i == 0 then pair else List.append (fullRow (i-1) j) pair
 
 
 
@@ -95,6 +116,7 @@ view model =
   div []
     [ button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
+    , div [] [ text (toString model.fullBoard) ]
     , drawBoard model.board
     ]
 
