@@ -64,7 +64,8 @@ update msg model =
     TogglePause ->
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
-      ({ model | time = newTime }, Cmd.none)
+      (model, Cmd.none)
+      -- ({ model | time = newTime }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -83,7 +84,7 @@ nums int =
   if int == 0 then
     [0]
   else
-    List.append (nums (int - 1)) [int-1]
+    List.append (nums (int - 1)) [int]
 
 boardHas : Board -> Pair -> Bool
 boardHas board pair =
@@ -98,16 +99,18 @@ view model =
     [ button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
     , div [] [ text (toString model.time) ]
-    , div [] [ text (toString model.board) ]
     , drawBoard model.board
     ]
 
 
 drawBoard board =
-  div [class "board"] (List.map drawRow (nums boardSize))
+  div [class "board"] (List.map (drawRow board) (nums boardSize))
 
-drawRow i =
-  div [class "row"] (List.map (drawCell i) (nums boardSize))
+drawRow board i =
+  div [class "row"] (List.map (drawCell board i) (nums boardSize))
 
-drawCell i j =
-  span [class "cell", onClick (ToggleCell (i, j))] [(i, j) |> toString |> text]
+drawCell board i j =
+  let
+    str = if boardHas board (i, j) then "X" else "O"
+  in
+    span [class "cell", onClick (ToggleCell (i, j))] [text str]
