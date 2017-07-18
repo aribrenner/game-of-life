@@ -36,3 +36,11 @@ body {
 .cell.life {
   background: green;
 }
+
+.cell.temp-life {
+  background: yellow;
+}
+
+.cell.life.temp-life {
+  background: yellowgreen;
+}

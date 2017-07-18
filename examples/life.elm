@@ -1,6 +1,6 @@
 import Html exposing (Html, div, text, node, span, button, input)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput)
+import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
 import Time exposing (Time, second)
 
@@ -29,7 +29,8 @@ type alias Model = {
   paused : Bool,
   fullBoard : BoardRowIndexes,
   interval : Float,
-  lastUpdate : Float
+  lastUpdate : Float,
+  tempBoard : Board
 }
 
 boardSize = 40
@@ -55,6 +56,7 @@ model =
   , fullBoard = List.concat fullBoard
   , interval = second
   , lastUpdate = 0
+  , tempBoard = Dict.empty
   }
 
 
@@ -94,6 +96,8 @@ type Msg
   | UpdateInterval String
   | ClearBoard
   | SetBoard String
+  | SetTempBoard String
+  | ClearTempBoard
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -118,6 +122,10 @@ update msg model =
       ({model | board = Dict.empty}, noCmd)
     SetBoard pattern ->
       ({model | board = Dict.union (boardFromLib pattern) model.board}, noCmd)
+    SetTempBoard pattern ->
+      ({model | tempBoard = boardFromLib pattern}, noCmd)
+    ClearTempBoard ->
+      ({model | tempBoard = Dict.empty}, noCmd)
 
 
 boardFromLib : String -> Board
@@ -214,16 +222,17 @@ drawBoard model =
     board = model.board
     klass = if model.paused then "paused" else ""
   in
-    div [class ("board " ++ klass)] (List.map (drawRow board) (nums (boardSize - 1)))
+    div [class ("board " ++ klass)] (List.map (drawRow model) (nums (boardSize - 1)))
 
-drawRow board i =
-  div [class "row"] (List.map (drawCell board i) (nums (boardSize - 1)))
+drawRow model i =
+  div [class "row"] (List.map (drawCell model i) (nums (boardSize - 1)))
 
-drawCell board i j =
+drawCell model i j =
   let
-    klass = if isAlive board (i, j) then "life" else ""
+    klass1 = if isAlive model.tempBoard (i, j) then "temp-life" else ""
+    klass2 = if isAlive model.board (i, j) then "life" else ""
   in
-    div [class ("cell " ++ klass), onClick (ToggleCell (i, j))] []
+    div [class ("cell " ++ klass1 ++ " " ++ klass2), onClick (ToggleCell (i, j))] []
 
 pauseButton isPaused =
   let
@@ -235,7 +244,7 @@ clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
 patternButton pattern =
-  button [onClick (SetBoard pattern)] [text pattern]
+  button [onClick (SetBoard pattern), onMouseOver (SetTempBoard pattern), onMouseOut ClearTempBoard] [text pattern]
 
 intervalSlider interval =
   input
