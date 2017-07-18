@@ -27,16 +27,16 @@ type alias BoardIndexes = List BoardRowIndexes
 type alias Model = {
   board : Board,
   paused : Bool,
-  fullBoard : BoardIndexes
+  fullBoard : BoardRowIndexes
 }
 
-boardSize = 20
+boardSize = 5
 
 model : Model
 model =
   { board = Dict.empty
   , paused = True
-  , fullBoard = fullBoard
+  , fullBoard = List.concat fullBoard
   }
 
 
@@ -83,7 +83,10 @@ update msg model =
     TogglePause ->
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
-      (model, Cmd.none)
+      let
+        newBoard = if model.paused then model.board else newDict model
+      in
+        ({ model | board = newBoard}, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -141,6 +144,14 @@ updatedPos pair board =
     else
       count == 3
 
+newDict : Model -> Board
+newDict model =
+  let
+    board = model.board
+    list = List.map (\p -> (p, (updatedPos p board))) model.fullBoard
+  in
+    Dict.fromList list
+
 
 onBoard : Pair -> Bool
 onBoard pair =
@@ -165,10 +176,10 @@ view model =
 
 
 drawBoard board =
-  div [class "board"] (List.map (drawRow board) (nums boardSize))
+  div [class "board"] (List.map (drawRow board) (nums (boardSize - 1)))
 
 drawRow board i =
-  div [class "row"] (List.map (drawCell board i) (nums boardSize))
+  div [class "row"] (List.map (drawCell board i) (nums (boardSize - 1)))
 
 drawCell board i j =
   let
