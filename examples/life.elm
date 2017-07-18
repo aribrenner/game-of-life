@@ -168,7 +168,8 @@ onBoard pair =
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick TogglePause ] [ text "toggle pause" ]
+    [ div [] [stylesheet "life.css"]
+    , button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
     , div [] [ text (toString model.fullBoard) ]
     , drawBoard model.board
@@ -183,6 +184,21 @@ drawRow board i =
 
 drawCell board i j =
   let
-    str = if isAlive board (i, j) then "X" else "O"
+    klass = if isAlive board (i, j) then "life" else ""
   in
-    span [class "cell", onClick (ToggleCell (i, j))] [text str]
+    div [class ("cell " ++ klass), onClick (ToggleCell (i, j))] []
+
+
+
+-- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
+stylesheet href =
+  let
+    tag = "link"
+    attrs =
+        [ attribute "rel"       "stylesheet"
+        , attribute "property"  "stylesheet"
+        , attribute "href"      href
+        ]
+    children = []
+  in
+    node tag attrs children
