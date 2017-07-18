@@ -92,7 +92,7 @@ subscriptions model =
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
   let
-    cur = boardHas board pair
+    cur = isAlive board pair
   in
     Dict.insert pair (not cur) board
 
@@ -104,9 +104,52 @@ nums int =
   else
     List.append (nums (int - 1)) [int]
 
-boardHas : Board -> Pair -> Bool
-boardHas board pair =
+isAlive : Board -> Pair -> Bool
+isAlive board pair =
   Maybe.withDefault False (Dict.get pair board)
+
+allNeighbors : Pair -> List Pair
+allNeighbors pair =
+  let
+    i = Tuple.first pair
+    j = Tuple.second pair
+  in
+    [
+      (i-1, j-1), (i-1, j), (i-1, j+1),
+      (i, j-1),             (i, j+1),
+      (i+1, j-1), (i+1, j), (i+1, j+1)
+    ]
+
+-- neighborsOnBoard : Pair -> List Pair
+-- neighborsOnBoard pair =
+--   List.filter onBoard (allNeighbors pair)
+
+occupiedNeighbors : Pair -> Board -> Int
+occupiedNeighbors pair board =
+  let
+    neighbors = allNeighbors pair
+  in
+    List.length (List.filter (\p -> isAlive board p) neighbors)
+
+updatedPos : Pair -> Board -> Bool
+updatedPos pair board =
+  let
+    count = occupiedNeighbors pair board
+  in
+    if (isAlive board pair) then
+      count == 2 || count == 3
+    else
+      count == 3
+
+
+onBoard : Pair -> Bool
+onBoard pair =
+  let
+    i = Tuple.first pair
+    j = Tuple.second pair
+  in
+    i >= 0 && j >= 0 && i < boardSize && j < boardSize
+
 
 -- VIEW
 
@@ -129,6 +172,6 @@ drawRow board i =
 
 drawCell board i j =
   let
-    str = if boardHas board (i, j) then "X" else "O"
+    str = if isAlive board (i, j) then "X" else "O"
   in
     span [class "cell", onClick (ToggleCell (i, j))] [text str]
