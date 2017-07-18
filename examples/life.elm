@@ -73,7 +73,7 @@ subscriptions model =
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
   let
-    cur = Maybe.withDefault False (Dict.get pair board)
+    cur = boardHas board pair
   in
     Dict.insert pair (not cur) board
 
@@ -84,6 +84,10 @@ nums int =
     [0]
   else
     List.append (nums (int - 1)) [int-1]
+
+boardHas : Board -> Pair -> Bool
+boardHas board pair =
+  Maybe.withDefault False (Dict.get pair board)
 
 -- VIEW
 
