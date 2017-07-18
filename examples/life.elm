@@ -64,7 +64,7 @@ update msg model =
     TogglePause ->
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
-      ({ model | time = newTime, board = updateBoard model.board }, Cmd.none)
+      ({ model | time = newTime }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -77,11 +77,6 @@ toggleCell board pair =
   in
     Dict.insert pair (not cur) board
 
-
-
-updateBoard : Board -> Board
-updateBoard board =
-  board
 
 nums : Int -> List Int
 nums int =
