@@ -204,9 +204,7 @@ view model =
     , pauseButton model.paused
     , intervalSlider model.interval
     , clearButton
-    , patternButton "glider"
-    , patternButton "blinker"
-    , patternButton "llws"
+    , patternButtons
     , drawBoard model
     ]
 
@@ -248,6 +246,14 @@ intervalSlider interval =
     , value (toString interval)
     , onInput UpdateInterval
     ] []
+
+patternButtons =
+  let
+    keys = List.map (\p -> Tuple.first p) libraryList
+  in
+    span [] (
+      List.map (\key -> patternButton key) keys
+    )
 
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
