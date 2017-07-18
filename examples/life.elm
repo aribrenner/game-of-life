@@ -105,7 +105,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every 200 Tick
+  Time.every 67 Tick
 
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
@@ -215,9 +215,9 @@ clearButton =
 intervalSlider interval =
   input
     [ type_ "range"
-    , Html.Attributes.min "500"
+    , Html.Attributes.min "80"
     , Html.Attributes.max "2000"
-    , Html.Attributes.step "100"
+    , Html.Attributes.step "10"
     , value (toString interval)
     , onInput UpdateInterval
     ] []
