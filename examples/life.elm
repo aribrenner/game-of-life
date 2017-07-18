@@ -79,6 +79,7 @@ type Msg
   | Tick Time
   | ToggleCell Pair
   | UpdateInterval String
+  | ClearBoard
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -99,6 +100,8 @@ update msg model =
           (model, noCmd)
     UpdateInterval str ->
       ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
+    ClearBoard ->
+      ({model | board = Dict.empty}, noCmd)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -179,6 +182,7 @@ view model =
     [ div [] [stylesheet "life.css"]
     , pauseButton model.paused
     , intervalSlider model.interval
+    , clearButton
     , drawBoard model
     ]
 
@@ -204,6 +208,9 @@ pauseButton isPaused =
     str = if isPaused then "Unpause" else "Pause"
   in
     button [ onClick TogglePause, class "pause-button"] [ text str ]
+
+clearButton =
+  button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
 intervalSlider interval =
   input
