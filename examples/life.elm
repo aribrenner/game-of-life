@@ -165,14 +165,17 @@ view : Model -> Html Msg
 view model =
   div []
     [ div [] [stylesheet "life.css"]
-    , button [ onClick TogglePause ] [ text "toggle pause" ]
-    , div [] [ text (toString model.paused) ]
-    , drawBoard model.board
+    , pauseButton model.paused
+    , drawBoard model
     ]
 
 
-drawBoard board =
-  div [class "board"] (List.map (drawRow board) (nums (boardSize - 1)))
+drawBoard model =
+  let
+    board = model.board
+    klass = if model.paused then "paused" else ""
+  in
+    div [class ("board " ++ klass)] (List.map (drawRow board) (nums (boardSize - 1)))
 
 drawRow board i =
   div [class "row"] (List.map (drawCell board i) (nums (boardSize - 1)))
@@ -182,6 +185,12 @@ drawCell board i j =
     klass = if isAlive board (i, j) then "life" else ""
   in
     div [class ("cell " ++ klass), onClick (ToggleCell (i, j))] []
+
+pauseButton isPaused =
+  let
+    str = if isPaused then "Unpause" else "Pause"
+  in
+    button [ onClick TogglePause, class "pause-button"] [ text str ]
 
 
 

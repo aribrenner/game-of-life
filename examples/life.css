@@ -1,5 +1,23 @@
 body {
   background: ghostwhite;
+  margin: 20px;
+  font-family: sans-serif;
+}
+
+.pause-button {
+  margin-right: 10px;
+  width: 100px;
+  font-size: 20px;
+}
+
+.board {
+  border: 2px solid black;
+  padding: 5px;
+  display: inline-block;
+}
+
+.board.paused {
+  opacity: .6;
 }
 
 .row {
