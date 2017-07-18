@@ -33,6 +33,7 @@ type alias Model = {
 }
 
 boardSize = 40
+noCmd = Cmd.none
 
 model : Model
 model =
@@ -46,7 +47,7 @@ model =
 
 init : (Model, Cmd Msg)
 init =
-  (model, Cmd.none)
+  (model, noCmd)
 
 
 fullBoard : BoardIndexes
@@ -84,20 +85,20 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     ToggleCell pair ->
-      ({ model | board = toggleCell model.board pair }, Cmd.none)
+      ({ model | board = toggleCell model.board pair }, noCmd)
     TogglePause ->
-      ({ model | paused = not model.paused }, Cmd.none)
+      ({ model | paused = not model.paused }, noCmd)
     Tick newTime ->
       let
         isRecent = (newTime - model.lastUpdate) < model.interval
         shouldRedraw = not (model.paused || isRecent)
       in
         if shouldRedraw then
-          ({ model | board = newDict model, lastUpdate = newTime }, Cmd.none)
+          ({ model | board = newDict model, lastUpdate = newTime }, noCmd)
         else
-          (model, Cmd.none)
+          (model, noCmd)
     UpdateInterval str ->
-      ({model | interval = Result.withDefault second (String.toFloat str)}, Cmd.none)
+      ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
