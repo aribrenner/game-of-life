@@ -1,6 +1,6 @@
-import Html exposing (Html, div, text, node, span, button)
+import Html exposing (Html, div, text, node, span, button, input)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import Dict exposing (Dict)
 import Time exposing (Time, second)
 
@@ -28,17 +28,19 @@ type alias Model = {
   board : Board,
   paused : Bool,
   fullBoard : BoardRowIndexes,
-  interval : Float
+  interval : Float,
+  lastUpdate : Float
 }
 
-boardSize = 50
+boardSize = 40
 
 model : Model
 model =
   { board = Dict.empty
   , paused = True
   , fullBoard = List.concat fullBoard
-  , interval = 1
+  , interval = second
+  , lastUpdate = 0
   }
 
 
@@ -75,6 +77,7 @@ type Msg
   = TogglePause
   | Tick Time
   | ToggleCell Pair
+  | UpdateInterval String
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -86,13 +89,19 @@ update msg model =
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
       let
-        newBoard = if model.paused then model.board else newDict model
+        isRecent = (newTime - model.lastUpdate) < model.interval
+        shouldRedraw = not (model.paused || isRecent)
       in
-        ({ model | board = newBoard}, Cmd.none)
+        if shouldRedraw then
+          ({ model | board = newDict model, lastUpdate = newTime }, Cmd.none)
+        else
+          (model, Cmd.none)
+    UpdateInterval str ->
+      ({model | interval = Result.withDefault second (String.toFloat str)}, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every (model.interval * second) Tick
+  Time.every 200 Tick
 
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
@@ -168,6 +177,7 @@ view model =
   div []
     [ div [] [stylesheet "life.css"]
     , pauseButton model.paused
+    , intervalSlider model.interval
     , drawBoard model
     ]
 
@@ -194,6 +204,15 @@ pauseButton isPaused =
   in
     button [ onClick TogglePause, class "pause-button"] [ text str ]
 
+intervalSlider interval =
+  input
+    [ type_ "range"
+    , Html.Attributes.min "500"
+    , Html.Attributes.max "2000"
+    , Html.Attributes.step "100"
+    , value (toString interval)
+    , onInput UpdateInterval
+    ] []
 
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
