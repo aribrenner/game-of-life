@@ -25,8 +25,7 @@ type alias Board = Dict Pair Bool
 
 type alias Model = {
   board : Board,
-  paused : Bool,
-  time : Time
+  paused : Bool
 }
 
 boardSize = 20
@@ -35,7 +34,6 @@ model : Model
 model =
   { board = Dict.empty
   , paused = True
-  , time = 0
   }
 
 
@@ -65,7 +63,6 @@ update msg model =
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
       (model, Cmd.none)
-      -- ({ model | time = newTime }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -98,7 +95,6 @@ view model =
   div []
     [ button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
-    , div [] [ text (toString model.time) ]
     , drawBoard model.board
     ]
 
