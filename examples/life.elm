@@ -53,11 +53,14 @@ init =
 type Msg
   = TogglePause
   | Tick Time
+  | ToggleCell Pair
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    ToggleCell pair ->
+      ({ model | board = toggleCell model.board pair }, Cmd.none)
     TogglePause ->
       ({ model | paused = not model.paused }, Cmd.none)
     Tick newTime ->
@@ -66,6 +69,14 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Time.every second Tick
+
+toggleCell : Board -> Pair -> Board
+toggleCell board pair =
+  let
+    cur = Maybe.withDefault False (Dict.get pair board)
+  in
+    Dict.insert pair (not cur) board
+
 
 
 updateBoard : Board -> Board
@@ -88,6 +99,7 @@ view model =
     [ button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
     , div [] [ text (toString model.time) ]
+    , div [] [ text (toString model.board) ]
     , drawBoard model.board
     ]
 
@@ -99,4 +111,4 @@ drawRow i =
   div [class "row"] (List.map (drawCell i) (nums boardSize))
 
 drawCell i j =
-  span [class "cell"] [(i, j) |> toString |> text]
+  span [class "cell", onClick (ToggleCell (i, j))] [(i, j) |> toString |> text]
