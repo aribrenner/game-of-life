@@ -30,7 +30,7 @@ type alias Model = {
   fullBoard : BoardRowIndexes
 }
 
-boardSize = 5
+boardSize = 50
 
 model : Model
 model =
@@ -123,10 +123,6 @@ allNeighbors pair =
       (i+1, j-1), (i+1, j), (i+1, j+1)
     ]
 
--- neighborsOnBoard : Pair -> List Pair
--- neighborsOnBoard pair =
---   List.filter onBoard (allNeighbors pair)
-
 occupiedNeighbors : Pair -> Board -> Int
 occupiedNeighbors pair board =
   let
@@ -171,7 +167,6 @@ view model =
     [ div [] [stylesheet "life.css"]
     , button [ onClick TogglePause ] [ text "toggle pause" ]
     , div [] [ text (toString model.paused) ]
-    , div [] [ text (toString model.fullBoard) ]
     , drawBoard model.board
     ]
 
