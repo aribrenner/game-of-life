@@ -134,7 +134,7 @@ boardFromLib key =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every 67 Tick
+  Time.every 23 Tick
 
 toggleCell : Board -> Pair -> Board
 toggleCell board pair =
@@ -249,8 +249,8 @@ patternButton pattern =
 intervalSlider interval =
   input
     [ type_ "range"
-    , Html.Attributes.min "80"
-    , Html.Attributes.max "2000"
+    , Html.Attributes.min "30"
+    , Html.Attributes.max "1000"
     , Html.Attributes.step "10"
     , value (toString interval)
     , onInput UpdateInterval
