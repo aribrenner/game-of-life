@@ -35,6 +35,19 @@ type alias Model = {
 boardSize = 40
 noCmd = Cmd.none
 
+libraryList =
+  [ ("blinker", pairsToDict [(2,1), (2,2), (2,3)])
+  , ("glider",  pairsToDict [(3,1), (3,2), (3, 3), (2, 3), (1, 2)])
+  , ("llws",  pairsToDict [(1,1), (4,1), (5,2), (5,3), (5,4), (4,4), (3,4), (2,4), (1,3)])
+  ]
+
+library =
+  Dict.fromList libraryList
+
+pairsToDict : List Pair -> Board
+pairsToDict list =
+  Dict.fromList (List.map (\p -> (p, True)) list)
+
 model : Model
 model =
   { board = Dict.empty
@@ -80,6 +93,7 @@ type Msg
   | ToggleCell Pair
   | UpdateInterval String
   | ClearBoard
+  | SetBoard String
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -102,6 +116,13 @@ update msg model =
       ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
     ClearBoard ->
       ({model | board = Dict.empty}, noCmd)
+    SetBoard pattern ->
+      ({model | board = Dict.union (boardFromLib pattern) model.board}, noCmd)
+
+
+boardFromLib : String -> Board
+boardFromLib key =
+  Maybe.withDefault Dict.empty (Dict.get key library)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -183,6 +204,9 @@ view model =
     , pauseButton model.paused
     , intervalSlider model.interval
     , clearButton
+    , patternButton "glider"
+    , patternButton "blinker"
+    , patternButton "llws"
     , drawBoard model
     ]
 
@@ -211,6 +235,9 @@ pauseButton isPaused =
 
 clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
+
+patternButton pattern =
+  button [onClick (SetBoard pattern)] [text pattern]
 
 intervalSlider interval =
   input
