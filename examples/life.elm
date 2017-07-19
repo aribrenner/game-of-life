@@ -96,7 +96,6 @@ fullRow i j =
 type Msg
   = TogglePause
   | Tick Time
-  | ToggleCell Pair
   | UpdateInterval String
   | ClearBoard
   | SetPattern String
@@ -108,8 +107,6 @@ type Msg
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    ToggleCell pair ->
-      ({ model | board = toggleCell model.board pair }, noCmd)
     TogglePause ->
       ({ model | paused = not model.paused }, noCmd)
     Tick newTime ->
