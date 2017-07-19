@@ -32,7 +32,9 @@ type alias Model = {
   interval : Float,
   lastUpdate : Float,
   tempBoard : Board,
-  pattern : String
+  pattern : String,
+  iOffset : Int,
+  jOffset : Int
 }
 
 model : Model
@@ -44,6 +46,8 @@ model =
   , lastUpdate = 0
   , tempBoard = Set.empty
   , pattern = "dot"
+  , iOffset = 0
+  , jOffset = 0
   }
 
 boardSize = 40
@@ -102,6 +106,8 @@ type Msg
   | SetTempBoard Pair
   | ClearTempBoard
   | SetTempToBoard
+  | UpdateOffsetI String
+  | UpdateOffsetJ String
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -130,6 +136,10 @@ update msg model =
       ({model | tempBoard = createTempBoard model pair}, noCmd)
     ClearTempBoard ->
       ({model | tempBoard = Set.empty}, noCmd)
+    UpdateOffsetI str ->
+      ({model | iOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
+    UpdateOffsetJ str ->
+      ({model | jOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
 
 
 createTempBoard : Model -> Pair -> Board
@@ -240,6 +250,8 @@ view model =
     , clearButton
     , patternButtons model
     , drawBoard model
+    , offsetSlider model.iOffset UpdateOffsetI
+    , offsetSlider model.jOffset UpdateOffsetJ
     ]
 
 
@@ -255,13 +267,16 @@ drawRow model i =
 
 drawCell model i j =
   let
-    klass1 = if isAlive model.tempBoard (i, j) then "temp-life" else ""
-    klass2 = if isAlive model.board (i, j) then "life" else ""
+    iVal = (i + model.iOffset) % boardSize
+    jVal = (j + model.jOffset) % boardSize
+    pair = (iVal, jVal)
+    klass1 = if isAlive model.tempBoard pair then "temp-life" else ""
+    klass2 = if isAlive model.board pair then "life" else ""
   in
     div
       [ class ("cell " ++ klass1 ++ " " ++ klass2)
       , onClick (SetTempToBoard)
-      , onMouseOver (SetTempBoard (i, j))
+      , onMouseOver (SetTempBoard pair)
       , onMouseOut ClearTempBoard
       ] []
 
@@ -288,6 +303,16 @@ intervalSlider interval =
     , Html.Attributes.step "10"
     , value (toString interval)
     , onInput UpdateInterval
+    ] []
+
+offsetSlider val updateFunc =
+  input
+    [ type_ "range"
+    , Html.Attributes.min "0"
+    , Html.Attributes.max (toString (boardSize - 1))
+    , Html.Attributes.step "1"
+    , value (toString val)
+    , onInput updateFunc
     ] []
 
 patternButtons model =
