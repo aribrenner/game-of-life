@@ -42,7 +42,7 @@ model =
   { board = Set.empty
   , paused = True
   , fullBoard = List.concat fullBoard
-  , interval = second
+  , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
   , pattern = "dot"
@@ -299,7 +299,7 @@ intervalSlider interval =
   input
     [ type_ "range"
     , Html.Attributes.min "30"
-    , Html.Attributes.max "1000"
+    , Html.Attributes.max "500"
     , Html.Attributes.step "10"
     , value (toString interval)
     , onInput UpdateInterval
