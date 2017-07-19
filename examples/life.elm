@@ -34,6 +34,16 @@ type alias Model = {
   tempBoard : Board
 }
 
+model : Model
+model =
+  { board = Set.empty
+  , paused = True
+  , fullBoard = List.concat fullBoard
+  , interval = second
+  , lastUpdate = 0
+  , tempBoard = Set.empty
+  }
+
 boardSize = 40
 noCmd = Cmd.none
 
@@ -49,16 +59,6 @@ library =
 pairsToSet : List Pair -> Board
 pairsToSet list =
   Set.fromList list
-
-model : Model
-model =
-  { board = Set.empty
-  , paused = True
-  , fullBoard = List.concat fullBoard
-  , interval = second
-  , lastUpdate = 0
-  , tempBoard = Set.empty
-  }
 
 
 init : (Model, Cmd Msg)
