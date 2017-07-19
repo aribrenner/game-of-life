@@ -2,6 +2,7 @@ import Html exposing (Html, div, text, node, span, button, input)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
+import Set exposing (Set)
 import Time exposing (Time, second)
 
 
@@ -20,7 +21,7 @@ main =
 -- MODEL
 
 type alias Pair = (Int, Int)
-type alias Board = Dict Pair Bool
+type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
 
@@ -37,26 +38,26 @@ boardSize = 40
 noCmd = Cmd.none
 
 libraryList =
-  [ ("blinker", pairsToDict [(2,1), (2,2), (2,3)])
-  , ("glider",  pairsToDict [(3,1), (3,2), (3, 3), (2, 3), (1, 2)])
-  , ("llws",  pairsToDict [(1,1), (4,1), (5,2), (5,3), (5,4), (4,4), (3,4), (2,4), (1,3)])
+  [ ("blinker", pairsToSet [(2,1), (2,2), (2,3)])
+  , ("glider",  pairsToSet [(3,1), (3,2), (3, 3), (2, 3), (1, 2)])
+  , ("llws",  pairsToSet [(1,1), (4,1), (5,2), (5,3), (5,4), (4,4), (3,4), (2,4), (1,3)])
   ]
 
 library =
   Dict.fromList libraryList
 
-pairsToDict : List Pair -> Board
-pairsToDict list =
-  Dict.fromList (List.map (\p -> (p, True)) list)
+pairsToSet : List Pair -> Board
+pairsToSet list =
+  Set.fromList list
 
 model : Model
 model =
-  { board = Dict.empty
+  { board = Set.empty
   , paused = True
   , fullBoard = List.concat fullBoard
   , interval = second
   , lastUpdate = 0
-  , tempBoard = Dict.empty
+  , tempBoard = Set.empty
   }
 
 
@@ -119,18 +120,18 @@ update msg model =
     UpdateInterval str ->
       ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
     ClearBoard ->
-      ({model | board = Dict.empty}, noCmd)
+      ({model | board = Set.empty}, noCmd)
     SetBoard pattern ->
-      ({model | board = Dict.union (boardFromLib pattern) model.board}, noCmd)
+      ({model | board = Set.union (boardFromLib pattern) model.board}, noCmd)
     SetTempBoard pattern ->
       ({model | tempBoard = boardFromLib pattern}, noCmd)
     ClearTempBoard ->
-      ({model | tempBoard = Dict.empty}, noCmd)
+      ({model | tempBoard = Set.empty}, noCmd)
 
 
 boardFromLib : String -> Board
 boardFromLib key =
-  Maybe.withDefault Dict.empty (Dict.get key library)
+  Maybe.withDefault Set.empty (Dict.get key library)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -141,7 +142,10 @@ toggleCell board pair =
   let
     cur = isAlive board pair
   in
-    Dict.insert pair (not cur) board
+    if cur then
+      Set.remove pair board
+    else
+      Set.insert pair board
 
 
 nums : Int -> List Int
@@ -153,7 +157,7 @@ nums int =
 
 isAlive : Board -> Pair -> Bool
 isAlive board pair =
-  Maybe.withDefault False (Dict.get pair board)
+  Set.member pair board
 
 allNeighbors : Pair -> List Pair
 allNeighbors pair =
@@ -188,9 +192,9 @@ newDict : Model -> Board
 newDict model =
   let
     board = model.board
-    list = List.map (\p -> (p, (updatedPos p board))) model.fullBoard
+    list = List.filter (\p -> updatedPos p board) model.fullBoard
   in
-    Dict.fromList list
+    Set.fromList list
 
 
 onBoard : Pair -> Bool
