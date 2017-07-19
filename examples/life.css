@@ -44,3 +44,19 @@ body {
 .cell.life.temp-life {
   background: yellowgreen;
 }
+
+.pattern-button {
+  font-family: inherit;
+  font-size: 20px;
+  background: white;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+.pattern-button:disabled {
+  background: lightblue;
+  cursor: default;
+  color: white;
+}

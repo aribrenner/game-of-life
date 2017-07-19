@@ -233,7 +233,7 @@ view model =
     , pauseButton model.paused
     , intervalSlider model.interval
     , clearButton
-    , patternButtons
+    , patternButtons model
     , drawBoard model
     ]
 
@@ -269,8 +269,11 @@ pauseButton isPaused =
 clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
-patternButton pattern =
-  button [onClick (SetPattern pattern)] [text pattern]
+patternButton model pattern =
+  let
+    isDisabled = model.pattern == pattern
+  in
+    button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [text pattern]
 
 intervalSlider interval =
   input
@@ -282,12 +285,12 @@ intervalSlider interval =
     , onInput UpdateInterval
     ] []
 
-patternButtons =
+patternButtons model =
   let
     keys = List.map (\p -> Tuple.first p) libraryList
   in
     span [] (
-      List.map (\key -> patternButton key) keys
+      List.map (\key -> patternButton model key) keys
     )
 
 
