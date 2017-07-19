@@ -149,10 +149,10 @@ createTempBoard model pair =
   in
     Set.map (\p ->
       let
-        first = Tuple.first pair + Tuple.first p
-        second = Tuple.second pair + Tuple.second p
+        i = Tuple.first pair + Tuple.first p
+        j = Tuple.second pair + Tuple.second p
       in
-        (first % boardSize, second % boardSize)
+        (i % boardSize, j % boardSize)
     ) patternBoard
 
 
