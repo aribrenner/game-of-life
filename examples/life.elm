@@ -50,9 +50,9 @@ boardSize = 40
 noCmd = Cmd.none
 
 libraryList =
-  [ ("blinker", pairsToSet [(2,1), (2,2), (2,3)])
-  , ("glider",  pairsToSet [(3,1), (3,2), (3, 3), (2, 3), (1, 2)])
-  , ("llws",  pairsToSet [(1,1), (4,1), (5,2), (5,3), (5,4), (4,4), (3,4), (2,4), (1,3)])
+  [ ("blinker", pairsToSet [(0,0), (0,1), (0,2)])
+  , ("glider",  pairsToSet [(2,0), (2,1), (2,2), (1,2), (0,1)])
+  , ("llws",  pairsToSet [(0,0), (3,0), (4,1), (4,2), (4,3), (3,3), (2,3), (1,3), (0,2)])
   , ("dot",  pairsToSet [(0,0)])
   ]
 
