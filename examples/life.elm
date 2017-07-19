@@ -152,7 +152,7 @@ createTempBoard model pair =
         first = Tuple.first pair + Tuple.first p
         second = Tuple.second pair + Tuple.second p
       in
-        (first, second)
+        (first % boardSize, second % boardSize)
     ) patternBoard
 
 
