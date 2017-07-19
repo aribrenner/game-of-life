@@ -182,11 +182,16 @@ allNeighbors pair =
   let
     i = Tuple.first pair
     j = Tuple.second pair
+
+    i1 = (i - 1) % boardSize
+    i2 = (i + 1) % boardSize
+    j1 = (j - 1) % boardSize
+    j2 = (j + 1) % boardSize
   in
     [
-      (i-1, j-1), (i-1, j), (i-1, j+1),
-      (i, j-1),             (i, j+1),
-      (i+1, j-1), (i+1, j), (i+1, j+1)
+      (i1, j1), (i1, j), (i1, j2)
+    , (i,  j1),          (i,  j2)
+    , (i2, j1), (i2, j), (i2, j2)
     ]
 
 occupiedNeighbors : Pair -> Board -> Int
