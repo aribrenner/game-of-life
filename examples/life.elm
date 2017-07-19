@@ -165,16 +165,6 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Time.every 23 Tick
 
-toggleCell : Board -> Pair -> Board
-toggleCell board pair =
-  let
-    cur = isAlive board pair
-  in
-    if cur then
-      Set.remove pair board
-    else
-      Set.insert pair board
-
 
 nums : Int -> List Int
 nums int =
