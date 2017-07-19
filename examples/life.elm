@@ -31,7 +31,8 @@ type alias Model = {
   fullBoard : BoardRowIndexes,
   interval : Float,
   lastUpdate : Float,
-  tempBoard : Board
+  tempBoard : Board,
+  pattern : String
 }
 
 model : Model
@@ -42,6 +43,7 @@ model =
   , interval = second
   , lastUpdate = 0
   , tempBoard = Set.empty
+  , pattern = "dot"
   }
 
 boardSize = 40
@@ -51,6 +53,7 @@ libraryList =
   [ ("blinker", pairsToSet [(2,1), (2,2), (2,3)])
   , ("glider",  pairsToSet [(3,1), (3,2), (3, 3), (2, 3), (1, 2)])
   , ("llws",  pairsToSet [(1,1), (4,1), (5,2), (5,3), (5,4), (4,4), (3,4), (2,4), (1,3)])
+  , ("dot",  pairsToSet [(0,0)])
   ]
 
 library =
@@ -96,9 +99,10 @@ type Msg
   | ToggleCell Pair
   | UpdateInterval String
   | ClearBoard
-  | SetBoard String
-  | SetTempBoard String
+  | SetPattern String
+  | SetTempBoard Pair
   | ClearTempBoard
+  | SetTempToBoard
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -121,12 +125,29 @@ update msg model =
       ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
     ClearBoard ->
       ({model | board = Set.empty}, noCmd)
-    SetBoard pattern ->
-      ({model | board = Set.union (boardFromLib pattern) model.board}, noCmd)
-    SetTempBoard pattern ->
-      ({model | tempBoard = boardFromLib pattern}, noCmd)
+    SetTempToBoard ->
+      ({model | board = Set.union (model.tempBoard) model.board}, noCmd)
+    SetPattern pattern ->
+      ({model | pattern = pattern}, noCmd)
+    SetTempBoard pair ->
+      ({model | tempBoard = createTempBoard model pair}, noCmd)
     ClearTempBoard ->
       ({model | tempBoard = Set.empty}, noCmd)
+
+
+createTempBoard : Model -> Pair -> Board
+createTempBoard model pair =
+  let
+    patternBoard = boardFromLib model.pattern
+  in
+    Set.map (\p ->
+      let
+        first = Tuple.first pair + Tuple.first p
+        second = Tuple.second pair + Tuple.second p
+      in
+        (first, second)
+    ) patternBoard
+
 
 
 boardFromLib : String -> Board
@@ -205,7 +226,6 @@ onBoard pair =
   in
     i >= 0 && j >= 0 && i < boardSize && j < boardSize
 
-
 -- VIEW
 
 
@@ -236,7 +256,12 @@ drawCell model i j =
     klass1 = if isAlive model.tempBoard (i, j) then "temp-life" else ""
     klass2 = if isAlive model.board (i, j) then "life" else ""
   in
-    div [class ("cell " ++ klass1 ++ " " ++ klass2), onClick (ToggleCell (i, j))] []
+    div
+      [ class ("cell " ++ klass1 ++ " " ++ klass2)
+      , onClick (SetTempToBoard)
+      , onMouseOver (SetTempBoard (i, j))
+      , onMouseOut ClearTempBoard
+      ] []
 
 pauseButton isPaused =
   let
@@ -248,7 +273,7 @@ clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
 patternButton pattern =
-  button [onClick (SetBoard pattern), onMouseOver (SetTempBoard pattern), onMouseOut ClearTempBoard] [text pattern]
+  button [onClick (SetPattern pattern)] [text pattern]
 
 intervalSlider interval =
   input
