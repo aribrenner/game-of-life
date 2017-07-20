@@ -45,7 +45,7 @@ model =
   , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
-  , pattern = "dot"
+  , pattern = "blinker"
   , iOffset = 0
   , jOffset = 0
   }
