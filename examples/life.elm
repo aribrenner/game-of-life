@@ -34,7 +34,7 @@ type alias Model = {
   interval : Float,
   lastUpdate : Float,
   tempBoard : Board,
-  pattern : String,
+  pattern : Pattern,
   iOffset : Int,
   jOffset : Int
 }
@@ -47,7 +47,7 @@ model =
   , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
-  , pattern = "blinker"
+  , pattern = blinker
   , iOffset = 0
   , jOffset = 0
   }
@@ -67,15 +67,7 @@ llws = [(0,0), (3,0), (4,1), (4,2), (4,3), (3,3), (2,3), (1,3), (0,2)]
 dot : Pattern
 dot = [(0,0)]
 
-libraryList =
-  [ ("blinker", pairsToSet blinker)
-  , ("glider",  pairsToSet glider)
-  , ("llws",  pairsToSet llws)
-  , ("dot",  pairsToSet dot)
-  ]
-
-library =
-  Dict.fromList libraryList
+patterns = [blinker, glider, llws, dot]
 
 pairsToSet : List Pair -> Board
 pairsToSet list =
@@ -116,7 +108,7 @@ type Msg
   | Tick Time
   | UpdateInterval String
   | ClearBoard
-  | SetPattern String
+  | SetPattern Pattern
   | SetTempBoard Pair
   | ClearTempBoard
   | SetTempToBoard
@@ -159,7 +151,7 @@ update msg model =
 createTempBoard : Model -> Pair -> Board
 createTempBoard model pair =
   let
-    patternBoard = boardFromLib model.pattern
+    patternBoard = Set.fromList model.pattern
   in
     Set.map (\p ->
       let
@@ -169,11 +161,6 @@ createTempBoard model pair =
         (i % boardSize, j % boardSize)
     ) patternBoard
 
-
-
-boardFromLib : String -> Board
-boardFromLib key =
-  Maybe.withDefault Set.empty (Dict.get key library)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -255,8 +242,7 @@ view model =
     , patternButtons model
     , drawBoard model
     , offsetSlider model.iOffset UpdateOffsetI
-    , offsetSlider model.jOffset UpdateOffsetJ,
-    patternPreview blinker
+    , offsetSlider model.jOffset UpdateOffsetJ
     ]
 
 
@@ -305,11 +291,12 @@ pauseButton isPaused =
 clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
+patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
   let
     isDisabled = model.pattern == pattern
   in
-    button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [text pattern]
+    button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [patternPreview pattern]
 
 intervalSlider interval =
   input
@@ -331,14 +318,13 @@ offsetSlider val updateFunc =
     , onInput updateFunc
     ] []
 
+patternButtons : Model -> Html Msg
 patternButtons model =
-  let
-    keys = List.map (\p -> Tuple.first p) libraryList
-  in
-    span [] (
-      List.map (\key -> patternButton model key) keys
-    )
+  span [] (
+    List.map (\pattern -> patternButton model pattern) patterns
+  )
 
+patternPreview : Pattern -> Html Msg
 patternPreview pattern =
   let
     set = Set.fromList pattern
@@ -349,8 +335,8 @@ patternPreview pattern =
           klass = if isAlive set (i, j) then "life" else ""
         in
           span [class ("cell " ++ klass)] []
-      ) (nums 7))
-    ) (nums 7))
+      ) (nums 4))
+    ) (nums 4))
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
 stylesheet href =
