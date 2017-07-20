@@ -4,8 +4,7 @@ import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
 import Set exposing (Set)
 import Time exposing (Time, second)
-
-
+import Pattern exposing (..)
 
 
 main =
@@ -24,8 +23,6 @@ type alias Pair = (Int, Int)
 type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
-
-type alias Pattern = List Pair
 
 type alias Model = {
   board : Board,
@@ -47,7 +44,7 @@ model =
   , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
-  , pattern = blinker
+  , pattern = Pattern.blinker
   , iOffset = 0
   , jOffset = 0
   }
@@ -55,25 +52,6 @@ model =
 boardSize = 40
 noCmd = Cmd.none
 
-blinker : Pattern
-blinker = [(0,0), (0,1), (0,2)]
-
-glider : Pattern
-glider = [(2,0), (2,1), (2,2), (1,2), (0,1)]
-
-llws : Pattern
-llws = [(0,0), (3,0), (4,1), (4,2), (4,3), (3,3), (2,3), (1,3), (0,2)]
-
-dot : Pattern
-dot = [(0,0)]
-
-block : Pattern
-block = [(0,0), (0,1), (1,0), (1,1)]
-
-pentomino : Pattern
-pentomino = [(0,1), (0,2), (1,0), (1,1), (2, 1)]
-
-patterns = [blinker, glider, llws, dot, block, pentomino]
 
 pairsToSet : List Pair -> Board
 pairsToSet list =
@@ -335,7 +313,7 @@ offsetSlider val updateFunc klass =
 patternButtons : Model -> Html Msg
 patternButtons model =
   span [] (
-    List.map (\pattern -> patternButton model pattern) patterns
+    List.map (\pattern -> patternButton model pattern) Pattern.patterns
   )
 
 patternPreview : Pattern -> Html Msg
