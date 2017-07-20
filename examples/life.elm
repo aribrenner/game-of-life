@@ -255,7 +255,8 @@ view model =
     , patternButtons model
     , drawBoard model
     , offsetSlider model.iOffset UpdateOffsetI
-    , offsetSlider model.jOffset UpdateOffsetJ
+    , offsetSlider model.jOffset UpdateOffsetJ,
+    patternPreview blinker
     ]
 
 
@@ -338,6 +339,18 @@ patternButtons model =
       List.map (\key -> patternButton model key) keys
     )
 
+patternPreview pattern =
+  let
+    set = Set.fromList pattern
+  in
+    span [] (List.map (\i->
+      div [class "row"] (List.map (\j->
+        let
+          klass = if isAlive set (i, j) then "life" else ""
+        in
+          span [class ("cell " ++ klass)] []
+      ) (nums 7))
+    ) (nums 7))
 
 -- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
 stylesheet href =
