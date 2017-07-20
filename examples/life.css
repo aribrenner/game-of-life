@@ -34,15 +34,15 @@ body {
 }
 
 .cell.life {
-  background: green;
+  background: black;
 }
 
 .cell.temp-life {
-  background: yellow;
+  background: white;
 }
 
 .cell.life.temp-life {
-  background: yellowgreen;
+  background: gray;
 }
 
 .pattern-button {

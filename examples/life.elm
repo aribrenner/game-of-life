@@ -259,16 +259,27 @@ drawCell model i j =
   let
     iVal = (i + model.iOffset) % boardSize
     jVal = (j + model.jOffset) % boardSize
+
     pair = (iVal, jVal)
-    klass1 = if isAlive model.tempBoard pair then "temp-life" else ""
-    klass2 = if isAlive model.board pair then "life" else ""
+    hasTempLife = isAlive model.tempBoard pair
+    hasLife = isAlive model.board pair
+    klass1 = if hasTempLife then "temp-life" else ""
+    klass2 = if hasLife then "life" else ""
+    stylePairs = if hasTempLife || hasLife then [] else [("background-color", rgb (jVal - iVal))]
   in
     div
       [ class ("cell " ++ klass1 ++ " " ++ klass2)
       , onClick (SetTempToBoard)
       , onMouseOver (SetTempBoard pair)
       , onMouseOut ClearTempBoard
+      , style stylePairs
       ] []
+
+rgb val =
+  let
+    h = toString ((360 * val) // (boardSize // 1))
+  in
+    "hsl(" ++ h ++ ",100%,80%)"
 
 pauseButton isPaused =
   let
