@@ -60,3 +60,9 @@ body {
   cursor: default;
   color: white;
 }
+
+/* https://stackoverflow.com/questions/15935837/how-to-display-a-range-input-slider-vertically */
+input[type=range].vertical {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+}

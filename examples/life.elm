@@ -247,8 +247,8 @@ view model =
     , clearButton
     , patternButtons model
     , drawBoard model
-    , offsetSlider model.iOffset UpdateOffsetI
-    , offsetSlider model.jOffset UpdateOffsetJ
+    , offsetSlider model.iOffset UpdateOffsetI ""
+    , offsetSlider model.jOffset UpdateOffsetJ "vertical"
     ]
 
 
@@ -314,7 +314,7 @@ intervalSlider interval =
     , onInput UpdateInterval
     ] []
 
-offsetSlider val updateFunc =
+offsetSlider val updateFunc klass =
   input
     [ type_ "range"
     , Html.Attributes.min "0"
@@ -322,6 +322,7 @@ offsetSlider val updateFunc =
     , Html.Attributes.step "1"
     , value (toString val)
     , onInput updateFunc
+    , class klass
     ] []
 
 patternButtons : Model -> Html Msg
