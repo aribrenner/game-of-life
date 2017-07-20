@@ -67,7 +67,13 @@ llws = [(0,0), (3,0), (4,1), (4,2), (4,3), (3,3), (2,3), (1,3), (0,2)]
 dot : Pattern
 dot = [(0,0)]
 
-patterns = [blinker, glider, llws, dot]
+block : Pattern
+block = [(0,0), (0,1), (1,0), (1,1)]
+
+pentomino : Pattern
+pentomino = [(0,1), (0,2), (1,0), (1,1), (2, 1)]
+
+patterns = [blinker, glider, llws, dot, block, pentomino]
 
 pairsToSet : List Pair -> Board
 pairsToSet list =
