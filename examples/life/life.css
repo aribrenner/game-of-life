@@ -30,8 +30,9 @@ body {
   height: 12px;
   background: lightgray;
   display: inline-block;
-  margin: 0.5px 0.5px;
+  margin: -0.5px -0.5px;
   line-height: 120px;
+  border: 1px solid ghostwhite;
 }
 
 .cell.life {
