@@ -251,7 +251,7 @@ view model =
     , offsetSlider model.jOffset UpdateOffsetJ "vertical"
     ]
 
-
+drawBoard : Model -> Html Msg
 drawBoard model =
   let
     board = model.board
@@ -259,9 +259,11 @@ drawBoard model =
   in
     div [class ("board " ++ klass)] (List.map (drawRow model) (nums (boardSize - 1)))
 
+drawRow : Model -> Int -> Html Msg
 drawRow model i =
   div [class "row"] (List.map (drawCell model i) (nums (boardSize - 1)))
 
+drawCell : Model -> Int -> Int -> Html Msg
 drawCell model i j =
   let
     iVal = (i + model.iOffset) % boardSize
@@ -282,18 +284,21 @@ drawCell model i j =
       , style stylePairs
       ] []
 
+rgb : Int -> String
 rgb val =
   let
     h = toString ((360 * val) // (boardSize // 1))
   in
     "hsl(" ++ h ++ ",100%,80%)"
 
+pauseButton : Bool -> Html Msg
 pauseButton isPaused =
   let
     str = if isPaused then "Unpause" else "Pause"
   in
     button [ onClick TogglePause, class "pause-button"] [ text str ]
 
+clearButton : Html Msg
 clearButton =
   button [class "clear-button", onClick ClearBoard] [text "Clear"]
 
@@ -304,6 +309,7 @@ patternButton model pattern =
   in
     button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [patternPreview pattern]
 
+intervalSlider : Float -> Html Msg
 intervalSlider interval =
   input
     [ type_ "range"
@@ -314,6 +320,7 @@ intervalSlider interval =
     , onInput UpdateInterval
     ] []
 
+offsetSlider : Int -> (String -> Msg) -> String -> Html Msg
 offsetSlider val updateFunc klass =
   input
     [ type_ "range"
