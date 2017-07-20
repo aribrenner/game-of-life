@@ -247,8 +247,8 @@ view model =
     , clearButton
     , patternButtons model
     , drawBoard model
-    , offsetSlider model.iOffset UpdateOffsetI ""
-    , offsetSlider model.jOffset UpdateOffsetJ "vertical"
+    , offsetSlider model.iOffset UpdateOffsetI "vertical"
+    , offsetSlider model.jOffset UpdateOffsetJ ""
     ]
 
 drawBoard : Model -> Html Msg
