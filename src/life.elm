@@ -1,10 +1,11 @@
-import Html exposing (Html, div, text, node, span, button, input)
+import Html exposing (Html, div, text, span, button, input)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
 import Set exposing (Set)
 import Time exposing (Time, second)
 import Pattern exposing (..)
+import Stylesheet exposing (stylesheet)
 
 
 main =
@@ -329,16 +330,3 @@ patternPreview pattern =
           span [class ("cell " ++ klass)] []
       ) (nums 4))
     ) (nums 4))
-
--- https://gist.github.com/coreytrampe/a120fac4959db7852c0f
-stylesheet href =
-  let
-    tag = "link"
-    attrs =
-        [ attribute "rel"       "stylesheet"
-        , attribute "property"  "stylesheet"
-        , attribute "href"      href
-        ]
-    children = []
-  in
-    node tag attrs children
