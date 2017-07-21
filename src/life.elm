@@ -1,6 +1,6 @@
 import Html exposing (Html, div, text, span, button, input)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
+import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut, onDoubleClick)
 import Dict exposing (Dict)
 import Set exposing (Set)
 import Time exposing (Time, second)
@@ -99,6 +99,7 @@ type Msg
   | SetTempToBoard
   | UpdateOffsetI String
   | UpdateOffsetJ String
+  | Erase Pair
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -131,6 +132,9 @@ update msg model =
       ({model | iOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
     UpdateOffsetJ str ->
       ({model | jOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
+    Erase pair ->
+      ({model | board = Set.remove pair model.board}, noCmd)
+
 
 
 createTempBoard : Model -> Pair -> Board
@@ -260,6 +264,7 @@ drawCell model i j =
       , onClick (SetTempToBoard)
       , onMouseOver (SetTempBoard pair)
       , onMouseOut ClearTempBoard
+      , onDoubleClick (Erase pair)
       , style stylePairs
       ] []
 
