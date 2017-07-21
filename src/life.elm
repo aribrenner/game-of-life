@@ -106,48 +106,49 @@ type Msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  case msg of
+  (case msg of
     TogglePause ->
-      ({ model | paused = not model.paused }, noCmd)
+      { model | paused = not model.paused }
     Tick newTime ->
       let
         isRecent = (newTime - model.lastUpdate) < model.interval
         shouldRedraw = not (model.paused || isRecent)
       in
         if shouldRedraw then
-          ({ model | board = newDict model, lastUpdate = newTime }, noCmd)
+          { model | board = newDict model, lastUpdate = newTime }
         else
-          (model, noCmd)
+          model
     UpdateInterval str ->
-      ({model | interval = Result.withDefault second (String.toFloat str)}, noCmd)
+      {model | interval = Result.withDefault second (String.toFloat str)}
     ClearBoard ->
-      ({model | board = Set.empty}, noCmd)
+      {model | board = Set.empty}
     SetTempToBoard ->
-      ({model | board = Set.union (model.tempBoard) model.board}, noCmd)
+      {model | board = Set.union (model.tempBoard) model.board}
     SetPattern pattern ->
-      ({model | pattern = pattern}, noCmd)
+      {model | pattern = pattern}
     SetTempBoard pair ->
-      ({model | tempBoard = createTempBoard model pair}, noCmd)
+      {model | tempBoard = createTempBoard model pair}
     ClearTempBoard ->
-      ({model | tempBoard = Set.empty}, noCmd)
+      {model | tempBoard = Set.empty}
     UpdateOffsetI str ->
-      ({model | iOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
+      {model | iOffset = Result.withDefault 0 (String.toInt str)}
     UpdateOffsetJ str ->
-      ({model | jOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
+      {model | jOffset = Result.withDefault 0 (String.toInt str)}
     Erase pair ->
-      ({model | board = Set.remove pair model.board}, noCmd)
+      {model | board = Set.remove pair model.board}
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
-          ({model | jOffset = model.jOffset + 1}, noCmd)
+          {model | jOffset = model.jOffset + 1}
         38 -> -- up
-          ({model | iOffset = model.iOffset + 1}, noCmd)
+          {model | iOffset = model.iOffset + 1}
         39 -> -- right
-          ({model | jOffset = model.jOffset - 1}, noCmd)
+          {model | jOffset = model.jOffset - 1}
         40 -> -- down
-          ({model | iOffset = model.iOffset - 1}, noCmd)
+          {model | iOffset = model.iOffset - 1}
         _ ->
-          (model, noCmd)
+          model
+  , noCmd)
 
 
 createTempBoard : Model -> Pair -> Board
