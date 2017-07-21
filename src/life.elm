@@ -6,6 +6,7 @@ import Set exposing (Set)
 import Time exposing (Time, second)
 import Pattern exposing (..)
 import Stylesheet exposing (stylesheet)
+import Keyboard
 
 
 main =
@@ -100,6 +101,7 @@ type Msg
   | UpdateOffsetI String
   | UpdateOffsetJ String
   | Erase Pair
+  | KeyMsg Keyboard.KeyCode
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -134,7 +136,18 @@ update msg model =
       ({model | jOffset = Result.withDefault 0 (String.toInt str)}, noCmd)
     Erase pair ->
       ({model | board = Set.remove pair model.board}, noCmd)
-
+    KeyMsg keyCode ->
+      case keyCode of
+        37 -> -- left
+          ({model | jOffset = model.jOffset + 1}, noCmd)
+        38 -> -- up
+          ({model | iOffset = model.iOffset + 1}, noCmd)
+        39 -> -- right
+          ({model | jOffset = model.jOffset - 1}, noCmd)
+        40 -> -- down
+          ({model | iOffset = model.iOffset - 1}, noCmd)
+        _ ->
+          (model, noCmd)
 
 
 createTempBoard : Model -> Pair -> Board
@@ -153,7 +166,10 @@ createTempBoard model pair =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every 23 Tick
+  Sub.batch
+    [ Time.every 23 Tick
+    , Keyboard.downs KeyMsg
+    ]
 
 
 nums : Int -> List Int
@@ -314,7 +330,7 @@ offsetSlider val updateFunc klass =
     , Html.Attributes.min "0"
     , Html.Attributes.max (toString (boardSize - 1))
     , Html.Attributes.step "1"
-    , value (toString val)
+    , value (toString (val % boardSize))
     , onInput updateFunc
     , class klass
     ] []
