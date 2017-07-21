@@ -67,19 +67,3 @@ body {
   cursor: default;
   color: white;
 }
-
-/* https://stackoverflow.com/questions/15935837/how-to-display-a-range-input-slider-vertically */
-input[type=range].vertical {
-  writing-mode: bt-lr; /* IE */
-  -webkit-appearance: slider-vertical; /* WebKit */
-}
-
-/* https://stackoverflow.com/questions/17955983/flip-horizontally-html-and-css */
-input[type=range].horizontal {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  transform: scaleX(-1);
-  -ms-filter: fliph; /*IE*/
-  filter: fliph; /*IE*/
-}

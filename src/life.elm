@@ -241,7 +241,8 @@ onBoard pair =
 view : Model -> Html Msg
 view model =
   div []
-    [ div [] [stylesheet "life.css"]
+    [ stylesheet "life.css"
+    , stylesheet "slider.css"
     , pauseButton model.paused
     , intervalSlider model.interval
     , clearButton
