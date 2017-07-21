@@ -25,14 +25,19 @@ body {
   line-height: 0px;
 }
 
+.cell-container {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+}
+
 .cell {
   width: 12px;
   height: 12px;
   background: lightgray;
   display: inline-block;
-  margin: -0.5px -0.5px;
+  margin: 0.5px 0.5px;
   line-height: 120px;
-  border: 1px solid ghostwhite;
 }
 
 .cell.life {

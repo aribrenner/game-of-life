@@ -259,14 +259,17 @@ drawCell model i j =
     klass2 = if hasLife then "life" else ""
     stylePairs = if hasTempLife || hasLife then [] else [("background-color", rgb (jVal - iVal))]
   in
-    div
-      [ class ("cell " ++ klass1 ++ " " ++ klass2)
-      , onClick (SetTempToBoard)
-      , onMouseOver (SetTempBoard pair)
-      , onMouseOut ClearTempBoard
-      , onDoubleClick (Erase pair)
-      , style stylePairs
-      ] []
+    span [ class "cell-container"
+         , onClick (SetTempToBoard)
+         , onMouseOver (SetTempBoard pair)
+         , onMouseOut ClearTempBoard
+         , onDoubleClick (Erase pair)
+    ] [
+      div
+        [ class ("cell " ++ klass1 ++ " " ++ klass2)
+        , style stylePairs
+        ] []
+    ]
 
 rgb : Int -> String
 rgb val =
