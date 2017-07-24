@@ -240,15 +240,27 @@ onBoard pair =
 
 view : Model -> Html Msg
 view model =
-  div []
+  div [class "container clearfix"]
     [ stylesheet "life.css"
     , stylesheet "slider.css"
-    , pauseButton model.paused
-    , intervalSlider model.interval
-    , clearButton
-    , patternButtons model
     , drawBoard model
-    , offsetSlider model.iOffset UpdateOffsetI "vertical"
+    , controls model
+    ]
+
+controls : Model -> Html Msg
+controls model =
+  span [class "controls"]
+    [ pauseButton model.paused
+    , clearButton
+    , intervalSlider model.interval
+    , patternButtons model
+    , offsetSliders model
+    ]
+
+offsetSliders : Model -> Html Msg
+offsetSliders model =
+  div [class "offset-sliders"]
+    [ offsetSlider model.iOffset UpdateOffsetI "vertical"
     , offsetSlider model.jOffset UpdateOffsetJ "horizontal"
     ]
 
@@ -301,11 +313,11 @@ pauseButton isPaused =
   let
     str = if isPaused then "Unpause" else "Pause"
   in
-    button [ onClick TogglePause, class "pause-button"] [ text str ]
+    button [ onClick TogglePause, class "control-button"] [ text str ]
 
 clearButton : Html Msg
 clearButton =
-  button [class "clear-button", onClick ClearBoard] [text "Clear"]
+  button [class "control-button", onClick ClearBoard] [text "Clear"]
 
 patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
@@ -339,7 +351,7 @@ offsetSlider val updateFunc klass =
 
 patternButtons : Model -> Html Msg
 patternButtons model =
-  span [] (
+  span [class "pattern-buttons"] (
     List.map (\pattern -> patternButton model pattern) Pattern.patterns
   )
 

@@ -4,17 +4,34 @@ body {
   font-family: sans-serif;
 }
 
-.pause-button, .clear-button {
+.control-button {
   margin-right: 10px;
   width: 100px;
   font-size: 20px;
   cursor: pointer;
 }
 
+.control-button, .pattern-button, .controls {
+  box-shadow: 0px 0px 5px #222;
+}
+
 .board {
   border: 2px solid black;
   padding: 5px;
   display: inline-block;
+  float: left;
+}
+
+.container {
+  width: 1000px;
+}
+
+.controls {
+  float: right;
+  background: darkgray;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px;
 }
 
 .board.paused {
@@ -53,18 +70,40 @@ body {
   background: gray;
 }
 
+.pattern-buttons {
+  display: block;
+  width: 270px;
+  margin: auto;
+  text-align: center;
+}
+
 .pattern-button {
   font-family: inherit;
   font-size: 20px;
   background: white;
   cursor: pointer;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   margin: 2px;
+  display: inline;
+}
+
+.pattern-button:focus {
+  outline: 0;
 }
 
 .pattern-button:disabled {
   background: lightblue;
   cursor: default;
   color: white;
+}
+
+.offset-sliders {
+  margin: 70px 5px;
+}
+
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: block;
 }
