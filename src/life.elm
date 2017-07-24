@@ -251,7 +251,7 @@ controls : Model -> Html Msg
 controls model =
   span [class "controls"]
     [ pauseButton model.paused
-    , clearButton
+    , clearButton model
     , intervalSlider model.interval
     , patternButtons model
     , offsetSliders model
@@ -315,9 +315,12 @@ pauseButton isPaused =
   in
     button [ onClick TogglePause, class "control-button"] [ text str ]
 
-clearButton : Html Msg
-clearButton =
-  button [class "control-button", onClick ClearBoard] [text "Clear"]
+clearButton : Model -> Html Msg
+clearButton model =
+  let
+    boardIsEmpty = Set.isEmpty model.board
+  in
+    button [class "control-button", onClick ClearBoard, disabled boardIsEmpty] [text "Clear"]
 
 patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
