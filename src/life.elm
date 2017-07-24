@@ -243,9 +243,15 @@ view model =
   div [class "container clearfix"]
     [ stylesheet "life.css"
     , stylesheet "slider.css"
+    , pageHeader
     , drawBoard model
     , controls model
     ]
+
+
+pageHeader : Html Msg
+pageHeader =
+ div [class "page-header"] [text "Conway's Game of Life"]
 
 controls : Model -> Html Msg
 controls model =
