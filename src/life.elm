@@ -362,6 +362,7 @@ intervalSlider interval =
     , Html.Attributes.step "10"
     , value (toString interval)
     , onInput UpdateInterval
+    , class "interval-slider"
     ] []
 
 offsetSlider : Int -> (String -> Msg) -> String -> Html Msg

@@ -108,3 +108,6 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
+input[type=range].interval-slider::-webkit-slider-runnable-track {
+  background: #7130a9;
+}
