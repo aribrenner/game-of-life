@@ -254,8 +254,16 @@ view model =
     [ stylesheet "life.css"
     , stylesheet "slider.css"
     , pageHeader
-    , drawBoard model
+    , boardStuff model
     , controls model
+    ]
+
+boardStuff : Model -> Html Msg
+boardStuff model =
+  span [class "board-stuff"]
+    [ offsetSlider model.iOffset UpdateOffsetI "vertical"
+    , drawBoard model
+    , offsetSlider model.jOffset UpdateOffsetJ "horizontal"
     ]
 
 
@@ -271,7 +279,6 @@ controls model =
     , intervalSlider model.interval
     , patternButtons model
     , eraserButton model
-    , offsetSliders model
     ]
 
 eraserButton : Model -> Html Msg
@@ -280,13 +287,6 @@ eraserButton model =
     fullText = if model.isEraser then "Draw" else "Erase"
   in
     button [onClick SetEraser, class "control-button"] [text fullText]
-
-offsetSliders : Model -> Html Msg
-offsetSliders model =
-  div [class "offset-sliders"]
-    [ offsetSlider model.iOffset UpdateOffsetI "vertical"
-    , offsetSlider model.jOffset UpdateOffsetJ "horizontal"
-    ]
 
 drawBoard : Model -> Html Msg
 drawBoard model =

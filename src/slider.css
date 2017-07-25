@@ -6,6 +6,10 @@ input[type=range] {
   width: 150px;
 }
 
+.board-stuff input[type=range] {
+  width: 200px;
+}
+
 /*https://stackoverflow.com/questions/17955983/flip-horizontally-html-and-css*/
 input[type=range].horizontal {
   -moz-transform: scaleX(-1);
@@ -14,6 +18,9 @@ input[type=range].horizontal {
   transform: scaleX(-1);
   -ms-filter: fliph; /*IE*/
   filter: fliph; /*IE*/
+  position: absolute;
+  bottom: -45px;
+  right: 0px;
 }
 
 /*https://stackoverflow.com/questions/14233341/how-can-i-rotate-an-html-div-90-degrees*/
@@ -23,6 +30,10 @@ input[type=range].vertical   {
   -o-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
+  display: inline-block;
+  position: absolute;
+  bottom: 80px;
+  right: -135px;
 }
 
 input[type=range]:focus {

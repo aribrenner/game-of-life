@@ -19,7 +19,11 @@ body {
   border: 2px solid black;
   padding: 5px;
   display: inline-block;
+}
+
+.board-stuff {
   float: left;
+  position: relative;
 }
 
 .container {
@@ -128,10 +132,6 @@ body {
   background: lightblue;
   cursor: default;
   color: white;
-}
-
-.offset-sliders {
-  margin: 70px 5px;
 }
 
 .page-header {
