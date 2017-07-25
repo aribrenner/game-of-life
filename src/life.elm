@@ -165,10 +165,29 @@ update msg model =
           {model | iOffset = model.iOffset - 1}
         32 -> -- spacebar
           {model | paused = not model.paused }
+        187 -> -- +
+          incrementInterval model
+        189 -> -- -
+          decrementInterval model
         _ ->
           model
   , noCmd)
 
+incrementInterval : Model -> Model
+incrementInterval model =
+  let
+    mayb = List.minimum [model.interval + intervalStep, intervalMax]
+    val = Maybe.withDefault intervalMax mayb
+  in
+    { model | interval = val}
+
+decrementInterval : Model -> Model
+decrementInterval model =
+  let
+    mayb = List.maximum [model.interval - intervalStep, intervalMin]
+    val = Maybe.withDefault intervalMin mayb
+  in
+    { model | interval = val}
 
 createTempBoard : Model -> Pair -> Board
 createTempBoard model pair =
