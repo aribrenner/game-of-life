@@ -48,8 +48,8 @@ model =
   , lastUpdate = 0
   , tempBoard = Set.empty
   , pattern = Pattern.blinker
-  , iOffset = 0
-  , jOffset = 0
+  , iOffset = boardSize // 2
+  , jOffset = boardSize // 2
   , isEraser = False
   }
 
