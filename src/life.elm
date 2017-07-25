@@ -156,6 +156,8 @@ update msg model =
           {model | jOffset = model.jOffset - 1}
         40 -> -- down
           {model | iOffset = model.iOffset - 1}
+        32 -> -- spacebar
+          {model | paused = not model.paused }
         _ ->
           model
   , noCmd)
