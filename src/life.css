@@ -57,27 +57,42 @@ body {
   display: inline-block;
   margin: 0.5px 0.5px;
   line-height: 120px;
+  position: relative;
 }
 
 .cell.life {
   background: black;
-  position: relative;
   text-align: center;
 }
 
-.eraser .cell.life:hover::after {
-  content: 'X';
-  color: red;
-  font-size: 18px;
+/*.eraser .cell:hover {
+  cursor: no-drop;
+}*/
+
+.eraser .cell.life:hover {
+  background: white;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.eraser .cell:hover::after {
+  color: black;
+  content: '×';
+  opacity: 1;
+  font-size: 20px;
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
-  line-height: 14px;
+  line-height: 12px;
   vertical-align: middle;
   font-weight: bold;
-  cursor: pointer;
-  background: white;
+  opacity: .4;
+}
+
+.eraser .cell.life:hover::after {
+  color: red;
+  opacity: 1;
 }
 
 .cell.temp-life {

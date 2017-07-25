@@ -145,7 +145,7 @@ update msg model =
     UpdateOffsetJ str ->
       {model | jOffset = Result.withDefault 0 (String.toInt str)}
     SetEraser ->
-      { model | isEraser = True }
+      { model | isEraser = not model.isEraser }
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
@@ -270,13 +270,16 @@ controls model =
     , clearButton model
     , intervalSlider model.interval
     , patternButtons model
-    , eraserButton
+    , eraserButton model
     , offsetSliders model
     ]
 
-eraserButton : Html Msg
-eraserButton =
-  button [onClick SetEraser] [text "Eraser"]
+eraserButton : Model -> Html Msg
+eraserButton model =
+  let
+    fullText = if model.isEraser then "Draw" else "Erase"
+  in
+    button [onClick SetEraser, class "control-button"] [text fullText]
 
 offsetSliders : Model -> Html Msg
 offsetSliders model =
@@ -346,7 +349,7 @@ clearButton model =
 patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
   let
-    isDisabled = model.pattern == pattern
+    isDisabled = model.pattern == pattern && not model.isEraser
   in
     button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [patternPreview pattern]
 
