@@ -1,6 +1,6 @@
 import Html exposing (Html, div, text, span, button, input)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut, onDoubleClick)
+import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
 import Set exposing (Set)
 import Time exposing (Time, second)
@@ -105,10 +105,9 @@ type Msg
   | SetPattern Pattern
   | SetTempBoard Pair
   | ClearTempBoard
-  | SetTempToBoard
+  | SetTempToBoard Pair
   | UpdateOffsetI String
   | UpdateOffsetJ String
-  | Erase Pair
   | KeyMsg Keyboard.KeyCode
   | SetEraser
 
@@ -131,8 +130,11 @@ update msg model =
       {model | interval = Result.withDefault second (String.toFloat str)}
     ClearBoard ->
       {model | board = Set.empty}
-    SetTempToBoard ->
-      {model | board = Set.union (model.tempBoard) model.board}
+    SetTempToBoard pair ->
+      if model.pattern == eraser then
+        {model | board = Set.remove pair model.board}
+      else
+        {model | board = Set.union (model.tempBoard) model.board}
     SetPattern pattern ->
       {model | pattern = pattern}
     SetTempBoard pair ->
@@ -145,11 +147,6 @@ update msg model =
       {model | jOffset = Result.withDefault 0 (String.toInt str)}
     SetEraser ->
       { model | pattern = eraser }
-    Erase pair ->
-      if model.pattern == eraser then
-        {model | board = Set.remove pair model.board}
-      else
-        model
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
@@ -315,10 +312,9 @@ drawCell model i j =
     stylePairs = if hasTempLife || hasLife then [] else [("background-color", rgb (jVal - iVal))]
   in
     span [ class "cell-container"
-         , onClick (SetTempToBoard)
+         , onClick (SetTempToBoard pair)
          , onMouseOver (SetTempBoard pair)
          , onMouseOut ClearTempBoard
-         , onDoubleClick (Erase pair)
     ] [
       div
         [ class ("cell " ++ klass1 ++ " " ++ klass2)
