@@ -1,4 +1,4 @@
-import Html exposing (Html, div, text, span, button, input)
+import Html exposing (Html, div, text, span, button, input, img)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 import Dict exposing (Dict)
@@ -132,7 +132,10 @@ update msg model =
       else
         {model | board = Set.union (model.tempBoard) model.board}
     SetPattern pattern ->
-      {model | pattern = pattern, isEraser = False}
+      if model.pattern == pattern && not model.isEraser then
+        {model | isEraser = True}
+      else
+        {model | pattern = pattern, isEraser = False}
     SetTempBoard pair ->
       if model.isEraser then
         model
@@ -286,9 +289,12 @@ controls model =
 eraserButton : Model -> Html Msg
 eraserButton model =
   let
-    fullText = if model.isEraser then "Draw" else "Erase"
+    klass = if model.isEraser then "selected" else ""
+    klasses = "pattern-button " ++ klass
   in
-    button [onClick SetEraser, class "control-button"] [text fullText]
+    button [onClick SetEraser, class klasses]
+      [(img [src "images/eraser.png"] [])]
+
 
 drawBoard : Model -> Html Msg
 drawBoard model =
@@ -351,9 +357,10 @@ clearButton model =
 patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
   let
-    isDisabled = model.pattern == pattern && not model.isEraser
+    klass = if (model.pattern == pattern && not model.isEraser) then "selected" else ""
+    klasses = "pattern-button " ++ klass
   in
-    button [onClick (SetPattern pattern), class "pattern-button", disabled isDisabled] [patternPreview pattern]
+    button [onClick (SetPattern pattern), class klasses] [patternPreview pattern]
 
 intervalSlider : Float -> Html Msg
 intervalSlider interval =

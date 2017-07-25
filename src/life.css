@@ -132,9 +132,8 @@ body {
   outline: 0;
 }
 
-.pattern-button:disabled {
+.pattern-button.selected {
   background: lightblue;
-  cursor: default;
   color: white;
 }
 
