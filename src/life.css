@@ -11,6 +11,10 @@ body {
   cursor: pointer;
 }
 
+.control-button:disabled {
+  cursor: default;
+}
+
 .control-button, .pattern-button, .controls {
   box-shadow: 0px 0px 5px #222;
 }
