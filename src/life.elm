@@ -26,6 +26,12 @@ type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
 
+eraser : Eraser
+eraser = []
+
+type alias Marker = List (Int, Int)
+type alias Eraser = Marker
+
 type alias Model = {
   board : Board,
   paused : Bool,
@@ -33,7 +39,7 @@ type alias Model = {
   interval : Float,
   lastUpdate : Float,
   tempBoard : Board,
-  pattern : Pattern,
+  pattern : Marker,
   iOffset : Int,
   jOffset : Int
 }
@@ -89,6 +95,8 @@ fullRow i j =
 -- UPDATE
 
 
+
+
 type Msg
   = TogglePause
   | Tick Time
@@ -102,6 +110,7 @@ type Msg
   | UpdateOffsetJ String
   | Erase Pair
   | KeyMsg Keyboard.KeyCode
+  | SetEraser
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -134,8 +143,13 @@ update msg model =
       {model | iOffset = Result.withDefault 0 (String.toInt str)}
     UpdateOffsetJ str ->
       {model | jOffset = Result.withDefault 0 (String.toInt str)}
+    SetEraser ->
+      { model | pattern = eraser }
     Erase pair ->
-      {model | board = Set.remove pair model.board}
+      if model.pattern == eraser then
+        {model | board = Set.remove pair model.board}
+      else
+        model
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
@@ -260,8 +274,13 @@ controls model =
     , clearButton model
     , intervalSlider model.interval
     , patternButtons model
+    , eraserButton
     , offsetSliders model
     ]
+
+eraserButton : Html Msg
+eraserButton =
+  button [onClick SetEraser] [text "Eraser"]
 
 offsetSliders : Model -> Html Msg
 offsetSliders model =
