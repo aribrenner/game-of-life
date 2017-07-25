@@ -54,6 +54,10 @@ model =
   }
 
 boardSize = 40
+intervalMin = 30
+intervalMax = 500
+intervalStep = 10
+
 noCmd = Cmd.none
 
 
@@ -366,9 +370,9 @@ intervalSlider : Float -> Html Msg
 intervalSlider interval =
   input
     [ type_ "range"
-    , Html.Attributes.min "30"
-    , Html.Attributes.max "500"
-    , Html.Attributes.step "10"
+    , Html.Attributes.min (toString intervalMin)
+    , Html.Attributes.max (toString intervalMax)
+    , Html.Attributes.step (toString intervalStep)
     , value (toString interval)
     , onInput UpdateInterval
     , class "interval-slider"
