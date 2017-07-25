@@ -11,13 +11,16 @@ input[type=range] {
 }
 
 /*https://stackoverflow.com/questions/17955983/flip-horizontally-html-and-css*/
-input[type=range].horizontal {
+input[type=range].horizontal, input[type=range].interval-slider {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   transform: scaleX(-1);
   -ms-filter: fliph; /*IE*/
   filter: fliph; /*IE*/
+}
+
+input[type=range].horizontal {
   position: absolute;
   bottom: -45px;
   right: 0px;

@@ -166,9 +166,9 @@ update msg model =
         32 -> -- spacebar
           {model | paused = not model.paused }
         187 -> -- +
-          incrementInterval model
-        189 -> -- -
           decrementInterval model
+        189 -> -- -
+          incrementInterval model
         _ ->
           model
   , noCmd)
