@@ -26,12 +26,6 @@ type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
 
-eraser : Eraser
-eraser = []
-
-type alias Marker = List (Int, Int)
-type alias Eraser = Marker
-
 type alias Model = {
   board : Board,
   paused : Bool,
@@ -39,9 +33,10 @@ type alias Model = {
   interval : Float,
   lastUpdate : Float,
   tempBoard : Board,
-  pattern : Marker,
+  pattern : Pattern,
   iOffset : Int,
-  jOffset : Int
+  jOffset : Int,
+  isEraser: Bool
 }
 
 model : Model
@@ -55,6 +50,7 @@ model =
   , pattern = Pattern.blinker
   , iOffset = 0
   , jOffset = 0
+  , isEraser = False
   }
 
 boardSize = 40
@@ -131,14 +127,17 @@ update msg model =
     ClearBoard ->
       {model | board = Set.empty}
     SetTempToBoard pair ->
-      if model.pattern == eraser then
+      if model.isEraser then
         {model | board = Set.remove pair model.board}
       else
         {model | board = Set.union (model.tempBoard) model.board}
     SetPattern pattern ->
-      {model | pattern = pattern}
+      {model | pattern = pattern, isEraser = False}
     SetTempBoard pair ->
-      {model | tempBoard = createTempBoard model pair}
+      if model.isEraser then
+        model
+      else
+        {model | tempBoard = createTempBoard model pair}
     ClearTempBoard ->
       {model | tempBoard = Set.empty}
     UpdateOffsetI str ->
@@ -146,7 +145,7 @@ update msg model =
     UpdateOffsetJ str ->
       {model | jOffset = Result.withDefault 0 (String.toInt str)}
     SetEraser ->
-      { model | pattern = eraser }
+      { model | isEraser = True }
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
@@ -291,7 +290,7 @@ drawBoard model =
   let
     board = model.board
     klass1 = if model.paused then "paused" else ""
-    klass2 = if model.pattern == eraser then "eraser" else ""
+    klass2 = if model.isEraser then "eraser" else ""
   in
     div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) (nums (boardSize - 1)))
 
