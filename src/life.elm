@@ -290,9 +290,10 @@ drawBoard : Model -> Html Msg
 drawBoard model =
   let
     board = model.board
-    klass = if model.paused then "paused" else ""
+    klass1 = if model.paused then "paused" else ""
+    klass2 = if model.pattern == eraser then "eraser" else ""
   in
-    div [class ("board " ++ klass)] (List.map (drawRow model) (nums (boardSize - 1)))
+    div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) (nums (boardSize - 1)))
 
 drawRow : Model -> Int -> Html Msg
 drawRow model i =

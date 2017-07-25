@@ -61,6 +61,23 @@ body {
 
 .cell.life {
   background: black;
+  position: relative;
+  text-align: center;
+}
+
+.eraser .cell.life:hover::after {
+  content: 'X';
+  color: red;
+  font-size: 18px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  line-height: 14px;
+  vertical-align: middle;
+  font-weight: bold;
+  cursor: pointer;
+  background: white;
 }
 
 .cell.temp-life {
