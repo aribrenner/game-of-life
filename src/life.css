@@ -65,13 +65,12 @@ body {
   text-align: center;
 }
 
-/*.eraser .cell:hover {
-  cursor: no-drop;
-}*/
+.eraser {
+  cursor: url('images/eraser.png'), auto;
+}
 
 .eraser .cell.life:hover {
   background: white;
-  cursor: pointer;
   opacity: 1;
 }
 
