@@ -214,9 +214,9 @@ subscriptions model =
 nums : Int -> List Int
 nums int =
   if int == 0 then
-    [0]
+    []
   else
-    List.append (nums (int - 1)) [int]
+    List.append (nums (int - 1)) [int - 1]
 
 isAlive : Board -> Pair -> Bool
 isAlive board pair =
@@ -326,11 +326,11 @@ drawBoard model =
     klass1 = if model.paused then "paused" else ""
     klass2 = if model.isEraser then "eraser" else ""
   in
-    div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) (nums (boardSize - 1)))
+    div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) (nums boardSize))
 
 drawRow : Model -> Int -> Html Msg
 drawRow model i =
-  div [class "row"] (List.map (drawCell model i) (nums (boardSize - 1)))
+  div [class "row"] (List.map (drawCell model i) (nums boardSize))
 
 drawCell : Model -> Int -> Int -> Html Msg
 drawCell model i j =
@@ -426,5 +426,5 @@ patternPreview pattern =
           klass = if isAlive set (i, j) then "life" else ""
         in
           span [class ("cell " ++ klass)] []
-      ) (nums 4))
-    ) (nums 4))
+      ) (nums 5))
+    ) (nums 5))
