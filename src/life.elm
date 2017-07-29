@@ -1,3 +1,5 @@
+port module Main exposing (..)
+
 import Html exposing (Html, div, text, span, button, input, img)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
@@ -95,7 +97,7 @@ fullRow i j =
 
 -- UPDATE
 
-
+port saveBoard : String -> Cmd msg
 
 
 type Msg
@@ -111,6 +113,7 @@ type Msg
   | UpdateOffsetJ String
   | KeyMsg KeyCode
   | SetEraser
+  | SaveBoard
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -154,6 +157,8 @@ update msg model =
       {model | jOffset = Result.withDefault 0 (String.toInt str)}
     SetEraser ->
       { model | isEraser = not model.isEraser }
+    SaveBoard ->
+      model
     KeyMsg keyCode ->
       case keyCode of
         37 -> -- left
@@ -172,7 +177,15 @@ update msg model =
           incrementInterval model
         _ ->
           model
-  , noCmd)
+  , getCommand msg model.board)
+
+getCommand : Msg -> Board -> Cmd Msg
+getCommand msg board =
+  case msg of
+    SaveBoard ->
+      saveBoard (encondBoard board)
+    _ ->
+      noCmd
 
 incrementInterval : Model -> Model
 incrementInterval model =
