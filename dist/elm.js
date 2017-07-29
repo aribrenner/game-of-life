@@ -9395,8 +9395,22 @@ var _elm_lang$elm_architecture_tutorial$Main$fullRow = F2(
 			A2(_elm_lang$elm_architecture_tutorial$Main$fullRow, i - 1, j),
 			pair);
 	});
-var _elm_lang$elm_architecture_tutorial$Main$pairsToSet = function (list) {
-	return _elm_lang$core$Set$fromList(list);
+var _elm_lang$elm_architecture_tutorial$Main$encondBoard = function (board) {
+	return _elm_lang$core$Basics$toString(
+		A2(
+			_elm_lang$core$List$map,
+			function (t) {
+				return {
+					ctor: '::',
+					_0: _elm_lang$core$Tuple$first(t),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Tuple$second(t),
+						_1: {ctor: '[]'}
+					}
+				};
+			},
+			_elm_lang$core$Set$toList(board)));
 };
 var _elm_lang$elm_architecture_tutorial$Main$noCmd = _elm_lang$core$Platform_Cmd$none;
 var _elm_lang$elm_architecture_tutorial$Main$intervalStep = 10;
@@ -9699,8 +9713,20 @@ var _elm_lang$elm_architecture_tutorial$Main$offsetSlider = F3(
 			},
 			{ctor: '[]'});
 	});
-var _elm_lang$elm_architecture_tutorial$Main$model = {board: _elm_lang$core$Set$empty, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, isEraser: false};
-var _elm_lang$elm_architecture_tutorial$Main$init = {ctor: '_Tuple2', _0: _elm_lang$elm_architecture_tutorial$Main$model, _1: _elm_lang$elm_architecture_tutorial$Main$noCmd};
+var _elm_lang$elm_architecture_tutorial$Main$createModel = function (board) {
+	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, isEraser: false};
+};
+var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$elm_architecture_tutorial$Main$createModel(
+			_elm_lang$core$Set$fromList(flags.board)),
+		_1: _elm_lang$elm_architecture_tutorial$Main$noCmd
+	};
+};
+var _elm_lang$elm_architecture_tutorial$Main$Flags = function (a) {
+	return {board: a};
+};
 var _elm_lang$elm_architecture_tutorial$Main$Model = F9(
 	function (a, b, c, d, e, f, g, h, i) {
 		return {board: a, paused: b, interval: c, lastUpdate: d, tempBoard: e, pattern: f, iOffset: g, jOffset: h, isEraser: i};
@@ -10071,8 +10097,30 @@ var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
 			}
 		});
 };
-var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$program(
-	{init: _elm_lang$elm_architecture_tutorial$Main$init, view: _elm_lang$elm_architecture_tutorial$Main$view, update: _elm_lang$elm_architecture_tutorial$Main$update, subscriptions: _elm_lang$elm_architecture_tutorial$Main$subscriptions})();
+var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programWithFlags(
+	{init: _elm_lang$elm_architecture_tutorial$Main$init, view: _elm_lang$elm_architecture_tutorial$Main$view, update: _elm_lang$elm_architecture_tutorial$Main$update, subscriptions: _elm_lang$elm_architecture_tutorial$Main$subscriptions})(
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (board) {
+			return _elm_lang$core$Json_Decode$succeed(
+				{board: board});
+		},
+		A2(
+			_elm_lang$core$Json_Decode$field,
+			'board',
+			_elm_lang$core$Json_Decode$list(
+				A2(
+					_elm_lang$core$Json_Decode$andThen,
+					function (x0) {
+						return A2(
+							_elm_lang$core$Json_Decode$andThen,
+							function (x1) {
+								return _elm_lang$core$Json_Decode$succeed(
+									{ctor: '_Tuple2', _0: x0, _1: x1});
+							},
+							A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
+					},
+					A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$int))))));
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

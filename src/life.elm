@@ -10,7 +10,7 @@ import Keyboard exposing (KeyCode)
 
 
 main =
-  Html.program
+  Html.programWithFlags
     { init = init
     , view = view
     , update = update
@@ -25,6 +25,7 @@ type alias Pair = (Int, Int)
 type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
+type alias Flags = { board : List Pair }
 
 type alias Model =
   { board : Board
@@ -38,9 +39,9 @@ type alias Model =
   , isEraser: Bool
   }
 
-model : Model
-model =
-  { board = Set.empty
+createModel : Board -> Model
+createModel board =
+  { board = board
   , paused = True
   , interval = second / 10
   , lastUpdate = 0
@@ -58,10 +59,17 @@ intervalStep = 10
 
 noCmd = Cmd.none
 
+encondBoard : Board -> String
+encondBoard board =
+  toString(
+    List.map (\t ->
+      [Tuple.first t, Tuple.second t]
+    ) (Set.toList board)
+  )
 
-init : (Model, Cmd Msg)
-init =
-  (model, noCmd)
+init : Flags -> (Model, Cmd Msg)
+init flags =
+  (createModel (Set.fromList flags.board), noCmd)
 
 
 fullBoard : BoardRowIndexes

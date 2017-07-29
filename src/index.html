@@ -6,7 +6,15 @@
   </head>
   <body>
     <script>
-      Elm.Main.fullscreen();
+      var key = 'elm-game-of-life-board';
+      var board;
+      try {
+        board = JSON.parse(localStorage.getItem(key));
+      } catch (e) {
+        console.warn(e);
+      }
+
+      Elm.Main.fullscreen({board: board || []});
     </script>
   </body>
 </html>
