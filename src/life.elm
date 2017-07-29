@@ -118,7 +118,11 @@ type Msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  (case msg of
+  (updatedModel msg model, getCommand msg model.board)
+
+updatedModel : Msg -> Model -> Model
+updatedModel msg model =
+  case msg of
     TogglePause ->
       { model | paused = not model.paused }
     Tick newTime ->
@@ -177,7 +181,6 @@ update msg model =
           incrementInterval model
         _ ->
           model
-  , getCommand msg model.board)
 
 getCommand : Msg -> Board -> Cmd Msg
 getCommand msg board =
