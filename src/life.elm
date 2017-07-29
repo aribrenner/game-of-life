@@ -29,7 +29,6 @@ type alias BoardIndexes = List BoardRowIndexes
 type alias Model = {
   board : Board,
   paused : Bool,
-  fullBoard : BoardRowIndexes,
   interval : Float,
   lastUpdate : Float,
   tempBoard : Board,
@@ -43,7 +42,6 @@ model : Model
 model =
   { board = Set.empty
   , paused = True
-  , fullBoard = List.concat fullBoard
   , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
@@ -71,9 +69,9 @@ init =
   (model, noCmd)
 
 
-fullBoard : BoardIndexes
+fullBoard : BoardRowIndexes
 fullBoard =
-  buildBoard (boardSize - 1)
+  List.concat (buildBoard (boardSize - 1))
 --
 --
 buildBoard : Int -> BoardIndexes
@@ -260,7 +258,7 @@ newDict : Model -> Board
 newDict model =
   let
     board = model.board
-    list = List.filter (\p -> updatedPos p board) model.fullBoard
+    list = List.filter (\p -> updatedPos p board) fullBoard
   in
     Set.fromList list
 

@@ -9338,16 +9338,12 @@ var _elm_lang$elm_architecture_tutorial$Main$isAlive = F2(
 		return A2(_elm_lang$core$Set$member, pair, board);
 	});
 var _elm_lang$elm_architecture_tutorial$Main$nums = function ($int) {
-	return _elm_lang$core$Native_Utils.eq($int, 0) ? {
-		ctor: '::',
-		_0: 0,
-		_1: {ctor: '[]'}
-	} : A2(
+	return _elm_lang$core$Native_Utils.eq($int, 0) ? {ctor: '[]'} : A2(
 		_elm_lang$core$List$append,
 		_elm_lang$elm_architecture_tutorial$Main$nums($int - 1),
 		{
 			ctor: '::',
-			_0: $int,
+			_0: $int - 1,
 			_1: {ctor: '[]'}
 		});
 };
@@ -9383,9 +9379,9 @@ var _elm_lang$elm_architecture_tutorial$Main$patternPreview = function (pattern)
 								},
 								{ctor: '[]'});
 						},
-						_elm_lang$elm_architecture_tutorial$Main$nums(4)));
+						_elm_lang$elm_architecture_tutorial$Main$nums(5)));
 			},
-			_elm_lang$elm_architecture_tutorial$Main$nums(4)));
+			_elm_lang$elm_architecture_tutorial$Main$nums(5)));
 };
 var _elm_lang$elm_architecture_tutorial$Main$fullRow = F2(
 	function (i, j) {
@@ -9450,7 +9446,8 @@ var _elm_lang$elm_architecture_tutorial$Main$buildBoard = function (cur) {
 		_elm_lang$elm_architecture_tutorial$Main$buildBoard(cur - 1),
 		miniBoard);
 };
-var _elm_lang$elm_architecture_tutorial$Main$fullBoard = _elm_lang$elm_architecture_tutorial$Main$buildBoard(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1);
+var _elm_lang$elm_architecture_tutorial$Main$fullBoard = _elm_lang$core$List$concat(
+	_elm_lang$elm_architecture_tutorial$Main$buildBoard(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1));
 var _elm_lang$elm_architecture_tutorial$Main$createTempBoard = F2(
 	function (model, pair) {
 		var patternBoard = _elm_lang$core$Set$fromList(model.pattern);
@@ -9531,7 +9528,7 @@ var _elm_lang$elm_architecture_tutorial$Main$newDict = function (model) {
 		function (p) {
 			return A2(_elm_lang$elm_architecture_tutorial$Main$updatedPos, p, board);
 		},
-		model.fullBoard);
+		_elm_lang$elm_architecture_tutorial$Main$fullBoard);
 	return _elm_lang$core$Set$fromList(list);
 };
 var _elm_lang$elm_architecture_tutorial$Main$update = F2(
@@ -9702,40 +9699,12 @@ var _elm_lang$elm_architecture_tutorial$Main$offsetSlider = F3(
 			},
 			{ctor: '[]'});
 	});
-var _elm_lang$elm_architecture_tutorial$Main$model = {
-	board: _elm_lang$core$Set$empty,
-	paused: true,
-	fullBoard: _elm_lang$core$List$concat(_elm_lang$elm_architecture_tutorial$Main$fullBoard),
-	interval: _elm_lang$core$Time$second / 10,
-	lastUpdate: 0,
-	tempBoard: _elm_lang$core$Set$empty,
-	pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker,
-	iOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0,
-	jOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0,
-	isEraser: false
-};
+var _elm_lang$elm_architecture_tutorial$Main$model = {board: _elm_lang$core$Set$empty, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, isEraser: false};
 var _elm_lang$elm_architecture_tutorial$Main$init = {ctor: '_Tuple2', _0: _elm_lang$elm_architecture_tutorial$Main$model, _1: _elm_lang$elm_architecture_tutorial$Main$noCmd};
-var _elm_lang$elm_architecture_tutorial$Main$Model = function (a) {
-	return function (b) {
-		return function (c) {
-			return function (d) {
-				return function (e) {
-					return function (f) {
-						return function (g) {
-							return function (h) {
-								return function (i) {
-									return function (j) {
-										return {board: a, paused: b, fullBoard: c, interval: d, lastUpdate: e, tempBoard: f, pattern: g, iOffset: h, jOffset: i, isEraser: j};
-									};
-								};
-							};
-						};
-					};
-				};
-			};
-		};
-	};
-};
+var _elm_lang$elm_architecture_tutorial$Main$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {board: a, paused: b, interval: c, lastUpdate: d, tempBoard: e, pattern: f, iOffset: g, jOffset: h, isEraser: i};
+	});
 var _elm_lang$elm_architecture_tutorial$Main$SetEraser = {ctor: 'SetEraser'};
 var _elm_lang$elm_architecture_tutorial$Main$eraserButton = function (model) {
 	var klass = model.isEraser ? 'selected' : '';
@@ -9855,7 +9824,7 @@ var _elm_lang$elm_architecture_tutorial$Main$drawRow = F2(
 			A2(
 				_elm_lang$core$List$map,
 				A2(_elm_lang$elm_architecture_tutorial$Main$drawCell, model, i),
-				_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1)));
+				_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize)));
 	});
 var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
 	var klass2 = model.isEraser ? 'eraser' : '';
@@ -9878,7 +9847,7 @@ var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
 		A2(
 			_elm_lang$core$List$map,
 			_elm_lang$elm_architecture_tutorial$Main$drawRow(model),
-			_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1)));
+			_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize)));
 };
 var _elm_lang$elm_architecture_tutorial$Main$boardStuff = function (model) {
 	return A2(
