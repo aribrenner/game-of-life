@@ -59,11 +59,6 @@ intervalStep = 10
 noCmd = Cmd.none
 
 
-pairsToSet : List Pair -> Board
-pairsToSet list =
-  Set.fromList list
-
-
 init : (Model, Cmd Msg)
 init =
   (model, noCmd)
