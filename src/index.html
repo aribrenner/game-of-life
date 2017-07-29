@@ -19,6 +19,7 @@
 
       app.ports.saveBoard.subscribe(function (str) {
         localStorage.setItem(key, str);
+        alert('board saved!');
       });
     </script>
   </body>

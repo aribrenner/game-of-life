@@ -320,6 +320,7 @@ controls model =
     , intervalSlider model.interval
     , patternButtons model
     , eraserButton model
+    , saveBoardButton
     ]
 
 eraserButton : Model -> Html Msg
@@ -441,3 +442,7 @@ patternPreview pattern =
           span [class ("cell " ++ klass)] []
       ) (nums 5))
     ) (nums 5))
+
+saveBoardButton : Html Msg
+saveBoardButton =
+  button [onClick SaveBoard, class "control-button"] [text "save!"]

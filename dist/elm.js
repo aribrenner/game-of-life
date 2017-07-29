@@ -9749,6 +9749,22 @@ var _elm_lang$elm_architecture_tutorial$Main$Model = F9(
 		return {board: a, paused: b, interval: c, lastUpdate: d, tempBoard: e, pattern: f, iOffset: g, jOffset: h, isEraser: i};
 	});
 var _elm_lang$elm_architecture_tutorial$Main$SaveBoard = {ctor: 'SaveBoard'};
+var _elm_lang$elm_architecture_tutorial$Main$saveBoardButton = A2(
+	_elm_lang$html$Html$button,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$SaveBoard),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('control-button'),
+			_1: {ctor: '[]'}
+		}
+	},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('save!'),
+		_1: {ctor: '[]'}
+	});
 var _elm_lang$elm_architecture_tutorial$Main$SetEraser = {ctor: 'SetEraser'};
 var _elm_lang$elm_architecture_tutorial$Main$eraserButton = function (model) {
 	var klass = model.isEraser ? 'selected' : '';
@@ -10078,7 +10094,11 @@ var _elm_lang$elm_architecture_tutorial$Main$controls = function (model) {
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$elm_architecture_tutorial$Main$eraserButton(model),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$elm_architecture_tutorial$Main$saveBoardButton,
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}
