@@ -6,7 +6,7 @@ import Set exposing (Set)
 import Time exposing (Time, second)
 import Pattern exposing (..)
 import Stylesheet exposing (stylesheet)
-import Keyboard
+import Keyboard exposing (KeyCode)
 
 
 main =
@@ -106,7 +106,7 @@ type Msg
   | SetTempToBoard Pair
   | UpdateOffsetI String
   | UpdateOffsetJ String
-  | KeyMsg Keyboard.KeyCode
+  | KeyMsg KeyCode
   | SetEraser
 
 
