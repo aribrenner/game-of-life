@@ -8974,7 +8974,7 @@ var _elm_lang$elm_architecture_tutorial$Update$shouldRedraw = F2(
 		var isRecent = _elm_lang$core$Native_Utils.cmp(newTime - model.lastUpdate, model.interval) < 0;
 		return !(model.paused || isRecent);
 	});
-var _elm_lang$elm_architecture_tutorial$Update$encondBoard = function (board) {
+var _elm_lang$elm_architecture_tutorial$Update$encodeBoard = function (board) {
 	return _elm_lang$core$Basics$toString(
 		A2(
 			_elm_lang$core$List$map,
@@ -9091,7 +9091,7 @@ var _elm_lang$elm_architecture_tutorial$Update$getCommand = F2(
 		var _p1 = msg;
 		if (_p1.ctor === 'SaveBoard') {
 			return _elm_lang$elm_architecture_tutorial$Ports$saveBoard(
-				_elm_lang$elm_architecture_tutorial$Update$encondBoard(board));
+				_elm_lang$elm_architecture_tutorial$Update$encodeBoard(board));
 		} else {
 			return _elm_lang$elm_architecture_tutorial$Constants$noCmd;
 		}

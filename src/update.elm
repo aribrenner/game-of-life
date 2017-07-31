@@ -58,7 +58,7 @@ getCommand : Msg -> Board -> Cmd Msg
 getCommand msg board =
   case msg of
     SaveBoard ->
-      saveBoard (encondBoard board)
+      saveBoard (encodeBoard board)
     _ ->
       noCmd
 
@@ -109,8 +109,8 @@ newDict model =
   in
     Set.fromList list
 
-encondBoard : Board -> String
-encondBoard board =
+encodeBoard : Board -> String
+encodeBoard board =
   toString(
     List.map (\t ->
       [Tuple.first t, Tuple.second t]
