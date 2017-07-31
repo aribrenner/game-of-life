@@ -57,6 +57,7 @@ boardSize = 40
 intervalMin = 30
 intervalMax = 500
 intervalStep = 10
+boardIndexes = List.range 0 (boardSize - 1)
 
 noCmd = Cmd.none
 
@@ -226,14 +227,6 @@ subscriptions model =
     , Keyboard.downs KeyMsg
     ]
 
-
-nums : Int -> List Int
-nums int =
-  if int == 0 then
-    []
-  else
-    List.append (nums (int - 1)) [int - 1]
-
 isAlive : Board -> Pair -> Bool
 isAlive board pair =
   Set.member pair board
@@ -340,11 +333,11 @@ drawBoard model =
     klass1 = if model.paused then "paused" else ""
     klass2 = if model.isEraser then "eraser" else ""
   in
-    div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) (nums boardSize))
+    div [class ("board " ++ klass1 ++ " " ++ klass2)] (List.map (drawRow model) boardIndexes)
 
 drawRow : Model -> Int -> Html Msg
 drawRow model i =
-  div [class "row"] (List.map (drawCell model i) (nums boardSize))
+  div [class "row"] (List.map (drawCell model i) boardIndexes)
 
 drawCell : Model -> Int -> Int -> Html Msg
 drawCell model i j =
@@ -433,6 +426,7 @@ patternPreview : Pattern -> Html Msg
 patternPreview pattern =
   let
     set = Set.fromList pattern
+    patternRage = List.range 0 4
   in
     span [] (List.map (\i->
       div [class "row"] (List.map (\j->
@@ -440,8 +434,8 @@ patternPreview pattern =
           klass = if isAlive set (i, j) then "life" else ""
         in
           span [class ("cell " ++ klass)] []
-      ) (nums 5))
-    ) (nums 5))
+      ) patternRage)
+    ) patternRage)
 
 saveBoardButton : Html Msg
 saveBoardButton =

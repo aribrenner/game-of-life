@@ -9318,17 +9318,8 @@ var _elm_lang$elm_architecture_tutorial$Main$isAlive = F2(
 	function (board, pair) {
 		return A2(_elm_lang$core$Set$member, pair, board);
 	});
-var _elm_lang$elm_architecture_tutorial$Main$nums = function ($int) {
-	return _elm_lang$core$Native_Utils.eq($int, 0) ? {ctor: '[]'} : A2(
-		_elm_lang$core$List$append,
-		_elm_lang$elm_architecture_tutorial$Main$nums($int - 1),
-		{
-			ctor: '::',
-			_0: $int - 1,
-			_1: {ctor: '[]'}
-		});
-};
 var _elm_lang$elm_architecture_tutorial$Main$patternPreview = function (pattern) {
+	var patternRage = A2(_elm_lang$core$List$range, 0, 4);
 	var set = _elm_lang$core$Set$fromList(pattern);
 	return A2(
 		_elm_lang$html$Html$span,
@@ -9360,9 +9351,9 @@ var _elm_lang$elm_architecture_tutorial$Main$patternPreview = function (pattern)
 								},
 								{ctor: '[]'});
 						},
-						_elm_lang$elm_architecture_tutorial$Main$nums(5)));
+						patternRage));
 			},
-			_elm_lang$elm_architecture_tutorial$Main$nums(5)));
+			patternRage));
 };
 var _elm_lang$elm_architecture_tutorial$Main$fullRow = F2(
 	function (i, j) {
@@ -9430,6 +9421,7 @@ var _elm_lang$elm_architecture_tutorial$Main$decrementInterval = function (model
 		{interval: val});
 };
 var _elm_lang$elm_architecture_tutorial$Main$boardSize = 40;
+var _elm_lang$elm_architecture_tutorial$Main$boardIndexes = A2(_elm_lang$core$List$range, 0, _elm_lang$elm_architecture_tutorial$Main$boardSize - 1);
 var _elm_lang$elm_architecture_tutorial$Main$buildBoard = function (cur) {
 	var miniBoard = {
 		ctor: '::',
@@ -9867,7 +9859,7 @@ var _elm_lang$elm_architecture_tutorial$Main$drawRow = F2(
 			A2(
 				_elm_lang$core$List$map,
 				A2(_elm_lang$elm_architecture_tutorial$Main$drawCell, model, i),
-				_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize)));
+				_elm_lang$elm_architecture_tutorial$Main$boardIndexes));
 	});
 var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
 	var klass2 = model.isEraser ? 'eraser' : '';
@@ -9890,7 +9882,7 @@ var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
 		A2(
 			_elm_lang$core$List$map,
 			_elm_lang$elm_architecture_tutorial$Main$drawRow(model),
-			_elm_lang$elm_architecture_tutorial$Main$nums(_elm_lang$elm_architecture_tutorial$Main$boardSize)));
+			_elm_lang$elm_architecture_tutorial$Main$boardIndexes));
 };
 var _elm_lang$elm_architecture_tutorial$Main$boardStuff = function (model) {
 	return A2(
