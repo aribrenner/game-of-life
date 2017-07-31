@@ -5,6 +5,7 @@ import Set exposing (Set)
 import Time exposing (Time, second)
 import Ports exposing (..)
 import Helpers exposing (..)
+import Keyboard exposing (KeyCode)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -55,23 +56,7 @@ updatedModel msg model =
     SaveBoard ->
       model
     KeyMsg keyCode ->
-      case keyCode of
-        37 -> -- left
-          {model | jOffset = model.jOffset + 1}
-        38 -> -- up
-          {model | iOffset = model.iOffset + 1}
-        39 -> -- right
-          {model | jOffset = model.jOffset - 1}
-        40 -> -- down
-          {model | iOffset = model.iOffset - 1}
-        32 -> -- spacebar
-          {model | paused = not model.paused }
-        187 -> -- +
-          decrementInterval model
-        189 -> -- -
-          incrementInterval model
-        _ ->
-          model
+      updateFromKeyCode keyCode model
 
 getCommand : Msg -> Board -> Cmd Msg
 getCommand msg board =
@@ -135,3 +120,23 @@ encondBoard board =
       [Tuple.first t, Tuple.second t]
     ) (Set.toList board)
   )
+
+updateFromKeyCode : KeyCode -> Model -> Model
+updateFromKeyCode keyCode model =
+  case keyCode of
+    37 -> -- left
+      {model | jOffset = model.jOffset + 1}
+    38 -> -- up
+      {model | iOffset = model.iOffset + 1}
+    39 -> -- right
+      {model | jOffset = model.jOffset - 1}
+    40 -> -- down
+      {model | iOffset = model.iOffset - 1}
+    32 -> -- spacebar
+      {model | paused = not model.paused }
+    187 -> -- +
+      decrementInterval model
+    189 -> -- -
+      incrementInterval model
+    _ ->
+      model

@@ -9049,10 +9049,42 @@ var _elm_lang$elm_architecture_tutorial$Update$incrementInterval = function (mod
 		model,
 		{interval: val});
 };
+var _elm_lang$elm_architecture_tutorial$Update$updateFromKeyCode = F2(
+	function (keyCode, model) {
+		var _p0 = keyCode;
+		switch (_p0) {
+			case 37:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{jOffset: model.jOffset + 1});
+			case 38:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{iOffset: model.iOffset + 1});
+			case 39:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{jOffset: model.jOffset - 1});
+			case 40:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{iOffset: model.iOffset - 1});
+			case 32:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{paused: !model.paused});
+			case 187:
+				return _elm_lang$elm_architecture_tutorial$Update$decrementInterval(model);
+			case 189:
+				return _elm_lang$elm_architecture_tutorial$Update$incrementInterval(model);
+			default:
+				return model;
+		}
+	});
 var _elm_lang$elm_architecture_tutorial$Update$getCommand = F2(
 	function (msg, board) {
-		var _p0 = msg;
-		if (_p0.ctor === 'SaveBoard') {
+		var _p1 = msg;
+		if (_p1.ctor === 'SaveBoard') {
 			return _elm_lang$elm_architecture_tutorial$Ports$saveBoard(
 				_elm_lang$elm_architecture_tutorial$Update$encondBoard(board));
 		} else {
@@ -9061,21 +9093,21 @@ var _elm_lang$elm_architecture_tutorial$Update$getCommand = F2(
 	});
 var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'TogglePause':
 				return _elm_lang$core$Native_Utils.update(
 					model,
 					{paused: !model.paused});
 			case 'Tick':
-				var _p2 = _p1._0;
-				var isRecent = _elm_lang$core$Native_Utils.cmp(_p2 - model.lastUpdate, model.interval) < 0;
+				var _p3 = _p2._0;
+				var isRecent = _elm_lang$core$Native_Utils.cmp(_p3 - model.lastUpdate, model.interval) < 0;
 				var shouldRedraw = !(model.paused || isRecent);
 				return shouldRedraw ? _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						board: _elm_lang$elm_architecture_tutorial$Update$newDict(model),
-						lastUpdate: _p2
+						lastUpdate: _p3
 					}) : model;
 			case 'UpdateInterval':
 				return _elm_lang$core$Native_Utils.update(
@@ -9084,7 +9116,7 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 						interval: A2(
 							_elm_lang$core$Result$withDefault,
 							_elm_lang$core$Time$second,
-							_elm_lang$core$String$toFloat(_p1._0))
+							_elm_lang$core$String$toFloat(_p2._0))
 					});
 			case 'ClearBoard':
 				return _elm_lang$core$Native_Utils.update(
@@ -9094,24 +9126,24 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 				return model.isEraser ? _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						board: A2(_elm_lang$core$Set$remove, _p1._0, model.board)
+						board: A2(_elm_lang$core$Set$remove, _p2._0, model.board)
 					}) : _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						board: A2(_elm_lang$core$Set$union, model.tempBoard, model.board)
 					});
 			case 'SetPattern':
-				var _p3 = _p1._0;
-				return (_elm_lang$core$Native_Utils.eq(model.pattern, _p3) && (!model.isEraser)) ? _elm_lang$core$Native_Utils.update(
+				var _p4 = _p2._0;
+				return (_elm_lang$core$Native_Utils.eq(model.pattern, _p4) && (!model.isEraser)) ? _elm_lang$core$Native_Utils.update(
 					model,
 					{isEraser: true}) : _elm_lang$core$Native_Utils.update(
 					model,
-					{pattern: _p3, isEraser: false});
+					{pattern: _p4, isEraser: false});
 			case 'SetTempBoard':
 				return model.isEraser ? model : _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						tempBoard: A2(_elm_lang$elm_architecture_tutorial$Update$createTempBoard, model, _p1._0)
+						tempBoard: A2(_elm_lang$elm_architecture_tutorial$Update$createTempBoard, model, _p2._0)
 					});
 			case 'ClearTempBoard':
 				return _elm_lang$core$Native_Utils.update(
@@ -9124,7 +9156,7 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 						iOffset: A2(
 							_elm_lang$core$Result$withDefault,
 							0,
-							_elm_lang$core$String$toInt(_p1._0))
+							_elm_lang$core$String$toInt(_p2._0))
 					});
 			case 'UpdateOffsetJ':
 				return _elm_lang$core$Native_Utils.update(
@@ -9133,7 +9165,7 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 						jOffset: A2(
 							_elm_lang$core$Result$withDefault,
 							0,
-							_elm_lang$core$String$toInt(_p1._0))
+							_elm_lang$core$String$toInt(_p2._0))
 					});
 			case 'SetEraser':
 				return _elm_lang$core$Native_Utils.update(
@@ -9142,35 +9174,7 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 			case 'SaveBoard':
 				return model;
 			default:
-				var _p4 = _p1._0;
-				switch (_p4) {
-					case 37:
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{jOffset: model.jOffset + 1});
-					case 38:
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{iOffset: model.iOffset + 1});
-					case 39:
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{jOffset: model.jOffset - 1});
-					case 40:
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{iOffset: model.iOffset - 1});
-					case 32:
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{paused: !model.paused});
-					case 187:
-						return _elm_lang$elm_architecture_tutorial$Update$decrementInterval(model);
-					case 189:
-						return _elm_lang$elm_architecture_tutorial$Update$incrementInterval(model);
-					default:
-						return model;
-				}
+				return A2(_elm_lang$elm_architecture_tutorial$Update$updateFromKeyCode, _p2._0, model);
 		}
 	});
 var _elm_lang$elm_architecture_tutorial$Update$update = F2(
