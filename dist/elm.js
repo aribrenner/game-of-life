@@ -8969,6 +8969,11 @@ var _elm_lang$elm_architecture_tutorial$Ports$saveBoard = _elm_lang$core$Native_
 		return v;
 	});
 
+var _elm_lang$elm_architecture_tutorial$Update$shouldRedraw = F2(
+	function (newTime, model) {
+		var isRecent = _elm_lang$core$Native_Utils.cmp(newTime - model.lastUpdate, model.interval) < 0;
+		return !(model.paused || isRecent);
+	});
 var _elm_lang$elm_architecture_tutorial$Update$encondBoard = function (board) {
 	return _elm_lang$core$Basics$toString(
 		A2(
@@ -9101,9 +9106,7 @@ var _elm_lang$elm_architecture_tutorial$Update$updatedModel = F2(
 					{paused: !model.paused});
 			case 'Tick':
 				var _p3 = _p2._0;
-				var isRecent = _elm_lang$core$Native_Utils.cmp(_p3 - model.lastUpdate, model.interval) < 0;
-				var shouldRedraw = !(model.paused || isRecent);
-				return shouldRedraw ? _elm_lang$core$Native_Utils.update(
+				return A2(_elm_lang$elm_architecture_tutorial$Update$shouldRedraw, _p3, model) ? _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						board: _elm_lang$elm_architecture_tutorial$Update$newDict(model),

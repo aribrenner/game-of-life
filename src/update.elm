@@ -18,14 +18,10 @@ updatedModel msg model =
     TogglePause ->
       { model | paused = not model.paused }
     Tick newTime ->
-      let
-        isRecent = (newTime - model.lastUpdate) < model.interval
-        shouldRedraw = not (model.paused || isRecent)
-      in
-        if shouldRedraw then
-          { model | board = newDict model, lastUpdate = newTime }
-        else
-          model
+      if shouldRedraw newTime model then
+        { model | board = newDict model, lastUpdate = newTime }
+      else
+        model
     UpdateInterval str ->
       {model | interval = Result.withDefault second (String.toFloat str)}
     ClearBoard ->
@@ -140,3 +136,10 @@ updateFromKeyCode keyCode model =
       incrementInterval model
     _ ->
       model
+
+shouldRedraw : Time -> Model -> Bool
+shouldRedraw newTime model =
+  let
+    isRecent = (newTime - model.lastUpdate) < model.interval
+  in
+    not (model.paused || isRecent)
