@@ -11,6 +11,12 @@ body {
   cursor: pointer;
 }
 
+.control-button.save-button {
+  width: 150px;
+  float: right;
+  margin-top: 20px;
+}
+
 .control-button:disabled {
   cursor: default;
 }

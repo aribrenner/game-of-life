@@ -9739,13 +9739,13 @@ var _elm_lang$elm_architecture_tutorial$Main$saveBoardButton = A2(
 		_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$SaveBoard),
 		_1: {
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('control-button'),
+			_0: _elm_lang$html$Html_Attributes$class('control-button save-button'),
 			_1: {ctor: '[]'}
 		}
 	},
 	{
 		ctor: '::',
-		_0: _elm_lang$html$Html$text('save!'),
+		_0: _elm_lang$html$Html$text('Save Board'),
 		_1: {ctor: '[]'}
 	});
 var _elm_lang$elm_architecture_tutorial$Main$SetEraser = {ctor: 'SetEraser'};

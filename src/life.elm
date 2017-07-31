@@ -445,4 +445,4 @@ patternPreview pattern =
 
 saveBoardButton : Html Msg
 saveBoardButton =
-  button [onClick SaveBoard, class "control-button"] [text "save!"]
+  button [onClick SaveBoard, class "control-button save-button"] [text "Save Board"]
