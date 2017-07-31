@@ -12,6 +12,7 @@ import Model exposing (..)
 import Update exposing (update)
 import View exposing (view)
 
+main : Program Flags Model Msg
 main =
   Html.programWithFlags
     { init = init
