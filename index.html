@@ -2,27 +2,10 @@
 <html>
   <head>
     <script src="dist/elm.js"></script>
+    <script src="assets/js/main.js"></script>
     <link rel="stylesheet" href="assets/css/life.css">
     <link rel="stylesheet" href="assets/css/slider.css">
     <title>Game of Life</title>
   </head>
-  <body>
-    <script>
-      var key = 'elm-game-of-life-board';
-      var board;
-
-      try {
-        board = JSON.parse(localStorage.getItem(key));
-      } catch (e) {
-        console.warn(e);
-      }
-
-      var app = Elm.Main.fullscreen({board: board || []});
-
-      app.ports.saveBoard.subscribe(function (str) {
-        localStorage.setItem(key, str);
-        alert('board saved!');
-      });
-    </script>
-  </body>
+  <body></body>
 </html>
