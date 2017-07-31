@@ -4,7 +4,7 @@ import Constants exposing (..)
 import Set exposing (Set)
 import Time exposing (Time, second)
 import Ports exposing (..)
-import Helpers exposing (..)
+import Model exposing (..)
 import Keyboard exposing (KeyCode)
 
 

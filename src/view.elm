@@ -2,7 +2,7 @@ module View exposing (view)
 
 import Types exposing (..)
 import Constants exposing (..)
-import Helpers exposing (..)
+import Model exposing (..)
 import Pattern exposing (..)
 import Set exposing (Set)
 

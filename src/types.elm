@@ -13,18 +13,6 @@ type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
 type alias Flags = { board : List Pair }
 
-type alias Model =
-  { board : Board
-  , paused : Bool
-  , interval : Float
-  , lastUpdate : Float
-  , tempBoard : Board
-  , pattern : Pattern
-  , iOffset : Int
-  , jOffset : Int
-  , isEraser: Bool
-  }
-
 type Msg
   = TogglePause
   | Tick Time

@@ -1,10 +1,22 @@
-module Helpers exposing (..)
+module Model exposing (..)
 
 import Types exposing (..)
 import Set exposing (Set)
 import Time exposing (second)
 import Pattern exposing (Pattern)
 import Constants exposing (..)
+
+type alias Model =
+  { board : Board
+  , paused : Bool
+  , interval : Float
+  , lastUpdate : Float
+  , tempBoard : Board
+  , pattern : Pattern
+  , iOffset : Int
+  , jOffset : Int
+  , isEraser: Bool
+  }
 
 isAlive : Board -> Pair -> Bool
 isAlive board pair =

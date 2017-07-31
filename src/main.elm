@@ -8,7 +8,7 @@ import Pattern exposing (..)
 import Keyboard exposing (KeyCode)
 import Types exposing (..)
 import Constants exposing (..)
-import Helpers exposing (..)
+import Model exposing (..)
 import Update exposing (update)
 import View exposing (view)
 
