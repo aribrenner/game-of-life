@@ -6868,6 +6868,9 @@ var _elm_lang$elm_architecture_tutorial$Constants$buildBoard = function (cur) {
 var _elm_lang$elm_architecture_tutorial$Constants$fullBoard = _elm_lang$core$List$concat(
 	_elm_lang$elm_architecture_tutorial$Constants$buildBoard(_elm_lang$elm_architecture_tutorial$Constants$boardSize - 1));
 
+var _elm_lang$elm_architecture_tutorial$Helpers$createModel = function (board) {
+	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, isEraser: false};
+};
 var _elm_lang$elm_architecture_tutorial$Helpers$allNeighbors = function (pair) {
 	var j = _elm_lang$core$Tuple$second(pair);
 	var j1 = A2(_elm_lang$core$Basics_ops['%'], j - 1, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
@@ -10099,13 +10102,10 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 			}
 		});
 };
-var _elm_lang$elm_architecture_tutorial$Main$createModel = function (board) {
-	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, isEraser: false};
-};
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
-		_0: _elm_lang$elm_architecture_tutorial$Main$createModel(
+		_0: _elm_lang$elm_architecture_tutorial$Helpers$createModel(
 			_elm_lang$core$Set$fromList(flags.board)),
 		_1: _elm_lang$elm_architecture_tutorial$Constants$noCmd
 	};

@@ -21,22 +21,6 @@ main =
     }
 
 
-
--- MODEL
-
-createModel : Board -> Model
-createModel board =
-  { board = board
-  , paused = True
-  , interval = second / 10
-  , lastUpdate = 0
-  , tempBoard = Set.empty
-  , pattern = Pattern.blinker
-  , iOffset = boardSize // 2
-  , jOffset = boardSize // 2
-  , isEraser = False
-  }
-
 init : Flags -> (Model, Cmd Msg)
 init flags =
   (createModel (Set.fromList flags.board), noCmd)

@@ -2,6 +2,8 @@ module Helpers exposing (..)
 
 import Types exposing (..)
 import Set exposing (Set)
+import Time exposing (second)
+import Pattern exposing (Pattern)
 import Constants exposing (..)
 
 isAlive : Board -> Pair -> Bool
@@ -30,3 +32,16 @@ allNeighbors pair =
     , (i,  j1),          (i,  j2)
     , (i2, j1), (i2, j), (i2, j2)
     ]
+
+createModel : Board -> Model
+createModel board =
+  { board = board
+  , paused = True
+  , interval = second / 10
+  , lastUpdate = 0
+  , tempBoard = Set.empty
+  , pattern = Pattern.blinker
+  , iOffset = boardSize // 2
+  , jOffset = boardSize // 2
+  , isEraser = False
+  }
