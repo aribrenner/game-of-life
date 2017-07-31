@@ -9133,25 +9133,6 @@ var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
 	}
 };
 
-var _elm_lang$elm_architecture_tutorial$Stylesheet$stylesheet = function (href) {
-	var children = {ctor: '[]'};
-	var attrs = {
-		ctor: '::',
-		_0: A2(_elm_lang$html$Html_Attributes$attribute, 'rel', 'stylesheet'),
-		_1: {
-			ctor: '::',
-			_0: A2(_elm_lang$html$Html_Attributes$attribute, 'property', 'stylesheet'),
-			_1: {
-				ctor: '::',
-				_0: A2(_elm_lang$html$Html_Attributes$attribute, 'href', href),
-				_1: {ctor: '[]'}
-			}
-		}
-	};
-	var tag = 'link';
-	return A3(_elm_lang$html$Html$node, tag, attrs, children);
-};
-
 var _elm_lang$keyboard$Keyboard$onSelfMsg = F3(
 	function (router, _p0, state) {
 		var _p1 = _p0;
@@ -10117,22 +10098,14 @@ var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$elm_architecture_tutorial$Stylesheet$stylesheet('life.css'),
+			_0: _elm_lang$elm_architecture_tutorial$Main$pageHeader,
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Stylesheet$stylesheet('slider.css'),
+				_0: _elm_lang$elm_architecture_tutorial$Main$boardStuff(model),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$elm_architecture_tutorial$Main$pageHeader,
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$elm_architecture_tutorial$Main$boardStuff(model),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$elm_architecture_tutorial$Main$controls(model),
-							_1: {ctor: '[]'}
-						}
-					}
+					_0: _elm_lang$elm_architecture_tutorial$Main$controls(model),
+					_1: {ctor: '[]'}
 				}
 			}
 		});

@@ -7,7 +7,6 @@ import Dict exposing (Dict)
 import Set exposing (Set)
 import Time exposing (Time, second)
 import Pattern exposing (..)
-import Stylesheet exposing (stylesheet)
 import Keyboard exposing (KeyCode)
 
 
@@ -295,9 +294,7 @@ onBoard pair =
 view : Model -> Html Msg
 view model =
   div [class "container clearfix"]
-    [ stylesheet "life.css"
-    , stylesheet "slider.css"
-    , pageHeader
+    [ pageHeader
     , boardStuff model
     , controls model
     ]
