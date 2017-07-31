@@ -6799,9 +6799,6 @@ var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
 	}
 };
 
-var _elm_lang$elm_architecture_tutorial$Types$Flags = function (a) {
-	return {board: a};
-};
 var _elm_lang$elm_architecture_tutorial$Types$SaveBoard = {ctor: 'SaveBoard'};
 var _elm_lang$elm_architecture_tutorial$Types$SetEraser = {ctor: 'SetEraser'};
 var _elm_lang$elm_architecture_tutorial$Types$KeyMsg = function (a) {
@@ -10134,6 +10131,9 @@ var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programW
 							A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
 					},
 					A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$int))))));
+var _elm_lang$elm_architecture_tutorial$Main$Flags = function (a) {
+	return {board: a};
+};
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

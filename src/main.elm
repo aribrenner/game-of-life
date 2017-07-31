@@ -20,6 +20,7 @@ main =
     , subscriptions = subscriptions
     }
 
+type alias Flags = { board : List Pair }
 
 init : Flags -> (Model, Cmd Msg)
 init flags =

@@ -11,7 +11,6 @@ type alias Pair = (Int, Int)
 type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 type alias BoardIndexes = List BoardRowIndexes
-type alias Flags = { board : List Pair }
 
 type Msg
   = TogglePause
