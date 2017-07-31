@@ -9,7 +9,7 @@ import Time exposing (Time, second)
 import Pattern exposing (..)
 import Keyboard exposing (KeyCode)
 import Types exposing (..)
-
+import Constants exposing (..)
 
 main =
   Html.programWithFlags
@@ -35,14 +35,6 @@ createModel board =
   , jOffset = boardSize // 2
   , isEraser = False
   }
-
-boardSize = 40
-intervalMin = 30
-intervalMax = 500
-intervalStep = 10
-boardIndexes = List.range 0 (boardSize - 1)
-
-noCmd = Cmd.none
 
 encondBoard : Board -> String
 encondBoard board =

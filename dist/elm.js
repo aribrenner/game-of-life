@@ -6490,6 +6490,13 @@ return {
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 
+var _elm_lang$elm_architecture_tutorial$Constants$noCmd = _elm_lang$core$Platform_Cmd$none;
+var _elm_lang$elm_architecture_tutorial$Constants$intervalStep = 10;
+var _elm_lang$elm_architecture_tutorial$Constants$intervalMax = 500;
+var _elm_lang$elm_architecture_tutorial$Constants$intervalMin = 30;
+var _elm_lang$elm_architecture_tutorial$Constants$boardSize = 40;
+var _elm_lang$elm_architecture_tutorial$Constants$boardIndexes = A2(_elm_lang$core$List$range, 0, _elm_lang$elm_architecture_tutorial$Constants$boardSize - 1);
+
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -8993,6 +9000,146 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _elm_lang$elm_architecture_tutorial$Pattern$pentomino = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 2},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$block = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$dot = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+	_1: {ctor: '[]'}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$llws = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 3, _1: 0},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 4, _1: 1},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 4, _1: 2},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 4, _1: 3},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 3, _1: 3},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 3},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 1, _1: 3},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 0, _1: 2},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$glider = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 2, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 2},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$blinker = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 0, _1: 2},
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
+	ctor: '::',
+	_0: _elm_lang$elm_architecture_tutorial$Pattern$blinker,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$elm_architecture_tutorial$Pattern$glider,
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$elm_architecture_tutorial$Pattern$llws,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$elm_architecture_tutorial$Pattern$dot,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$elm_architecture_tutorial$Pattern$block,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$elm_architecture_tutorial$Pattern$pentomino,
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
+
 var _elm_lang$keyboard$Keyboard$onSelfMsg = F3(
 	function (router, _p0, state) {
 		var _p1 = _p0;
@@ -9162,146 +9309,6 @@ var _elm_lang$keyboard$Keyboard$subMap = F2(
 	});
 _elm_lang$core$Native_Platform.effectManagers['Keyboard'] = {pkg: 'elm-lang/keyboard', init: _elm_lang$keyboard$Keyboard$init, onEffects: _elm_lang$keyboard$Keyboard$onEffects, onSelfMsg: _elm_lang$keyboard$Keyboard$onSelfMsg, tag: 'sub', subMap: _elm_lang$keyboard$Keyboard$subMap};
 
-var _elm_lang$elm_architecture_tutorial$Pattern$pentomino = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 0, _1: 1},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 0, _1: 2},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 2, _1: 1},
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$block = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 0, _1: 1},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
-				_1: {ctor: '[]'}
-			}
-		}
-	}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$dot = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
-	_1: {ctor: '[]'}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$llws = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 3, _1: 0},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 4, _1: 1},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 4, _1: 2},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 4, _1: 3},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 3, _1: 3},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 2, _1: 3},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 1, _1: 3},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 0, _1: 2},
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$glider = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 2, _1: 0},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 2, _1: 1},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 2, _1: 2},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 1, _1: 2},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 0, _1: 1},
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$blinker = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 0, _1: 0},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 0, _1: 1},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 0, _1: 2},
-			_1: {ctor: '[]'}
-		}
-	}
-};
-var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
-	ctor: '::',
-	_0: _elm_lang$elm_architecture_tutorial$Pattern$blinker,
-	_1: {
-		ctor: '::',
-		_0: _elm_lang$elm_architecture_tutorial$Pattern$glider,
-		_1: {
-			ctor: '::',
-			_0: _elm_lang$elm_architecture_tutorial$Pattern$llws,
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Pattern$dot,
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$elm_architecture_tutorial$Pattern$block,
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$elm_architecture_tutorial$Pattern$pentomino,
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	}
-};
-
 var _elm_lang$elm_architecture_tutorial$Types$Flags = function (a) {
 	return {board: a};
 };
@@ -9355,6 +9362,82 @@ var _elm_lang$elm_architecture_tutorial$Main$saveBoardButton = A2(
 		_0: _elm_lang$html$Html$text('Save Board'),
 		_1: {ctor: '[]'}
 	});
+var _elm_lang$elm_architecture_tutorial$Main$offsetSlider = F3(
+	function (val, updateFunc, klass) {
+		return A2(
+			_elm_lang$html$Html$input,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$type_('range'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$min('0'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$max(
+							_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Constants$boardSize - 1)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$step('1'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$value(
+									_elm_lang$core$Basics$toString(
+										A2(_elm_lang$core$Basics_ops['%'], val, _elm_lang$elm_architecture_tutorial$Constants$boardSize))),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onInput(updateFunc),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class(klass),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	});
+var _elm_lang$elm_architecture_tutorial$Main$intervalSlider = function (interval) {
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$type_('range'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$min(
+					_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Constants$intervalMin)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$max(
+						_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Constants$intervalMax)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$step(
+							_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Constants$intervalStep)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$value(
+								_elm_lang$core$Basics$toString(interval)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onInput(_elm_lang$elm_architecture_tutorial$Types$UpdateInterval),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('interval-slider'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		{ctor: '[]'});
+};
 var _elm_lang$elm_architecture_tutorial$Main$clearButton = function (model) {
 	var boardIsEmpty = _elm_lang$core$Set$isEmpty(model.board);
 	return A2(
@@ -9397,6 +9480,13 @@ var _elm_lang$elm_architecture_tutorial$Main$pauseButton = function (isPaused) {
 			_1: {ctor: '[]'}
 		});
 };
+var _elm_lang$elm_architecture_tutorial$Main$rgb = function (val) {
+	var h = _elm_lang$core$Basics$toString(((360 * val) / ((_elm_lang$elm_architecture_tutorial$Constants$boardSize / 1) | 0)) | 0);
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'hsl(',
+		A2(_elm_lang$core$Basics_ops['++'], h, ',100%,80%)'));
+};
 var _elm_lang$elm_architecture_tutorial$Main$eraserButton = function (model) {
 	var klass = model.isEraser ? 'selected' : '';
 	var klasses = A2(_elm_lang$core$Basics_ops['++'], 'pattern-button ', klass);
@@ -9436,10 +9526,194 @@ var _elm_lang$elm_architecture_tutorial$Main$pageHeader = A2(
 		_0: _elm_lang$html$Html$text('Conway\'s Game of Life'),
 		_1: {ctor: '[]'}
 	});
+var _elm_lang$elm_architecture_tutorial$Main$onBoard = function (pair) {
+	var j = _elm_lang$core$Tuple$second(pair);
+	var i = _elm_lang$core$Tuple$first(pair);
+	return (_elm_lang$core$Native_Utils.cmp(i, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(j, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(i, _elm_lang$elm_architecture_tutorial$Constants$boardSize) < 0) && (_elm_lang$core$Native_Utils.cmp(j, _elm_lang$elm_architecture_tutorial$Constants$boardSize) < 0)));
+};
+var _elm_lang$elm_architecture_tutorial$Main$allNeighbors = function (pair) {
+	var j = _elm_lang$core$Tuple$second(pair);
+	var j1 = A2(_elm_lang$core$Basics_ops['%'], j - 1, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+	var j2 = A2(_elm_lang$core$Basics_ops['%'], j + 1, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+	var i = _elm_lang$core$Tuple$first(pair);
+	var i1 = A2(_elm_lang$core$Basics_ops['%'], i - 1, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+	var i2 = A2(_elm_lang$core$Basics_ops['%'], i + 1, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+	return {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: i1, _1: j1},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: i1, _1: j},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: i1, _1: j2},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: i, _1: j1},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: i, _1: j2},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: i2, _1: j1},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: i2, _1: j},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: i2, _1: j2},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+};
 var _elm_lang$elm_architecture_tutorial$Main$isAlive = F2(
 	function (board, pair) {
 		return A2(_elm_lang$core$Set$member, pair, board);
 	});
+var _elm_lang$elm_architecture_tutorial$Main$occupiedNeighbors = F2(
+	function (pair, board) {
+		var neighbors = _elm_lang$elm_architecture_tutorial$Main$allNeighbors(pair);
+		return _elm_lang$core$List$length(
+			A2(
+				_elm_lang$core$List$filter,
+				function (p) {
+					return A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, board, p);
+				},
+				neighbors));
+	});
+var _elm_lang$elm_architecture_tutorial$Main$updatedPos = F2(
+	function (pair, board) {
+		var count = A2(_elm_lang$elm_architecture_tutorial$Main$occupiedNeighbors, pair, board);
+		return A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, board, pair) ? (_elm_lang$core$Native_Utils.eq(count, 2) || _elm_lang$core$Native_Utils.eq(count, 3)) : _elm_lang$core$Native_Utils.eq(count, 3);
+	});
+var _elm_lang$elm_architecture_tutorial$Main$drawCell = F3(
+	function (model, i, j) {
+		var jVal = A2(_elm_lang$core$Basics_ops['%'], j + model.jOffset, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+		var iVal = A2(_elm_lang$core$Basics_ops['%'], i + model.iOffset, _elm_lang$elm_architecture_tutorial$Constants$boardSize);
+		var pair = {ctor: '_Tuple2', _0: iVal, _1: jVal};
+		var hasTempLife = A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, model.tempBoard, pair);
+		var klass1 = hasTempLife ? 'temp-life' : '';
+		var hasLife = A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, model.board, pair);
+		var klass2 = hasLife ? 'life' : '';
+		var stylePairs = (hasTempLife || hasLife) ? {ctor: '[]'} : {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'background-color',
+				_1: _elm_lang$elm_architecture_tutorial$Main$rgb(jVal - iVal)
+			},
+			_1: {ctor: '[]'}
+		};
+		return A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('cell-container'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(
+						_elm_lang$elm_architecture_tutorial$Types$SetTempToBoard(pair)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onMouseOver(
+							_elm_lang$elm_architecture_tutorial$Types$SetTempBoard(pair)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onMouseOut(_elm_lang$elm_architecture_tutorial$Types$ClearTempBoard),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'cell ',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									klass1,
+									A2(_elm_lang$core$Basics_ops['++'], ' ', klass2)))),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(stylePairs),
+							_1: {ctor: '[]'}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _elm_lang$elm_architecture_tutorial$Main$drawRow = F2(
+	function (model, i) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('row'),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$List$map,
+				A2(_elm_lang$elm_architecture_tutorial$Main$drawCell, model, i),
+				_elm_lang$elm_architecture_tutorial$Constants$boardIndexes));
+	});
+var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
+	var klass2 = model.isEraser ? 'eraser' : '';
+	var klass1 = model.paused ? 'paused' : '';
+	var board = model.board;
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'board ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						klass1,
+						A2(_elm_lang$core$Basics_ops['++'], ' ', klass2)))),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_elm_lang$core$List$map,
+			_elm_lang$elm_architecture_tutorial$Main$drawRow(model),
+			_elm_lang$elm_architecture_tutorial$Constants$boardIndexes));
+};
+var _elm_lang$elm_architecture_tutorial$Main$boardStuff = function (model) {
+	return A2(
+		_elm_lang$html$Html$span,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('board-stuff'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A3(_elm_lang$elm_architecture_tutorial$Main$offsetSlider, model.iOffset, _elm_lang$elm_architecture_tutorial$Types$UpdateOffsetI, 'vertical'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$elm_architecture_tutorial$Main$drawBoard(model),
+				_1: {
+					ctor: '::',
+					_0: A3(_elm_lang$elm_architecture_tutorial$Main$offsetSlider, model.jOffset, _elm_lang$elm_architecture_tutorial$Types$UpdateOffsetJ, 'horizontal'),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
 var _elm_lang$elm_architecture_tutorial$Main$patternPreview = function (pattern) {
 	var patternRage = A2(_elm_lang$core$List$range, 0, 4);
 	var set = _elm_lang$core$Set$fromList(pattern);
@@ -9514,121 +9788,6 @@ var _elm_lang$elm_architecture_tutorial$Main$patternButtons = function (model) {
 			},
 			_elm_lang$elm_architecture_tutorial$Pattern$patterns));
 };
-var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{
-			ctor: '::',
-			_0: A2(_elm_lang$core$Time$every, 23, _elm_lang$elm_architecture_tutorial$Types$Tick),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$keyboard$Keyboard$downs(_elm_lang$elm_architecture_tutorial$Types$KeyMsg),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _elm_lang$elm_architecture_tutorial$Main$fullRow = F2(
-	function (i, j) {
-		var pair = {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: i, _1: j},
-			_1: {ctor: '[]'}
-		};
-		return _elm_lang$core$Native_Utils.eq(i, 0) ? pair : A2(
-			_elm_lang$core$List$append,
-			A2(_elm_lang$elm_architecture_tutorial$Main$fullRow, i - 1, j),
-			pair);
-	});
-var _elm_lang$elm_architecture_tutorial$Main$encondBoard = function (board) {
-	return _elm_lang$core$Basics$toString(
-		A2(
-			_elm_lang$core$List$map,
-			function (t) {
-				return {
-					ctor: '::',
-					_0: _elm_lang$core$Tuple$first(t),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$core$Tuple$second(t),
-						_1: {ctor: '[]'}
-					}
-				};
-			},
-			_elm_lang$core$Set$toList(board)));
-};
-var _elm_lang$elm_architecture_tutorial$Main$noCmd = _elm_lang$core$Platform_Cmd$none;
-var _elm_lang$elm_architecture_tutorial$Main$intervalStep = 10;
-var _elm_lang$elm_architecture_tutorial$Main$intervalMax = 500;
-var _elm_lang$elm_architecture_tutorial$Main$incrementInterval = function (model) {
-	var mayb = _elm_lang$core$List$minimum(
-		{
-			ctor: '::',
-			_0: model.interval + _elm_lang$elm_architecture_tutorial$Main$intervalStep,
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Main$intervalMax,
-				_1: {ctor: '[]'}
-			}
-		});
-	var val = A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Main$intervalMax, mayb);
-	return _elm_lang$core$Native_Utils.update(
-		model,
-		{interval: val});
-};
-var _elm_lang$elm_architecture_tutorial$Main$intervalMin = 30;
-var _elm_lang$elm_architecture_tutorial$Main$decrementInterval = function (model) {
-	var mayb = _elm_lang$core$List$maximum(
-		{
-			ctor: '::',
-			_0: model.interval - _elm_lang$elm_architecture_tutorial$Main$intervalStep,
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Main$intervalMin,
-				_1: {ctor: '[]'}
-			}
-		});
-	var val = A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Main$intervalMin, mayb);
-	return _elm_lang$core$Native_Utils.update(
-		model,
-		{interval: val});
-};
-var _elm_lang$elm_architecture_tutorial$Main$intervalSlider = function (interval) {
-	return A2(
-		_elm_lang$html$Html$input,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$type_('range'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$min(
-					_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Main$intervalMin)),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$max(
-						_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Main$intervalMax)),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$step(
-							_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Main$intervalStep)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$value(
-								_elm_lang$core$Basics$toString(interval)),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onInput(_elm_lang$elm_architecture_tutorial$Types$UpdateInterval),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('interval-slider'),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		{ctor: '[]'});
-};
 var _elm_lang$elm_architecture_tutorial$Main$controls = function (model) {
 	return A2(
 		_elm_lang$html$Html$span,
@@ -9663,21 +9822,40 @@ var _elm_lang$elm_architecture_tutorial$Main$controls = function (model) {
 			}
 		});
 };
-var _elm_lang$elm_architecture_tutorial$Main$boardSize = 40;
-var _elm_lang$elm_architecture_tutorial$Main$boardIndexes = A2(_elm_lang$core$List$range, 0, _elm_lang$elm_architecture_tutorial$Main$boardSize - 1);
-var _elm_lang$elm_architecture_tutorial$Main$buildBoard = function (cur) {
-	var miniBoard = {
-		ctor: '::',
-		_0: A2(_elm_lang$elm_architecture_tutorial$Main$fullRow, _elm_lang$elm_architecture_tutorial$Main$boardSize - 1, cur),
-		_1: {ctor: '[]'}
-	};
-	return _elm_lang$core$Native_Utils.eq(cur, 0) ? miniBoard : A2(
-		_elm_lang$core$List$append,
-		_elm_lang$elm_architecture_tutorial$Main$buildBoard(cur - 1),
-		miniBoard);
+var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('container clearfix'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$elm_architecture_tutorial$Main$pageHeader,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$elm_architecture_tutorial$Main$boardStuff(model),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$elm_architecture_tutorial$Main$controls(model),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
 };
-var _elm_lang$elm_architecture_tutorial$Main$fullBoard = _elm_lang$core$List$concat(
-	_elm_lang$elm_architecture_tutorial$Main$buildBoard(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1));
+var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$core$Time$every, 23, _elm_lang$elm_architecture_tutorial$Types$Tick),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$keyboard$Keyboard$downs(_elm_lang$elm_architecture_tutorial$Types$KeyMsg),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _elm_lang$elm_architecture_tutorial$Main$createTempBoard = F2(
 	function (model, pair) {
 		var patternBoard = _elm_lang$core$Set$fromList(model.pattern);
@@ -9688,69 +9866,69 @@ var _elm_lang$elm_architecture_tutorial$Main$createTempBoard = F2(
 				var i = _elm_lang$core$Tuple$first(pair) + _elm_lang$core$Tuple$first(p);
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_elm_lang$core$Basics_ops['%'], i, _elm_lang$elm_architecture_tutorial$Main$boardSize),
-					_1: A2(_elm_lang$core$Basics_ops['%'], j, _elm_lang$elm_architecture_tutorial$Main$boardSize)
+					_0: A2(_elm_lang$core$Basics_ops['%'], i, _elm_lang$elm_architecture_tutorial$Constants$boardSize),
+					_1: A2(_elm_lang$core$Basics_ops['%'], j, _elm_lang$elm_architecture_tutorial$Constants$boardSize)
 				};
 			},
 			patternBoard);
 	});
-var _elm_lang$elm_architecture_tutorial$Main$allNeighbors = function (pair) {
-	var j = _elm_lang$core$Tuple$second(pair);
-	var j1 = A2(_elm_lang$core$Basics_ops['%'], j - 1, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-	var j2 = A2(_elm_lang$core$Basics_ops['%'], j + 1, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-	var i = _elm_lang$core$Tuple$first(pair);
-	var i1 = A2(_elm_lang$core$Basics_ops['%'], i - 1, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-	var i2 = A2(_elm_lang$core$Basics_ops['%'], i + 1, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-	return {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: i1, _1: j1},
-		_1: {
+var _elm_lang$elm_architecture_tutorial$Main$decrementInterval = function (model) {
+	var mayb = _elm_lang$core$List$maximum(
+		{
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: i1, _1: j},
+			_0: model.interval - _elm_lang$elm_architecture_tutorial$Constants$intervalStep,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: i1, _1: j2},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: i, _1: j1},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: i, _1: j2},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: i2, _1: j1},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: i2, _1: j},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: i2, _1: j2},
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
+				_0: _elm_lang$elm_architecture_tutorial$Constants$intervalMin,
+				_1: {ctor: '[]'}
 			}
-		}
-	};
+		});
+	var val = A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Constants$intervalMin, mayb);
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{interval: val});
 };
-var _elm_lang$elm_architecture_tutorial$Main$occupiedNeighbors = F2(
-	function (pair, board) {
-		var neighbors = _elm_lang$elm_architecture_tutorial$Main$allNeighbors(pair);
-		return _elm_lang$core$List$length(
-			A2(
-				_elm_lang$core$List$filter,
-				function (p) {
-					return A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, board, p);
-				},
-				neighbors));
+var _elm_lang$elm_architecture_tutorial$Main$incrementInterval = function (model) {
+	var mayb = _elm_lang$core$List$minimum(
+		{
+			ctor: '::',
+			_0: model.interval + _elm_lang$elm_architecture_tutorial$Constants$intervalStep,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$elm_architecture_tutorial$Constants$intervalMax,
+				_1: {ctor: '[]'}
+			}
+		});
+	var val = A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Constants$intervalMax, mayb);
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{interval: val});
+};
+var _elm_lang$elm_architecture_tutorial$Main$fullRow = F2(
+	function (i, j) {
+		var pair = {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: i, _1: j},
+			_1: {ctor: '[]'}
+		};
+		return _elm_lang$core$Native_Utils.eq(i, 0) ? pair : A2(
+			_elm_lang$core$List$append,
+			A2(_elm_lang$elm_architecture_tutorial$Main$fullRow, i - 1, j),
+			pair);
 	});
-var _elm_lang$elm_architecture_tutorial$Main$updatedPos = F2(
-	function (pair, board) {
-		var count = A2(_elm_lang$elm_architecture_tutorial$Main$occupiedNeighbors, pair, board);
-		return A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, board, pair) ? (_elm_lang$core$Native_Utils.eq(count, 2) || _elm_lang$core$Native_Utils.eq(count, 3)) : _elm_lang$core$Native_Utils.eq(count, 3);
-	});
+var _elm_lang$elm_architecture_tutorial$Main$buildBoard = function (cur) {
+	var miniBoard = {
+		ctor: '::',
+		_0: A2(_elm_lang$elm_architecture_tutorial$Main$fullRow, _elm_lang$elm_architecture_tutorial$Constants$boardSize - 1, cur),
+		_1: {ctor: '[]'}
+	};
+	return _elm_lang$core$Native_Utils.eq(cur, 0) ? miniBoard : A2(
+		_elm_lang$core$List$append,
+		_elm_lang$elm_architecture_tutorial$Main$buildBoard(cur - 1),
+		miniBoard);
+};
+var _elm_lang$elm_architecture_tutorial$Main$fullBoard = _elm_lang$core$List$concat(
+	_elm_lang$elm_architecture_tutorial$Main$buildBoard(_elm_lang$elm_architecture_tutorial$Constants$boardSize - 1));
 var _elm_lang$elm_architecture_tutorial$Main$newDict = function (model) {
 	var board = model.board;
 	var list = A2(
@@ -9875,209 +10053,32 @@ var _elm_lang$elm_architecture_tutorial$Main$updatedModel = F2(
 				}
 		}
 	});
-var _elm_lang$elm_architecture_tutorial$Main$onBoard = function (pair) {
-	var j = _elm_lang$core$Tuple$second(pair);
-	var i = _elm_lang$core$Tuple$first(pair);
-	return (_elm_lang$core$Native_Utils.cmp(i, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(j, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(i, _elm_lang$elm_architecture_tutorial$Main$boardSize) < 0) && (_elm_lang$core$Native_Utils.cmp(j, _elm_lang$elm_architecture_tutorial$Main$boardSize) < 0)));
-};
-var _elm_lang$elm_architecture_tutorial$Main$rgb = function (val) {
-	var h = _elm_lang$core$Basics$toString(((360 * val) / ((_elm_lang$elm_architecture_tutorial$Main$boardSize / 1) | 0)) | 0);
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'hsl(',
-		A2(_elm_lang$core$Basics_ops['++'], h, ',100%,80%)'));
-};
-var _elm_lang$elm_architecture_tutorial$Main$drawCell = F3(
-	function (model, i, j) {
-		var jVal = A2(_elm_lang$core$Basics_ops['%'], j + model.jOffset, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-		var iVal = A2(_elm_lang$core$Basics_ops['%'], i + model.iOffset, _elm_lang$elm_architecture_tutorial$Main$boardSize);
-		var pair = {ctor: '_Tuple2', _0: iVal, _1: jVal};
-		var hasTempLife = A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, model.tempBoard, pair);
-		var klass1 = hasTempLife ? 'temp-life' : '';
-		var hasLife = A2(_elm_lang$elm_architecture_tutorial$Main$isAlive, model.board, pair);
-		var klass2 = hasLife ? 'life' : '';
-		var stylePairs = (hasTempLife || hasLife) ? {ctor: '[]'} : {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'background-color',
-				_1: _elm_lang$elm_architecture_tutorial$Main$rgb(jVal - iVal)
-			},
-			_1: {ctor: '[]'}
-		};
-		return A2(
-			_elm_lang$html$Html$span,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('cell-container'),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onClick(
-						_elm_lang$elm_architecture_tutorial$Types$SetTempToBoard(pair)),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onMouseOver(
-							_elm_lang$elm_architecture_tutorial$Types$SetTempBoard(pair)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onMouseOut(_elm_lang$elm_architecture_tutorial$Types$ClearTempBoard),
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'cell ',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									klass1,
-									A2(_elm_lang$core$Basics_ops['++'], ' ', klass2)))),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(stylePairs),
-							_1: {ctor: '[]'}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			});
-	});
-var _elm_lang$elm_architecture_tutorial$Main$drawRow = F2(
-	function (model, i) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('row'),
-				_1: {ctor: '[]'}
-			},
-			A2(
-				_elm_lang$core$List$map,
-				A2(_elm_lang$elm_architecture_tutorial$Main$drawCell, model, i),
-				_elm_lang$elm_architecture_tutorial$Main$boardIndexes));
-	});
-var _elm_lang$elm_architecture_tutorial$Main$drawBoard = function (model) {
-	var klass2 = model.isEraser ? 'eraser' : '';
-	var klass1 = model.paused ? 'paused' : '';
-	var board = model.board;
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class(
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'board ',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						klass1,
-						A2(_elm_lang$core$Basics_ops['++'], ' ', klass2)))),
-			_1: {ctor: '[]'}
-		},
+var _elm_lang$elm_architecture_tutorial$Main$encondBoard = function (board) {
+	return _elm_lang$core$Basics$toString(
 		A2(
 			_elm_lang$core$List$map,
-			_elm_lang$elm_architecture_tutorial$Main$drawRow(model),
-			_elm_lang$elm_architecture_tutorial$Main$boardIndexes));
-};
-var _elm_lang$elm_architecture_tutorial$Main$offsetSlider = F3(
-	function (val, updateFunc, klass) {
-		return A2(
-			_elm_lang$html$Html$input,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$type_('range'),
-				_1: {
+			function (t) {
+				return {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$min('0'),
+					_0: _elm_lang$core$Tuple$first(t),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$max(
-							_elm_lang$core$Basics$toString(_elm_lang$elm_architecture_tutorial$Main$boardSize - 1)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$step('1'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$value(
-									_elm_lang$core$Basics$toString(
-										A2(_elm_lang$core$Basics_ops['%'], val, _elm_lang$elm_architecture_tutorial$Main$boardSize))),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(updateFunc),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class(klass),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}
+						_0: _elm_lang$core$Tuple$second(t),
+						_1: {ctor: '[]'}
 					}
-				}
+				};
 			},
-			{ctor: '[]'});
-	});
-var _elm_lang$elm_architecture_tutorial$Main$boardStuff = function (model) {
-	return A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('board-stuff'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A3(_elm_lang$elm_architecture_tutorial$Main$offsetSlider, model.iOffset, _elm_lang$elm_architecture_tutorial$Types$UpdateOffsetI, 'vertical'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Main$drawBoard(model),
-				_1: {
-					ctor: '::',
-					_0: A3(_elm_lang$elm_architecture_tutorial$Main$offsetSlider, model.jOffset, _elm_lang$elm_architecture_tutorial$Types$UpdateOffsetJ, 'horizontal'),
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-};
-var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('container clearfix'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$elm_architecture_tutorial$Main$pageHeader,
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$elm_architecture_tutorial$Main$boardStuff(model),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$elm_architecture_tutorial$Main$controls(model),
-					_1: {ctor: '[]'}
-				}
-			}
-		});
+			_elm_lang$core$Set$toList(board)));
 };
 var _elm_lang$elm_architecture_tutorial$Main$createModel = function (board) {
-	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Main$boardSize / 2) | 0, isEraser: false};
+	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, isEraser: false};
 };
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
 		_0: _elm_lang$elm_architecture_tutorial$Main$createModel(
 			_elm_lang$core$Set$fromList(flags.board)),
-		_1: _elm_lang$elm_architecture_tutorial$Main$noCmd
+		_1: _elm_lang$elm_architecture_tutorial$Constants$noCmd
 	};
 };
 var _elm_lang$elm_architecture_tutorial$Main$saveBoard = _elm_lang$core$Native_Platform.outgoingPort(
@@ -10092,7 +10093,7 @@ var _elm_lang$elm_architecture_tutorial$Main$getCommand = F2(
 			return _elm_lang$elm_architecture_tutorial$Main$saveBoard(
 				_elm_lang$elm_architecture_tutorial$Main$encondBoard(board));
 		} else {
-			return _elm_lang$elm_architecture_tutorial$Main$noCmd;
+			return _elm_lang$elm_architecture_tutorial$Constants$noCmd;
 		}
 	});
 var _elm_lang$elm_architecture_tutorial$Main$update = F2(
