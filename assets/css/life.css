@@ -74,7 +74,7 @@ body {
 }
 
 .eraser {
-  cursor: url('images/eraser.png'), auto;
+  cursor: url('../images/eraser.png'), auto;
 }
 
 .eraser .cell.life:hover {

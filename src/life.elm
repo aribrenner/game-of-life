@@ -330,7 +330,7 @@ eraserButton model =
     klasses = "pattern-button " ++ klass
   in
     button [onClick SetEraser, class klasses]
-      [(img [src "images/eraser.png"] [])]
+      [(img [src "assets/images/eraser.png"] [])]
 
 
 drawBoard : Model -> Html Msg

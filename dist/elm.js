@@ -9769,7 +9769,7 @@ var _elm_lang$elm_architecture_tutorial$Main$eraserButton = function (model) {
 				_elm_lang$html$Html$img,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$src('images/eraser.png'),
+					_0: _elm_lang$html$Html_Attributes$src('assets/images/eraser.png'),
 					_1: {ctor: '[]'}
 				},
 				{ctor: '[]'}),
