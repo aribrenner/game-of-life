@@ -3,7 +3,7 @@ module View exposing (view)
 import Types exposing (..)
 import Constants exposing (..)
 import Model exposing (..)
-import Pattern exposing (..)
+import Pattern exposing (Pattern)
 import Set exposing (Set)
 
 import Html exposing (Html, div, text, span, button, input, img)

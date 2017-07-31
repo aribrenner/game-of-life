@@ -1,19 +1,7 @@
-module Pattern exposing (Pattern, patterns, blinker)
+module Pattern exposing (..)
 
-{-| `Game of Life` patterns
-@docs Pattern
-@docs patterns
-@docs blinker
--}
-
-{-| type for `Game of Life` patterns
-@docs Pattern
--}
 type alias Pattern = List (Int, Int)
 
-{-| a common GoL osillator
-@docs blinker
--}
 blinker : Pattern
 blinker = [(0,0), (0,1), (0,2)]
 
@@ -32,9 +20,5 @@ block = [(0,0), (0,1), (1,0), (1,1)]
 pentomino : Pattern
 pentomino = [(0,1), (0,2), (1,0), (1,1), (2, 1)]
 
-
-{-| List of common GoL patterns
-@docs patterns
--}
 patterns : List Pattern
 patterns = [blinker, glider, llws, dot, block, pentomino]
