@@ -8,6 +8,7 @@ import Set exposing (Set)
 import Time exposing (Time, second)
 import Pattern exposing (..)
 import Keyboard exposing (KeyCode)
+import Types exposing (..)
 
 
 main =
@@ -21,24 +22,6 @@ main =
 
 
 -- MODEL
-
-type alias Pair = (Int, Int)
-type alias Board = Set Pair
-type alias BoardRowIndexes = List Pair
-type alias BoardIndexes = List BoardRowIndexes
-type alias Flags = { board : List Pair }
-
-type alias Model =
-  { board : Board
-  , paused : Bool
-  , interval : Float
-  , lastUpdate : Float
-  , tempBoard : Board
-  , pattern : Pattern
-  , iOffset : Int
-  , jOffset : Int
-  , isEraser: Bool
-  }
 
 createModel : Board -> Model
 createModel board =
@@ -98,22 +81,6 @@ fullRow i j =
 -- UPDATE
 
 port saveBoard : String -> Cmd msg
-
-
-type Msg
-  = TogglePause
-  | Tick Time
-  | UpdateInterval String
-  | ClearBoard
-  | SetPattern Pattern
-  | SetTempBoard Pair
-  | ClearTempBoard
-  | SetTempToBoard Pair
-  | UpdateOffsetI String
-  | UpdateOffsetJ String
-  | KeyMsg KeyCode
-  | SetEraser
-  | SaveBoard
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
