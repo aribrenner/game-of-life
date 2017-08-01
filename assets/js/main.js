@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
 
   var key = 'elm-game-of-life-board';
-  var board;
+  var board, app;
 
   try {
     board = JSON.parse(localStorage.getItem(key));
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.warn(e);
   }
 
-  var app = Elm.Main.fullscreen({board: board || []});
+  app = Elm.Main.fullscreen({board: board || []});
 
   app.ports.saveBoard.subscribe(function (str) {
     localStorage.setItem(key, str);
