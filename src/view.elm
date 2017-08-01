@@ -41,6 +41,7 @@ controls model =
     , patternButtons model
     , eraserButton model
     , saveBoardButton
+    , population model
     ]
 
 eraserButton : Model -> Html Msg
@@ -167,3 +168,13 @@ patternPreview pattern =
 saveBoardButton : Html Msg
 saveBoardButton =
   button [onClick SaveBoard, class "control-button save-button"] [text "Save Board"]
+
+population : Model -> Html Msg
+population model =
+  let
+    pop = Set.size model.board
+  in
+    div [class "population"]
+      [ text "Population: "
+      , text(toString pop)
+      ]

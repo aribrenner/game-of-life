@@ -9639,6 +9639,26 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _elm_lang$elm_architecture_tutorial$View$population = function (model) {
+	var pop = _elm_lang$core$Set$size(model.board);
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('population'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Population: '),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					_elm_lang$core$Basics$toString(pop)),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _elm_lang$elm_architecture_tutorial$View$saveBoardButton = A2(
 	_elm_lang$html$Html$button,
 	{
@@ -10007,7 +10027,11 @@ var _elm_lang$elm_architecture_tutorial$View$controls = function (model) {
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$elm_architecture_tutorial$View$saveBoardButton,
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$elm_architecture_tutorial$View$population(model),
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}
