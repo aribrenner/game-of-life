@@ -10,7 +10,6 @@ import Pattern exposing (Pattern)
 type alias Pair = (Int, Int)
 type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
-type alias BoardIndexes = List BoardRowIndexes
 
 type Msg
   = TogglePause

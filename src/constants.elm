@@ -11,19 +11,8 @@ noCmd = Cmd.none
 
 fullBoard : BoardRowIndexes
 fullBoard =
-  List.concat (buildBoard (boardSize - 1))
---
---
-buildBoard : Int -> BoardIndexes
-buildBoard cur =
-  let
-    miniBoard = [fullRow (boardSize - 1) cur]
-  in
-    if cur == 0 then miniBoard else List.append (buildBoard (cur - 1)) miniBoard
+  List.concat (List.map fullRow boardIndexes)
 
-fullRow : Int -> Int -> BoardRowIndexes
-fullRow i j =
-  let
-    pair = [(i, j)]
-  in
-    if i == 0 then pair else List.append (fullRow (i-1) j) pair
+fullRow : Int -> BoardRowIndexes
+fullRow j =
+  List.map (\i -> (i, j)) boardIndexes

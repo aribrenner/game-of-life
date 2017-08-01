@@ -6829,37 +6829,22 @@ var _elm_lang$elm_architecture_tutorial$Types$Tick = function (a) {
 };
 var _elm_lang$elm_architecture_tutorial$Types$TogglePause = {ctor: 'TogglePause'};
 
-var _elm_lang$elm_architecture_tutorial$Constants$fullRow = F2(
-	function (i, j) {
-		var pair = {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: i, _1: j},
-			_1: {ctor: '[]'}
-		};
-		return _elm_lang$core$Native_Utils.eq(i, 0) ? pair : A2(
-			_elm_lang$core$List$append,
-			A2(_elm_lang$elm_architecture_tutorial$Constants$fullRow, i - 1, j),
-			pair);
-	});
 var _elm_lang$elm_architecture_tutorial$Constants$noCmd = _elm_lang$core$Platform_Cmd$none;
 var _elm_lang$elm_architecture_tutorial$Constants$intervalStep = 10;
 var _elm_lang$elm_architecture_tutorial$Constants$intervalMax = 500;
 var _elm_lang$elm_architecture_tutorial$Constants$intervalMin = 30;
 var _elm_lang$elm_architecture_tutorial$Constants$boardSize = 40;
 var _elm_lang$elm_architecture_tutorial$Constants$boardIndexes = A2(_elm_lang$core$List$range, 0, _elm_lang$elm_architecture_tutorial$Constants$boardSize - 1);
-var _elm_lang$elm_architecture_tutorial$Constants$buildBoard = function (cur) {
-	var miniBoard = {
-		ctor: '::',
-		_0: A2(_elm_lang$elm_architecture_tutorial$Constants$fullRow, _elm_lang$elm_architecture_tutorial$Constants$boardSize - 1, cur),
-		_1: {ctor: '[]'}
-	};
-	return _elm_lang$core$Native_Utils.eq(cur, 0) ? miniBoard : A2(
-		_elm_lang$core$List$append,
-		_elm_lang$elm_architecture_tutorial$Constants$buildBoard(cur - 1),
-		miniBoard);
+var _elm_lang$elm_architecture_tutorial$Constants$fullRow = function (j) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (i) {
+			return {ctor: '_Tuple2', _0: i, _1: j};
+		},
+		_elm_lang$elm_architecture_tutorial$Constants$boardIndexes);
 };
 var _elm_lang$elm_architecture_tutorial$Constants$fullBoard = _elm_lang$core$List$concat(
-	_elm_lang$elm_architecture_tutorial$Constants$buildBoard(_elm_lang$elm_architecture_tutorial$Constants$boardSize - 1));
+	A2(_elm_lang$core$List$map, _elm_lang$elm_architecture_tutorial$Constants$fullRow, _elm_lang$elm_architecture_tutorial$Constants$boardIndexes));
 
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
