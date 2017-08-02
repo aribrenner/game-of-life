@@ -1,6 +1,7 @@
-module Constants exposing (boardSize, intervalMin, intervalMax, intervalStep, boardIndexes, noCmd, fullBoard)
+module Constants exposing (millisecondUpdate, boardSize, intervalMin, intervalMax, intervalStep, boardIndexes, noCmd, fullBoard)
 import Types exposing (..)
 
+millisecondUpdate = 23
 boardSize = 40
 intervalMin = 30
 intervalMax = 500

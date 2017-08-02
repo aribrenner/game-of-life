@@ -6903,6 +6903,7 @@ var _elm_lang$elm_architecture_tutorial$Constants$fullRow = function (j) {
 };
 var _elm_lang$elm_architecture_tutorial$Constants$fullBoard = _elm_lang$core$List$concat(
 	A2(_elm_lang$core$List$map, _elm_lang$elm_architecture_tutorial$Constants$fullRow, _elm_lang$elm_architecture_tutorial$Constants$boardIndexes));
+var _elm_lang$elm_architecture_tutorial$Constants$millisecondUpdate = 23;
 
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
@@ -10184,7 +10185,7 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		{
 			ctor: '::',
-			_0: A2(_elm_lang$core$Time$every, 23, _elm_lang$elm_architecture_tutorial$Types$Tick),
+			_0: A2(_elm_lang$core$Time$every, _elm_lang$elm_architecture_tutorial$Constants$millisecondUpdate, _elm_lang$elm_architecture_tutorial$Types$Tick),
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$keyboard$Keyboard$downs(_elm_lang$elm_architecture_tutorial$Types$KeyMsg),

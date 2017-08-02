@@ -31,6 +31,6 @@ init flags =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
-    [ Time.every 23 Tick
+    [ Time.every millisecondUpdate Tick
     , Keyboard.downs KeyMsg
     ]
