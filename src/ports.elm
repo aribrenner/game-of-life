@@ -1,3 +1,4 @@
 port module Ports exposing (saveBoard)
+import Types exposing(EncodedGame)
 
-port saveBoard : String -> Cmd msg
+port saveBoard : EncodedGame -> Cmd msg

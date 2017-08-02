@@ -10,7 +10,7 @@ import Keyboard exposing (KeyCode)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  (updatedModel msg model, getCommand msg model.board)
+  (updatedModel msg model, getCommand msg model)
 
 updatedModel : Msg -> Model -> Model
 updatedModel msg model =
@@ -54,11 +54,11 @@ updatedModel msg model =
     KeyMsg keyCode ->
       updateFromKeyCode keyCode model
 
-getCommand : Msg -> Board -> Cmd Msg
-getCommand msg board =
+getCommand : Msg -> Model -> Cmd Msg
+getCommand msg model =
   case msg of
     SaveBoard ->
-      saveBoard (encodeBoard board)
+      saveBoard (encodeGame model)
     _ ->
       noCmd
 
@@ -109,13 +109,12 @@ newDict model =
   in
     Set.fromList list
 
-encodeBoard : Board -> String
-encodeBoard board =
-  toString(
-    List.map (\t ->
-      [Tuple.first t, Tuple.second t]
-    ) (Set.toList board)
-  )
+encodeGame : Model -> EncodedGame
+encodeGame model =
+  { board = Set.toList model.board
+  , iOffset = model.iOffset
+  , jOffset = model.jOffset
+  }
 
 updateFromKeyCode : KeyCode -> Model -> Model
 updateFromKeyCode keyCode model =

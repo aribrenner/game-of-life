@@ -25,3 +25,5 @@ type Msg
   | KeyMsg KeyCode
   | SetEraser
   | SaveBoard
+
+type alias EncodedGame = { board : List Pair, iOffset : Int, jOffset : Int }

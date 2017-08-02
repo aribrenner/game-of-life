@@ -1,18 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   var key = 'elm-game-of-life-board';
-  var board, app;
+  var game, app;
 
   try {
-    board = JSON.parse(localStorage.getItem(key));
+    game = JSON.parse(localStorage.getItem(key));
   } catch (e) {
     console.warn(e);
   }
 
-  app = Elm.Main.fullscreen({board: board || []});
+  game = game || {board: [], iOffset: 0, jOffset: 0}
+  app = Elm.Main.fullscreen(game);
 
-  app.ports.saveBoard.subscribe(function (str) {
-    localStorage.setItem(key, str);
+  app.ports.saveBoard.subscribe(function (game) {
+    localStorage.setItem(key, JSON.stringify(game));
     alert('board saved!');
   });
 

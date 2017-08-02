@@ -6857,6 +6857,10 @@ var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
 	}
 };
 
+var _elm_lang$elm_architecture_tutorial$Types$EncodedGame = F3(
+	function (a, b, c) {
+		return {board: a, iOffset: b, jOffset: c};
+	});
 var _elm_lang$elm_architecture_tutorial$Types$SaveBoard = {ctor: 'SaveBoard'};
 var _elm_lang$elm_architecture_tutorial$Types$SetEraser = {ctor: 'SetEraser'};
 var _elm_lang$elm_architecture_tutorial$Types$KeyMsg = function (a) {
@@ -8943,8 +8947,19 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _elm_lang$elm_architecture_tutorial$Model$createModel = function (board) {
-	return {board: board, paused: true, interval: _elm_lang$core$Time$second / 10, lastUpdate: 0, tempBoard: _elm_lang$core$Set$empty, pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker, iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0, isEraser: false};
+var _elm_lang$elm_architecture_tutorial$Model$createModel = function (_p0) {
+	var _p1 = _p0;
+	return {
+		board: _elm_lang$core$Set$fromList(_p1.board),
+		paused: true,
+		interval: _elm_lang$core$Time$second / 10,
+		lastUpdate: 0,
+		tempBoard: _elm_lang$core$Set$empty,
+		pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker,
+		iOffset: _p1.iOffset,
+		jOffset: _p1.jOffset,
+		isEraser: false
+	};
 };
 var _elm_lang$elm_architecture_tutorial$Model$allNeighbors = function (pair) {
 	var j = _elm_lang$core$Tuple$second(pair);
@@ -9010,7 +9025,14 @@ var _elm_lang$elm_architecture_tutorial$Model$Model = F9(
 var _elm_lang$elm_architecture_tutorial$Ports$saveBoard = _elm_lang$core$Native_Platform.outgoingPort(
 	'saveBoard',
 	function (v) {
-		return v;
+		return {
+			board: _elm_lang$core$Native_List.toArray(v.board).map(
+				function (v) {
+					return [v._0, v._1];
+				}),
+			iOffset: v.iOffset,
+			jOffset: v.jOffset
+		};
 	});
 
 var _elm_lang$elm_architecture_tutorial$Update$shouldRedraw = F2(
@@ -9018,22 +9040,12 @@ var _elm_lang$elm_architecture_tutorial$Update$shouldRedraw = F2(
 		var isRecent = _elm_lang$core$Native_Utils.cmp(newTime - model.lastUpdate, model.interval) < 0;
 		return !(model.paused || isRecent);
 	});
-var _elm_lang$elm_architecture_tutorial$Update$encodeBoard = function (board) {
-	return _elm_lang$core$Basics$toString(
-		A2(
-			_elm_lang$core$List$map,
-			function (t) {
-				return {
-					ctor: '::',
-					_0: _elm_lang$core$Tuple$first(t),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$core$Tuple$second(t),
-						_1: {ctor: '[]'}
-					}
-				};
-			},
-			_elm_lang$core$Set$toList(board)));
+var _elm_lang$elm_architecture_tutorial$Update$encodeGame = function (model) {
+	return {
+		board: _elm_lang$core$Set$toList(model.board),
+		iOffset: model.iOffset,
+		jOffset: model.jOffset
+	};
 };
 var _elm_lang$elm_architecture_tutorial$Update$updatedPos = F2(
 	function (pair, board) {
@@ -9131,11 +9143,11 @@ var _elm_lang$elm_architecture_tutorial$Update$updateFromKeyCode = F2(
 		}
 	});
 var _elm_lang$elm_architecture_tutorial$Update$getCommand = F2(
-	function (msg, board) {
+	function (msg, model) {
 		var _p1 = msg;
 		if (_p1.ctor === 'SaveBoard') {
 			return _elm_lang$elm_architecture_tutorial$Ports$saveBoard(
-				_elm_lang$elm_architecture_tutorial$Update$encodeBoard(board));
+				_elm_lang$elm_architecture_tutorial$Update$encodeGame(model));
 		} else {
 			return _elm_lang$elm_architecture_tutorial$Constants$noCmd;
 		}
@@ -9229,7 +9241,7 @@ var _elm_lang$elm_architecture_tutorial$Update$update = F2(
 		return {
 			ctor: '_Tuple2',
 			_0: A2(_elm_lang$elm_architecture_tutorial$Update$updatedModel, msg, model),
-			_1: A2(_elm_lang$elm_architecture_tutorial$Update$getCommand, msg, model.board)
+			_1: A2(_elm_lang$elm_architecture_tutorial$Update$getCommand, msg, model)
 		};
 	});
 
@@ -10197,7 +10209,7 @@ var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
 		_0: _elm_lang$elm_architecture_tutorial$Model$createModel(
-			_elm_lang$core$Set$fromList(flags.board)),
+			{board: flags.board, iOffset: flags.iOffset, jOffset: flags.jOffset}),
 		_1: _elm_lang$elm_architecture_tutorial$Constants$noCmd
 	};
 };
@@ -10206,8 +10218,18 @@ var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programW
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
 		function (board) {
-			return _elm_lang$core$Json_Decode$succeed(
-				{board: board});
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (iOffset) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						function (jOffset) {
+							return _elm_lang$core$Json_Decode$succeed(
+								{board: board, iOffset: iOffset, jOffset: jOffset});
+						},
+						A2(_elm_lang$core$Json_Decode$field, 'jOffset', _elm_lang$core$Json_Decode$int));
+				},
+				A2(_elm_lang$core$Json_Decode$field, 'iOffset', _elm_lang$core$Json_Decode$int));
 		},
 		A2(
 			_elm_lang$core$Json_Decode$field,
@@ -10225,9 +10247,6 @@ var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programW
 							A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
 					},
 					A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$int))))));
-var _elm_lang$elm_architecture_tutorial$Main$Flags = function (a) {
-	return {board: a};
-};
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

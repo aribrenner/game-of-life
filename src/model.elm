@@ -45,15 +45,15 @@ allNeighbors pair =
     , (i2, j1), (i2, j), (i2, j2)
     ]
 
-createModel : Board -> Model
-createModel board =
-  { board = board
+createModel : EncodedGame -> Model
+createModel {board, iOffset, jOffset} =
+  { board = Set.fromList board
   , paused = True
   , interval = second / 10
   , lastUpdate = 0
   , tempBoard = Set.empty
   , pattern = Pattern.blinker
-  , iOffset = boardSize // 2
-  , jOffset = boardSize // 2
+  , iOffset = iOffset
+  , jOffset = jOffset
   , isEraser = False
   }

@@ -21,11 +21,14 @@ main =
     , subscriptions = subscriptions
     }
 
-type alias Flags = { board : List Pair }
+type alias Flags = EncodedGame
 
 init : Flags -> (Model, Cmd Msg)
 init flags =
-  (createModel (Set.fromList flags.board), noCmd)
+  (createModel
+    { board = flags.board
+    , iOffset = flags.iOffset
+    , jOffset = flags.jOffset }, noCmd)
 
 
 subscriptions : Model -> Sub Msg
