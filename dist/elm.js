@@ -9640,7 +9640,13 @@ var _elm_lang$html$Html_Events$Options = F2(
 	});
 
 var _elm_lang$elm_architecture_tutorial$View$population = function (model) {
+	var fullWidth = 300;
 	var pop = _elm_lang$core$Set$size(model.board);
+	var px = A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(
+			A3(_elm_lang$core$Basics$clamp, 3, 300, pop)),
+		'px');
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -9655,7 +9661,27 @@ var _elm_lang$elm_architecture_tutorial$View$population = function (model) {
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(
 					_elm_lang$core$Basics$toString(pop)),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('population-bar'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'width', _1: px},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };

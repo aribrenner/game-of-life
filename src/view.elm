@@ -173,8 +173,11 @@ population : Model -> Html Msg
 population model =
   let
     pop = Set.size model.board
+    fullWidth = 300
+    px = toString (clamp 3 300 pop) ++ "px"
   in
     div [class "population"]
       [ text "Population: "
       , text(toString pop)
+      , div [class "population-bar", style [("width", px)]] []
       ]

@@ -48,6 +48,7 @@ body {
   padding: 15px;
   border-radius: 5px;
   margin: 15px;
+  margin-top: 0px;
 }
 
 .board.paused {
@@ -163,4 +164,14 @@ body {
 .population {
   margin-top: 10px;
   font-size: 16px;
+}
+
+.population-bar {
+  background: #7ebd36;
+  height: 8px;
+  max-width: 80%;
+  border-radius: 2px;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  margin-top: 1px;
 }
