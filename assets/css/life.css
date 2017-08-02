@@ -22,7 +22,7 @@ body {
   cursor: default;
 }
 
-.control-button, .pattern-button, .controls {
+.control-button, .pattern-button, .controls, .info {
   box-shadow: 0px 0px 5px #222;
 }
 
@@ -164,8 +164,8 @@ body {
 }
 
 .population {
-  margin-top: 10px;
-  font-size: 16px;
+  margin-top: 8px;
+  font-size: 18px;
 }
 
 .population-bar {
@@ -175,5 +175,28 @@ body {
   border-radius: 2px;
   border: 1px solid black;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  margin-top: 1px;
+  margin-top: 3px;
+}
+
+.info {
+  float: right;
+  background: darkgray;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px;
+  margin-top: 0px;
+  width: 350px;
+}
+.info .rules {
+  font-size: 18px;
+  font-weight: bold;
+}
+.info ul {
+  margin: 10px 0px;
+  padding-left: 35px;
+}
+.info li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: normal;
 }

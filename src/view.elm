@@ -6,7 +6,7 @@ import Model exposing (..)
 import Pattern exposing (Pattern)
 import Set exposing (Set)
 
-import Html exposing (Html, div, text, span, button, input, img)
+import Html exposing (Html, div, text, span, button, input, img, ul, li)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 
@@ -17,6 +17,7 @@ view model =
     [ pageHeader
     , boardStuff model
     , controls model
+    , gameRules
     ]
 
 boardStuff : Model -> Html Msg
@@ -181,3 +182,15 @@ population model =
       , text(toString pop)
       , div [class "population-bar", style [("width", px)]] []
       ]
+
+gameRules : Html Msg
+gameRules =
+  div [class "info"]
+    [ div [class "rules"]
+      [ text "Rules"
+        , ul []
+          [ li [class "rule"] [text "A live cell stays alive if it has 2 or 3 live neighbors"]
+          , li [class "rule"] [text "A dead cell comes to life if it has exactly 3 live neighbors"]
+          ]
+      ]
+    ]
