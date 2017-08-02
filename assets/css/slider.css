@@ -7,7 +7,7 @@ input[type=range] {
 }
 
 .board-stuff input[type=range] {
-  width: 200px;
+  width: 180px;
 }
 
 /*https://stackoverflow.com/questions/17955983/flip-horizontally-html-and-css*/
@@ -23,7 +23,7 @@ input[type=range].horizontal, input[type=range].interval-slider {
 input[type=range].horizontal {
   position: absolute;
   bottom: -45px;
-  right: 0px;
+  right: -10px;
 }
 
 /*https://stackoverflow.com/questions/14233341/how-can-i-rotate-an-html-div-90-degrees*/
@@ -35,8 +35,8 @@ input[type=range].vertical   {
   transform: rotate(-90deg);
   display: inline-block;
   position: absolute;
-  bottom: 80px;
-  right: -135px;
+  bottom: 68px;
+  right: -125px;
 }
 
 input[type=range]:focus {
