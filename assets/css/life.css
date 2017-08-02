@@ -122,8 +122,10 @@ body {
 
 .pattern-buttons {
   display: block;
-  width: 270px;
+  width: 335px;
   margin: auto;
+  margin-top: 10px;
+  margin-bottom: 8px;
   text-align: center;
 }
 

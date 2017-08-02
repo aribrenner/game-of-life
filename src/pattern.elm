@@ -20,5 +20,11 @@ block = [(0,0), (0,1), (1,0), (1,1)]
 pentomino : Pattern
 pentomino = [(0,1), (0,2), (1,0), (1,1), (2, 1)]
 
+toad : Pattern
+toad = [(0,1), (0,2), (0,3), (1,0), (1,1), (1,2)]
+
+beehive : Pattern
+beehive = [(0,1), (0,2), (1,0), (1,3), (2,1), (2,2)]
+
 patterns : List Pattern
-patterns = [blinker, glider, llws, dot, block, pentomino]
+patterns = [blinker, glider, llws, dot, block, pentomino, toad, beehive]

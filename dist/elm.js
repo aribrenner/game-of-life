@@ -6659,6 +6659,56 @@ var _elm_lang$keyboard$Keyboard$subMap = F2(
 	});
 _elm_lang$core$Native_Platform.effectManagers['Keyboard'] = {pkg: 'elm-lang/keyboard', init: _elm_lang$keyboard$Keyboard$init, onEffects: _elm_lang$keyboard$Keyboard$onEffects, onSelfMsg: _elm_lang$keyboard$Keyboard$onSelfMsg, tag: 'sub', subMap: _elm_lang$keyboard$Keyboard$subMap};
 
+var _elm_lang$elm_architecture_tutorial$Pattern$beehive = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 2},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 3},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 2, _1: 2},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Pattern$toad = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 2},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 0, _1: 3},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 2},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
 var _elm_lang$elm_architecture_tutorial$Pattern$pentomino = {
 	ctor: '::',
 	_0: {ctor: '_Tuple2', _0: 0, _1: 1},
@@ -6791,7 +6841,15 @@ var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
 					_1: {
 						ctor: '::',
 						_0: _elm_lang$elm_architecture_tutorial$Pattern$pentomino,
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$elm_architecture_tutorial$Pattern$toad,
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$elm_architecture_tutorial$Pattern$beehive,
+								_1: {ctor: '[]'}
+							}
+						}
 					}
 				}
 			}
