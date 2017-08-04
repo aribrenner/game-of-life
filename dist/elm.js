@@ -8947,6 +8947,12 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _elm_lang$elm_architecture_tutorial$Model$defaults = {
+	board: {ctor: '[]'},
+	iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
+	jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
+	interval: _elm_lang$core$Time$second / 10
+};
 var _elm_lang$elm_architecture_tutorial$Model$createModel = function (_p0) {
 	var _p1 = _p0;
 	return {
@@ -10271,17 +10277,11 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 			}
 		});
 };
-var _elm_lang$elm_architecture_tutorial$Main$defaults = {
-	board: {ctor: '[]'},
-	iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
-	jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
-	interval: _elm_lang$core$Time$second / 10
-};
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
 		_0: _elm_lang$elm_architecture_tutorial$Model$createModel(
-			A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Main$defaults, flags)),
+			A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Model$defaults, flags)),
 		_1: _elm_lang$elm_architecture_tutorial$Constants$noCmd
 	};
 };

@@ -29,14 +29,6 @@ init flags =
     (Maybe.withDefault defaults flags), noCmd)
 
 
-defaults : EncodedGame
-defaults =
-  { board   = []
-  , iOffset = boardSize // 2
-  , jOffset = boardSize // 2
-  , interval = second / 10
-  }
-
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch

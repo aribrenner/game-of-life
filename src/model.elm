@@ -57,3 +57,11 @@ createModel {board, iOffset, jOffset, interval} =
   , jOffset = jOffset
   , isEraser = False
   }
+
+defaults : EncodedGame
+defaults =
+  { board   = []
+  , iOffset = boardSize // 2
+  , jOffset = boardSize // 2
+  , interval = second / 10
+  }
