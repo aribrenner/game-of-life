@@ -32,8 +32,8 @@ init flags =
 defaults : EncodedGame
 defaults =
   { board   = []
-  , iOffset = 0
-  , jOffset = 0
+  , iOffset = boardSize // 2
+  , jOffset = boardSize // 2
   , interval = second / 10
   }
 

@@ -10273,8 +10273,8 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 };
 var _elm_lang$elm_architecture_tutorial$Main$defaults = {
 	board: {ctor: '[]'},
-	iOffset: 0,
-	jOffset: 0,
+	iOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
+	jOffset: (_elm_lang$elm_architecture_tutorial$Constants$boardSize / 2) | 0,
 	interval: _elm_lang$core$Time$second / 10
 };
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
