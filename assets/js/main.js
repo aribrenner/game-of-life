@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  var root = document.body;
   var key = 'elm-game-of-life-board';
   var game, app;
 
   try {
     game = JSON.parse(localStorage.getItem(key));
-    app = Elm.Main.fullscreen(game);
+    app = Elm.Main.embed(root, game);
   } catch (e) {
     console.warn(e);
-    document.body.innerHTML = '';
-    app = Elm.Main.fullscreen(null);
+    root.innerHTML = '';
+    app = Elm.Main.embed(root, null);
   }
 
   app.ports.saveBoard.subscribe(function (game) {
