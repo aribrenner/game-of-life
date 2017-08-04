@@ -46,10 +46,10 @@ allNeighbors pair =
     ]
 
 createModel : EncodedGame -> Model
-createModel {board, iOffset, jOffset} =
+createModel {board, iOffset, jOffset, interval} =
   { board = Set.fromList board
   , paused = True
-  , interval = second / 10
+  , interval = interval
   , lastUpdate = 0
   , tempBoard = Set.empty
   , pattern = Pattern.blinker

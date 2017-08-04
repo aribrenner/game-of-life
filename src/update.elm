@@ -114,6 +114,7 @@ encodeGame model =
   { board = Set.toList model.board
   , iOffset = model.iOffset
   , jOffset = model.jOffset
+  , interval = model.interval
   }
 
 updateFromKeyCode : KeyCode -> Model -> Model

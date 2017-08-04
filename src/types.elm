@@ -26,5 +26,11 @@ type Msg
   | SetEraser
   | SaveBoard
 
-type alias EncodedGame = { board : List Pair, iOffset : Int, jOffset : Int }
+type alias EncodedGame =
+  { board : List Pair
+  , iOffset : Int
+  , jOffset : Int
+  , interval : Float
+  }
+
 type alias MaybeEncodedGame = Maybe EncodedGame

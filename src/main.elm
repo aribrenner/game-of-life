@@ -34,6 +34,7 @@ defaults =
   { board   = []
   , iOffset = 0
   , jOffset = 0
+  , interval = second / 10
   }
 
 subscriptions : Model -> Sub Msg

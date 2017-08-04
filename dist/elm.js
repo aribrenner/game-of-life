@@ -6857,9 +6857,9 @@ var _elm_lang$elm_architecture_tutorial$Pattern$patterns = {
 	}
 };
 
-var _elm_lang$elm_architecture_tutorial$Types$EncodedGame = F3(
-	function (a, b, c) {
-		return {board: a, iOffset: b, jOffset: c};
+var _elm_lang$elm_architecture_tutorial$Types$EncodedGame = F4(
+	function (a, b, c, d) {
+		return {board: a, iOffset: b, jOffset: c, interval: d};
 	});
 var _elm_lang$elm_architecture_tutorial$Types$SaveBoard = {ctor: 'SaveBoard'};
 var _elm_lang$elm_architecture_tutorial$Types$SetEraser = {ctor: 'SetEraser'};
@@ -8952,7 +8952,7 @@ var _elm_lang$elm_architecture_tutorial$Model$createModel = function (_p0) {
 	return {
 		board: _elm_lang$core$Set$fromList(_p1.board),
 		paused: true,
-		interval: _elm_lang$core$Time$second / 10,
+		interval: _p1.interval,
 		lastUpdate: 0,
 		tempBoard: _elm_lang$core$Set$empty,
 		pattern: _elm_lang$elm_architecture_tutorial$Pattern$blinker,
@@ -9031,7 +9031,8 @@ var _elm_lang$elm_architecture_tutorial$Ports$saveBoard = _elm_lang$core$Native_
 					return [v._0, v._1];
 				}),
 			iOffset: v.iOffset,
-			jOffset: v.jOffset
+			jOffset: v.jOffset,
+			interval: v.interval
 		};
 	});
 
@@ -9044,7 +9045,8 @@ var _elm_lang$elm_architecture_tutorial$Update$encodeGame = function (model) {
 	return {
 		board: _elm_lang$core$Set$toList(model.board),
 		iOffset: model.iOffset,
-		jOffset: model.jOffset
+		jOffset: model.jOffset,
+		interval: model.interval
 	};
 };
 var _elm_lang$elm_architecture_tutorial$Update$updatedPos = F2(
@@ -10272,7 +10274,8 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 var _elm_lang$elm_architecture_tutorial$Main$defaults = {
 	board: {ctor: '[]'},
 	iOffset: 0,
-	jOffset: 0
+	jOffset: 0,
+	interval: _elm_lang$core$Time$second / 10
 };
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
@@ -10301,11 +10304,16 @@ var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programW
 								function (iOffset) {
 									return A2(
 										_elm_lang$core$Json_Decode$andThen,
-										function (jOffset) {
-											return _elm_lang$core$Json_Decode$succeed(
-												{board: board, iOffset: iOffset, jOffset: jOffset});
+										function (interval) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (jOffset) {
+													return _elm_lang$core$Json_Decode$succeed(
+														{board: board, iOffset: iOffset, interval: interval, jOffset: jOffset});
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'jOffset', _elm_lang$core$Json_Decode$int));
 										},
-										A2(_elm_lang$core$Json_Decode$field, 'jOffset', _elm_lang$core$Json_Decode$int));
+										A2(_elm_lang$core$Json_Decode$field, 'interval', _elm_lang$core$Json_Decode$float));
 								},
 								A2(_elm_lang$core$Json_Decode$field, 'iOffset', _elm_lang$core$Json_Decode$int));
 						},
