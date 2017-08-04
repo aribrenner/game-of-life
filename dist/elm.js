@@ -10269,48 +10269,65 @@ var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
 			}
 		});
 };
+var _elm_lang$elm_architecture_tutorial$Main$defaults = {
+	board: {ctor: '[]'},
+	iOffset: 0,
+	jOffset: 0
+};
 var _elm_lang$elm_architecture_tutorial$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
 		_0: _elm_lang$elm_architecture_tutorial$Model$createModel(
-			{board: flags.board, iOffset: flags.iOffset, jOffset: flags.jOffset}),
+			A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$Main$defaults, flags)),
 		_1: _elm_lang$elm_architecture_tutorial$Constants$noCmd
 	};
 };
 var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$programWithFlags(
 	{init: _elm_lang$elm_architecture_tutorial$Main$init, view: _elm_lang$elm_architecture_tutorial$View$view, update: _elm_lang$elm_architecture_tutorial$Update$update, subscriptions: _elm_lang$elm_architecture_tutorial$Main$subscriptions})(
-	A2(
-		_elm_lang$core$Json_Decode$andThen,
-		function (board) {
-			return A2(
-				_elm_lang$core$Json_Decode$andThen,
-				function (iOffset) {
-					return A2(
+	_elm_lang$core$Json_Decode$oneOf(
+		{
+			ctor: '::',
+			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$core$Json_Decode$map,
+					_elm_lang$core$Maybe$Just,
+					A2(
 						_elm_lang$core$Json_Decode$andThen,
-						function (jOffset) {
-							return _elm_lang$core$Json_Decode$succeed(
-								{board: board, iOffset: iOffset, jOffset: jOffset});
+						function (board) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								function (iOffset) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (jOffset) {
+											return _elm_lang$core$Json_Decode$succeed(
+												{board: board, iOffset: iOffset, jOffset: jOffset});
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'jOffset', _elm_lang$core$Json_Decode$int));
+								},
+								A2(_elm_lang$core$Json_Decode$field, 'iOffset', _elm_lang$core$Json_Decode$int));
 						},
-						A2(_elm_lang$core$Json_Decode$field, 'jOffset', _elm_lang$core$Json_Decode$int));
-				},
-				A2(_elm_lang$core$Json_Decode$field, 'iOffset', _elm_lang$core$Json_Decode$int));
-		},
-		A2(
-			_elm_lang$core$Json_Decode$field,
-			'board',
-			_elm_lang$core$Json_Decode$list(
-				A2(
-					_elm_lang$core$Json_Decode$andThen,
-					function (x0) {
-						return A2(
-							_elm_lang$core$Json_Decode$andThen,
-							function (x1) {
-								return _elm_lang$core$Json_Decode$succeed(
-									{ctor: '_Tuple2', _0: x0, _1: x1});
-							},
-							A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
-					},
-					A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$int))))));
+						A2(
+							_elm_lang$core$Json_Decode$field,
+							'board',
+							_elm_lang$core$Json_Decode$list(
+								A2(
+									_elm_lang$core$Json_Decode$andThen,
+									function (x0) {
+										return A2(
+											_elm_lang$core$Json_Decode$andThen,
+											function (x1) {
+												return _elm_lang$core$Json_Decode$succeed(
+													{ctor: '_Tuple2', _0: x0, _1: x1});
+											},
+											A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
+									},
+									A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$int)))))),
+				_1: {ctor: '[]'}
+			}
+		}));
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

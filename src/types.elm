@@ -27,3 +27,4 @@ type Msg
   | SaveBoard
 
 type alias EncodedGame = { board : List Pair, iOffset : Int, jOffset : Int }
+type alias MaybeEncodedGame = Maybe EncodedGame

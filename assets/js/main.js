@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
   try {
     game = JSON.parse(localStorage.getItem(key));
+    app = Elm.Main.fullscreen(game);
   } catch (e) {
     console.warn(e);
+    document.body.innerHTML = '';
+    app = Elm.Main.fullscreen(null);
   }
-
-  game = game || {board: [], iOffset: 0, jOffset: 0}
-  app = Elm.Main.fullscreen(game);
 
   app.ports.saveBoard.subscribe(function (game) {
     localStorage.setItem(key, JSON.stringify(game));

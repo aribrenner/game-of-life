@@ -21,15 +21,20 @@ main =
     , subscriptions = subscriptions
     }
 
-type alias Flags = EncodedGame
+type alias Flags = MaybeEncodedGame
 
 init : Flags -> (Model, Cmd Msg)
 init flags =
   (createModel
-    { board = flags.board
-    , iOffset = flags.iOffset
-    , jOffset = flags.jOffset }, noCmd)
+    (Maybe.withDefault defaults flags), noCmd)
 
+
+defaults : EncodedGame
+defaults =
+  { board   = []
+  , iOffset = 0
+  , jOffset = 0
+  }
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
