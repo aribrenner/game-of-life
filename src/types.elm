@@ -12,19 +12,19 @@ type alias Board = Set Pair
 type alias BoardRowIndexes = List Pair
 
 type Msg
-  = TogglePause
-  | Tick Time
-  | UpdateInterval String
-  | ClearBoard
+  = ClearBoard
+  | ClearTempBoard
+  | SaveBoard
+  | SetEraser
   | SetPattern Pattern
   | SetTempBoard Pair
-  | ClearTempBoard
   | SetTempToBoard Pair
+  | TogglePause
+  | UpdateInterval String
+  | UpdateKeyPress KeyCode
   | UpdateOffsetI String
   | UpdateOffsetJ String
-  | KeyMsg KeyCode
-  | SetEraser
-  | SaveBoard
+  | UpdateTick Time
 
 type alias EncodedGame =
   { board : List Pair
