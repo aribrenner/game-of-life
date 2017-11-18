@@ -7,7 +7,7 @@ import Pattern exposing (Pattern)
 import Set exposing (Set)
 
 import Html exposing (Html, div, text, span, button, input, img, ul, li)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attributes exposing (class, style, value, type_, disabled, src)
 import Html.Events exposing (onClick, onInput, onMouseOver, onMouseOut)
 
 
@@ -125,9 +125,9 @@ intervalSlider : Float -> Html Msg
 intervalSlider interval =
   input
     [ type_ "range"
-    , Html.Attributes.min (toString intervalMin)
-    , Html.Attributes.max (toString intervalMax)
-    , Html.Attributes.step (toString intervalStep)
+    , Attributes.min (toString intervalMin)
+    , Attributes.max (toString intervalMax)
+    , Attributes.step (toString intervalStep)
     , value (toString interval)
     , onInput UpdateInterval
     , class "interval-slider"
@@ -137,9 +137,9 @@ offsetSlider : Int -> (String -> Msg) -> String -> Html Msg
 offsetSlider val updateFunc klass =
   input
     [ type_ "range"
-    , Html.Attributes.min "0"
-    , Html.Attributes.max (toString (boardSize - 1))
-    , Html.Attributes.step "1"
+    , Attributes.min "0"
+    , Attributes.max (toString (boardSize - 1))
+    , Attributes.step "1"
     , value (toString (val % boardSize))
     , onInput updateFunc
     , class klass
