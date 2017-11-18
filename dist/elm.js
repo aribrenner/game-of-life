@@ -6909,6 +6909,16 @@ var _elm_lang$elm_architecture_tutorial$Constants$fullBoard = _elm_lang$core$Lis
 	A2(_elm_lang$core$List$map, _elm_lang$elm_architecture_tutorial$Constants$fullRow, _elm_lang$elm_architecture_tutorial$Constants$boardIndexes));
 var _elm_lang$elm_architecture_tutorial$Constants$millisecondUpdate = 23;
 
+var _elm_lang$elm_architecture_tutorial$Copy$saveBoard = 'Save board';
+var _elm_lang$elm_architecture_tutorial$Copy$deadRule = 'A dead cell comes to life if it has exactly 3 live neighbors';
+var _elm_lang$elm_architecture_tutorial$Copy$aliveRule = 'A live cell stays alive if it has 2 or 3 live neighbors';
+var _elm_lang$elm_architecture_tutorial$Copy$rules = 'Rules';
+var _elm_lang$elm_architecture_tutorial$Copy$population = 'Population';
+var _elm_lang$elm_architecture_tutorial$Copy$unpause = 'Unpause';
+var _elm_lang$elm_architecture_tutorial$Copy$pause = 'Pause';
+var _elm_lang$elm_architecture_tutorial$Copy$clear = 'Clear';
+var _elm_lang$elm_architecture_tutorial$Copy$title = 'Conway\'s Game of Life';
+
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -9795,7 +9805,7 @@ var _elm_lang$elm_architecture_tutorial$View$gameRules = A2(
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('A live cell stays alive if it has 2 or 3 live neighbors'),
+									_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$aliveRule),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -9809,7 +9819,7 @@ var _elm_lang$elm_architecture_tutorial$View$gameRules = A2(
 									},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('A dead cell comes to life if it has exactly 3 live neighbors'),
+										_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$deadRule),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -9837,31 +9847,35 @@ var _elm_lang$elm_architecture_tutorial$View$population = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Population: '),
+			_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$population),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					_elm_lang$core$Basics$toString(pop)),
+				_0: _elm_lang$html$Html$text(': '),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('population-bar'),
-							_1: {
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(pop)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$style(
-									{
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'width', _1: px},
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							}
-						},
-						{ctor: '[]'}),
-					_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html_Attributes$class('population-bar'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'width', _1: px},
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		});
@@ -9879,7 +9893,7 @@ var _elm_lang$elm_architecture_tutorial$View$saveBoardButton = A2(
 	},
 	{
 		ctor: '::',
-		_0: _elm_lang$html$Html$text('Save Board'),
+		_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$saveBoard),
 		_1: {ctor: '[]'}
 	});
 var _elm_lang$elm_architecture_tutorial$View$patternPreview = function (pattern) {
@@ -10051,12 +10065,12 @@ var _elm_lang$elm_architecture_tutorial$View$clearButton = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Clear'),
+			_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$clear),
 			_1: {ctor: '[]'}
 		});
 };
 var _elm_lang$elm_architecture_tutorial$View$pauseButton = function (isPaused) {
-	var str = isPaused ? 'Unpause' : 'Pause';
+	var str = isPaused ? _elm_lang$elm_architecture_tutorial$Copy$unpause : _elm_lang$elm_architecture_tutorial$Copy$pause;
 	return A2(
 		_elm_lang$html$Html$button,
 		{
@@ -10255,7 +10269,7 @@ var _elm_lang$elm_architecture_tutorial$View$pageHeader = A2(
 	},
 	{
 		ctor: '::',
-		_0: _elm_lang$html$Html$text('Conway\'s Game of Life'),
+		_0: _elm_lang$html$Html$text(_elm_lang$elm_architecture_tutorial$Copy$title),
 		_1: {ctor: '[]'}
 	});
 var _elm_lang$elm_architecture_tutorial$View$boardStuff = function (model) {

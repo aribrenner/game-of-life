@@ -5,6 +5,7 @@ import Constants exposing (..)
 import Model exposing (..)
 import Pattern exposing (Pattern)
 import Set exposing (Set)
+import Copy
 
 import Html exposing (Html, div, text, span, button, input, img, ul, li)
 import Html.Attributes as Attributes exposing (class, style, value, type_, disabled, src)
@@ -31,7 +32,7 @@ boardStuff model =
 
 pageHeader : Html Msg
 pageHeader =
- div [class "page-header"] [text "Conway's Game of Life"]
+ div [class "page-header"] [text Copy.title]
 
 controls : Model -> Html Msg
 controls model =
@@ -102,7 +103,7 @@ rgb val =
 pauseButton : Bool -> Html Msg
 pauseButton isPaused =
   let
-    str = if isPaused then "Unpause" else "Pause"
+    str = if isPaused then Copy.unpause else Copy.pause
   in
     button [ onClick TogglePause, class "control-button"] [ text str ]
 
@@ -111,7 +112,7 @@ clearButton model =
   let
     boardIsEmpty = Set.isEmpty model.board
   in
-    button [class "control-button", onClick ClearBoard, disabled boardIsEmpty] [text "Clear"]
+    button [class "control-button", onClick ClearBoard, disabled boardIsEmpty] [text Copy.clear]
 
 patternButton : Model -> Pattern -> Html Msg
 patternButton model pattern =
@@ -168,7 +169,7 @@ patternPreview pattern =
 
 saveBoardButton : Html Msg
 saveBoardButton =
-  button [onClick SaveBoard, class "control-button save-button"] [text "Save Board"]
+  button [onClick SaveBoard, class "control-button save-button"] [text Copy.saveBoard]
 
 population : Model -> Html Msg
 population model =
@@ -178,7 +179,8 @@ population model =
     px = toString (clamp 3 300 pop) ++ "px"
   in
     div [class "population"]
-      [ text "Population: "
+      [ text Copy.population
+      , text ": "
       , text(toString pop)
       , div [class "population-bar", style [("width", px)]] []
       ]
@@ -189,8 +191,8 @@ gameRules =
     [ div [class "rules"]
       [ text "Rules"
         , ul []
-          [ li [class "rule"] [text "A live cell stays alive if it has 2 or 3 live neighbors"]
-          , li [class "rule"] [text "A dead cell comes to life if it has exactly 3 live neighbors"]
+          [ li [class "rule"] [text Copy.aliveRule]
+          , li [class "rule"] [text Copy.deadRule]
           ]
       ]
     ]
